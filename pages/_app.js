@@ -1,5 +1,6 @@
 import App from "next/app";
 import Page from "../components/Page";
+import "../public/nprogress.css";
 
 // TODO: Include apollo
 
