@@ -2,10 +2,10 @@ import React from 'react';
 import styled from "styled-components";
 import NProgress from "nprogress";
 import Router from "next/router";
+import Nav from "./Nav";
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
-  console.log("starting route change");
 }
 Router.onRouteChangeComplete = () => {
   NProgress.done();
@@ -25,7 +25,7 @@ const Header = (props) => {
   return (
     <StyledHeader>
       <h1>Recipe Market! :)</h1>
-      {/* Nav goes here */}
+      <Nav />
     </StyledHeader>
   );
 };
