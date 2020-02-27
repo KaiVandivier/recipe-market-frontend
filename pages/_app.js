@@ -1,4 +1,6 @@
 import App from "next/app";
+import { ApolloProvider } from "@apollo/react-hooks";
+import withData from "../lib/withData";
 import Page from "../components/Page";
 import "../public/nprogress.css";
 
@@ -16,13 +18,15 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps, /* apollo */ } = this.props;
+    const { Component, pageProps, apollo } = this.props;
     return (
-      <Page>
-        <Component {...pageProps} />
-      </Page>
+      <ApolloProvider client={apollo}>
+        <Page>
+          <Component {...pageProps} />
+        </Page>
+      </ApolloProvider>
     )
   }
 }
 
-export default MyApp;
+export default withData(MyApp);
