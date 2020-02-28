@@ -22,6 +22,9 @@ const Nav = () => {
       </Link>
       <Link href="/items">
         <a>Items</a>
+      </Link>      
+      <Link href="/createItem">
+        <a>Create Item</a>
       </Link>
       <Link href="/cart">
         <a>Cart</a>
