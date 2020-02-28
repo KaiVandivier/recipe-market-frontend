@@ -64,10 +64,10 @@ class CreateItem extends Component {
               createItem();
               this.clearForm();
             }}>
+              <h1>Create an Item for Sale</h1>
               {!error && !loading && called && (
                 <h3>Item created successfully!</h3>
               )}
-              <h1>Create an Item for Sale</h1>
               <fieldset aria-disabled={loading}>
                 <label htmlFor="title">
                   Title:
