@@ -15,10 +15,10 @@ Router.onRouteChangeError = () => {
 }
 
 const StyledHeader = styled.header`
-  padding: 20px;
+  padding: 1.5rem 2rem;
   background-color: ${props => props.theme.black};
   width: 100%;
-  border-bottom: 1px solid ${props => props.theme.lightgrey};
+  border-bottom: .25rem solid ${props => props.theme.yellow};
   h1, a {
     color: ${props => props.theme.yellow};
   }

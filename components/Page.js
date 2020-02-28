@@ -5,7 +5,7 @@ import Meta from "./Meta";
 import theme from "../lib/theme";
 
 const Inner = styled.main`
-  padding: 20px;
+  padding: 1.5rem 2rem;
 `;
 
 const GlobalStyles = createGlobalStyle`
@@ -15,7 +15,8 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    color: ${theme.black}
+    color: ${theme.black};
+    background-color: ${theme.white};
   }
   * {
     box-sizing: border-box;
