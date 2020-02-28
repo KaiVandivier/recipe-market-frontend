@@ -2,30 +2,13 @@ import React from "react";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import Header from "./Header";
 import Meta from "./Meta";
-import theme from "../lib/theme";
+import theme from "./styles/theme";
+import GlobalStyles from "./styles/GlobalStyles";
 
 const Inner = styled.main`
   padding: 1.5rem 2rem;
-`;
-
-const GlobalStyles = createGlobalStyle`
-  html,
-  body {
-    padding: 0;
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    color: ${theme.black};
-    background-color: ${theme.white};
-  }
-  * {
-    box-sizing: border-box;
-  }
-  a {
-    text-decoration: none;
-    color: ${theme.black};
-    font-style: italic;
-  }
+  margin: 0 auto;
+  max-width: ${props => props.theme.maxWidth};
 `;
 
 const Page = props => {
