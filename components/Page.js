@@ -2,14 +2,7 @@ import React from "react";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import Header from "./Header";
 import Meta from "./Meta";
-
-const theme = {
-  black: "#2A2A39",
-  red: "#B94B49",
-  yellow: "#F5B763",
-  lightgrey: "#9C9BA5",
-  white: "F6F8F3"
-};
+import theme from "../lib/theme";
 
 const Inner = styled.main`
   padding: 20px;
@@ -29,7 +22,8 @@ const GlobalStyles = createGlobalStyle`
   }
   a {
     text-decoration: none;
-    color: ${theme.black}
+    color: ${theme.black};
+    font-style: italic;
   }
 `;
 
