@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
+import Form from "./styles/Form";
 
 const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM_MUTATION(
@@ -58,7 +59,7 @@ class CreateItem extends Component {
             return <h3>Uh oh! Something went wrong. :(</h3>
           }
           return (
-            <form onSubmit={(e) => {
+            <Form onSubmit={(e) => {
               e.preventDefault();
               createItem();
               this.clearForm();
@@ -66,6 +67,7 @@ class CreateItem extends Component {
               {!error && !loading && called && (
                 <h3>Item created successfully!</h3>
               )}
+              <h1>Create an Item for Sale</h1>
               <fieldset aria-disabled={loading}>
                 <label htmlFor="title">
                   Title:
@@ -129,7 +131,7 @@ class CreateItem extends Component {
                 </label>
                 <button type="submit">Creat{loading ? "ing" : "e"} Item</button>
               </fieldset>
-            </form>
+            </Form>
           );
         }}
       </Mutation>
