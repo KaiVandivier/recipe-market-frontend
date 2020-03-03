@@ -30,7 +30,6 @@ class CreateItem extends Component {
     price: 0,
     image: "",
     largeImage: "",
-    confoundingTester: "hello!"
   };
 
   handleChange = e => {
