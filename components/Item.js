@@ -15,7 +15,7 @@ const Item = props => {
   // TODO: Add link to individual item page
   return (
   <StyledItem>
-    <img src={"https://i.imgur.com/x7AQMpk.jpg"} alt={title} height={"150px"} />
+    <img src={((image) ? image : "https://i.imgur.com/x7AQMpk.jpg")} alt={title} width={"150px"} />
     <h3>{title}</h3>
     <p>{description}</p>
     <p>${price}</p>

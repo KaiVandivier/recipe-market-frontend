@@ -40,6 +40,22 @@ class CreateItem extends Component {
     })
   };
 
+  uploadFile = async e => {
+    const { files } = e.target;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "recipe-market-items");
+
+    const res = await fetch("https://api.cloudinary.com/v1_1/dliulozye/image/upload", { method: "post", body: data });
+    const file = await res.json();
+
+    console.log(file);
+    this.setState({
+      image: file.secure_url,
+      largeImage: file.eager[0].secure_url
+    })
+  }
+
   clearForm = () => {
     this.setState({
       title: "",
@@ -106,29 +122,18 @@ class CreateItem extends Component {
                   />
                 </label>
                 <label htmlFor="image">
-                  image:
+                  Image:
                   <input
                     id="image"
-                    type="text"
+                    type="file"
                     name="image"
-                    placeholder="Item image"
+                    placeholder="Upload an image"
                     required
-                    value={this.state.image}
-                    onChange={this.handleChange}
+                    // value={this.state.image}
+                    onChange={this.uploadFile}
                   />
                 </label>
-                <label htmlFor="largeImage">
-                  largeImage:
-                  <input
-                    id="largeImage"
-                    type="text"
-                    name="largeImage"
-                    placeholder="Item largeImage"
-                    required
-                    value={this.state.largeImage}
-                    onChange={this.handleChange}
-                  />
-                </label>
+                {this.state.image && <div><img src={this.state.image} /></div>}
                 <button type="submit">Creat{loading ? "ing" : "e"} Item</button>
               </fieldset>
             </Form>

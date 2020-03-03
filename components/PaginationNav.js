@@ -34,7 +34,6 @@ const PaginationNav = ({ page }) => {
         return (
           <PaginationStyles>
             <Link
-              prefetch
               href={{ pathname: "/items", query: { page: page - 1 } }}
             >
               <a aria-disabled={page <= 1}>Previous Page</a>
@@ -43,7 +42,6 @@ const PaginationNav = ({ page }) => {
               Page {page} of {pages}. {count} total items.
             </p>
             <Link
-              prefetch
               href={{ pathname: "/items", query: { page: page + 1 } }}
             >
               <a aria-disabled={page >= pages}>
