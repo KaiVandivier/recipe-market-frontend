@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Link from "next/link";
 
 // TODO: Prop types?
 
@@ -20,6 +21,10 @@ const Item = props => {
     <p>{description}</p>
     <p>${price}</p>
     <button>Add to Cart</button>
+    {/* TODO: only enable edit and delete depending on permissions */}
+    <Link href={{ pathname: "editItem", query: { id } }}>
+      <button>Edit Item</button>
+    </Link>
     <button>Delete Item</button>
   </StyledItem>
   );
