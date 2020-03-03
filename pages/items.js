@@ -5,8 +5,7 @@ import Items from "../components/Items";
 const ItemsPage = props => {
   return (
     <div>
-      <h2>Items</h2>
-      <Items page={props.query.page} />
+      <Items page={props.query.page || 1} />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { gql } from "apollo-boost";
 import styled from "styled-components";
 import { perPage } from "../config";
 import Item from "./Item";
+import PaginationNav from "./PaginationNav";
 
 const ITEMS_QUERY = gql`
   query ITEMS_QUERY(
@@ -25,33 +26,43 @@ const ITEMS_QUERY = gql`
   }
 `;
 
-const StyledItems = styled.section`
+const StyledSection = styled.section`
+  text-align: center;
+`;
+
+const StyledItems = styled.div`
   display: grid;
-  grid-template: repeat(10, 1fr) / repeat(4, 1fr);
+  grid-template: auto / repeat(4, 1fr);
   grid-gap: 0.5rem;
 `;
 
 const Items = props => {
   return (
-    <Query query={ITEMS_QUERY} variables={{
-      skip: (props.page) ? props.page * perPage : 0,
-      first: perPage,
-    }}>
-      {({ data, loading, error }) => {
-        if (loading) return <p>Loading...</p>;
-        if (error) return <p>Something went wrong!</p>;
-        const { items } = data;
-        return (
-          <StyledItems>
-            {items.map(item => {
-              return (
-                <Item key={item.id} item={item} />
-              );
-            })}
-          </StyledItems>
-        );
-      }}
-    </Query>
+    <StyledSection>
+      <PaginationNav page={Number(props.page)} />
+
+      <Query query={ITEMS_QUERY} variables={{
+        skip: (props.page - 1) * perPage,
+        first: perPage,
+      }}>
+        {({ data, loading, error }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p>Something went wrong!</p>;
+          const { items } = data;
+          return (
+            <StyledItems>
+              {items.map(item => {
+                return (
+                  <Item key={item.id} item={item} />
+                );
+              })}
+            </StyledItems>
+          );
+        }}
+      </Query>
+
+      <PaginationNav page={Number(props.page)} />
+    </StyledSection>
   );
 };
 
