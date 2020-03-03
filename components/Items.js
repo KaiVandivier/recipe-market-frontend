@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { perPage } from "../config";
 import Item from "./Item";
 import PaginationNav from "./PaginationNav";
+import Error from "./Error";
 
 const ITEMS_QUERY = gql`
   query ITEMS_QUERY(
@@ -47,7 +48,7 @@ const Items = props => {
       }}>
         {({ data, loading, error }) => {
           if (loading) return <p>Loading...</p>;
-          if (error) return <p>Something went wrong!</p>;
+          if (error) return <Error error={error} />;
           const { items } = data;
           return (
             <StyledItems>
