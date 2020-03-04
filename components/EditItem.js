@@ -43,14 +43,7 @@ const EDIT_ITEM_MUTATION = gql`
 `;
 
 class EditItem extends Component {
-  // Bug squashing: this is null. Props doesn't receive an item yet... do a gql query? Or pass it item in url? 
-  state = {
-    title: "",
-    description: "",
-    price: 0,
-    image: "",
-    largeImage: "",
-  };
+  state = {};
 
   handleChange = e => {
     const { name, value, type } = e.target;
