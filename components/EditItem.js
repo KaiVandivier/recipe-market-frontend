@@ -68,6 +68,7 @@ class EditItem extends Component {
                 return (
                   <Form onSubmit={(e) => {
                     e.preventDefault();
+                    e.target.reset();
                     editItem();
                   }}>
                     <h1>Edit Item</h1>

@@ -75,6 +75,7 @@ class CreateItem extends Component {
           return (
             <Form onSubmit={(e) => {
               e.preventDefault();
+              e.target.reset();
               createItem();
               this.clearForm();
             }}>
