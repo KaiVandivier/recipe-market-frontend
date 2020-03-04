@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import DeleteItem from "./DeleteItem";
 
 // TODO: Prop types?
 
@@ -25,7 +26,7 @@ const Item = props => {
     <Link href={{ pathname: "editItem", query: { id } }}>
       <button>Edit Item</button>
     </Link>
-    <button>Delete Item</button>
+    <DeleteItem id={id} />
   </StyledItem>
   );
 };
