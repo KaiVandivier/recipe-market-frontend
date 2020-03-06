@@ -126,3 +126,4 @@ class EditItem extends Component {
 }
 
 export default EditItem;
+export { SINGLE_ITEM_QUERY };
