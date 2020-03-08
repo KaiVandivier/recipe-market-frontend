@@ -1,28 +1,29 @@
 import React from "react";
 import { Query } from "@apollo/react-components";
-import {gql} from "apollo-boost";
+import { gql } from "apollo-boost";
+import { PropTypes } from "prop-types";
 
-const USER_QUERY = gql`
-  query USER_QUERY($id: ID!) {
-    user(id: $id) {
+const CURRENT_USER_QUERY = gql`
+  query CURRENT_USER_QUERY {
+    currentUser {
       id
       name
       email
+      permissions
     }
   }
 `;
 
 const User = props => {
-  console.log("query: ", props.query);
   return (
-    <Query query={USER_QUERY} variables={{ id: "ck70zble3mjr50b00pcff110s" }}>
-      {({ data, loading, error }) => {
-        console.log(data);
-        console.log(error);
-        return <p>I'm the User component!</p>;
-      }}
+    <Query query={CURRENT_USER_QUERY} {...props}>
+      {(payload) => props.children(payload)}
     </Query>
   );
 };
+
+User.propTypes = {
+  children: PropTypes.func.isRequired,
+}
 
 export default User;
