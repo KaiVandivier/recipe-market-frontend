@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
+import Link from "next/link";
 import Form from "./styles/Form";
 import Error from "./Error";
 
@@ -101,6 +102,12 @@ class Signup extends Component {
                     onChange={this.handleChange}
                   />
                 </label>
+                <p>
+                  Already have an account? {" "}
+                  <Link href="/signin">
+                    <a>Click here to sign in</a>
+                  </Link>
+                </p>
                 <button type="submit">Mak{loading ? "ing" : "e"} Account</button>
               </fieldset>
             </Form>

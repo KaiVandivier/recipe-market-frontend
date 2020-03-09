@@ -77,7 +77,13 @@ class Signin extends Component {
                 <p>
                   Don't have an account yet? {" "}
                   <Link href="/signup">
-                    <a>Make one here</a>
+                    <a>Click here to sign up</a>
+                  </Link>
+                </p>
+                <p>
+                  Forgot your password? {" "}
+                  <Link href="/requestReset">
+                    <a>Click here to reset it</a>
                   </Link>
                 </p>
                 <button type="submit">Sign{loading ? "ing" : ""} In</button>
