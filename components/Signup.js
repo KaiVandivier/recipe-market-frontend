@@ -21,6 +21,7 @@ class Signup extends Component {
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   };
 
   handleChange = e => {
@@ -44,7 +45,8 @@ class Signup extends Component {
               this.setState({
                 email: "",
                 name: "",
-                password: ""
+                password: "",
+                confirmPassword: "",
               });
             }}>
               <h1>Make an Account</h1>
