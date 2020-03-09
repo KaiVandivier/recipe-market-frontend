@@ -1,6 +1,7 @@
-import React from 'react';
+import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
+import User from "./User";
 
 const StyledNav = styled.nav`
   display: flex;
@@ -13,24 +14,39 @@ const StyledNav = styled.nav`
 
 const Nav = () => {
   return (
-    <StyledNav>
-      <Link href="/">
-        <a>Home</a>
-      </Link>
-      <Link href="/recipes">
-        <a>Recipes</a>
-      </Link>
-      <Link href="/items">
-        <a>Items</a>
-      </Link>      
-      <Link href="/createItem">
-        <a>Create Item</a>
-      </Link>
-      <Link href="/cart">
-        <a>Cart</a>
-      </Link>
-      
-    </StyledNav>
+    <User>
+      {({ data, loading, error }) => {
+        if (loading) return <p>Loading...</p>;
+        if (error) return <Error error={error} />;
+        return (
+          <StyledNav>
+            <Link href="/">
+              <a>Home</a>
+            </Link>
+            <Link href="/recipes">
+              <a>Recipes</a>
+            </Link>
+            <Link href="/items">
+              <a>Items</a>
+            </Link>
+            {data.currentUser ? (
+              <>
+                <Link href="/createItem">
+                  <a>Create Item</a>
+                </Link>
+                <Link href="/cart">
+                  <a>Cart</a>
+                </Link>
+              </>
+            ) : (
+              <Link href="/signin">
+                <a>Sign In</a>
+              </Link>
+            )}
+          </StyledNav>
+        );
+      }}
+    </User>
   );
 };
 
