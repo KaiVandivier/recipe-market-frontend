@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import User from "./User";
+import Signout from "./Signout";
 
 const StyledNav = styled.nav`
   display: flex;
@@ -37,6 +38,7 @@ const Nav = () => {
                 <Link href="/cart">
                   <a>Cart</a>
                 </Link>
+                <Signout />
               </>
             ) : (
               <Link href="/signin">
