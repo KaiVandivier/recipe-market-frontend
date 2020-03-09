@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
+import Link from "next/link";
 import Form from "./styles/Form";
 import Error from "./Error";
 import { CURRENT_USER_QUERY } from "./User";
@@ -16,34 +17,39 @@ const SIGNIN_MUTATION = gql`
 class Signin extends Component {
   state = {
     email: "",
-    password: "",
+    password: ""
   };
 
   handleChange = e => {
     const { name, value, type } = e.target;
     this.setState({
-      [name]: (type === "number") ? Number(value) : value
-    })
+      [name]: type === "number" ? Number(value) : value
+    });
   };
 
   render() {
     return (
-      <Mutation mutation={SIGNIN_MUTATION} variables={this.state} refetchQueries={[{ query: CURRENT_USER_QUERY }]}>
+      <Mutation
+        mutation={SIGNIN_MUTATION}
+        variables={this.state}
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+      >
         {(signin, { loading, error, called }) => {
           return (
-            <Form method="post" onSubmit={(e) => {
-              e.preventDefault();
-              signin();
-              this.setState({
-                email: "",
-                password: "", 
-              });
-            }}>
+            <Form
+              method="post"
+              onSubmit={e => {
+                e.preventDefault();
+                signin();
+                this.setState({
+                  email: "",
+                  password: ""
+                });
+              }}
+            >
               <h1>Sign in to Your Account</h1>
               <Error error={error} />
-              {!error && !loading && called && (
-                <h3>Signed in successfully!</h3>
-              )}
+              {!error && !loading && called && <h3>Signed in successfully!</h3>}
               <fieldset aria-disabled={loading}>
                 <label htmlFor="email">
                   Email:
@@ -68,6 +74,12 @@ class Signin extends Component {
                     onChange={this.handleChange}
                   />
                 </label>
+                <p>
+                  Don't have an account yet? {" "}
+                  <Link href="/signup">
+                    <a>Make one here</a>
+                  </Link>
+                </p>
                 <button type="submit">Sign{loading ? "ing" : ""} In</button>
               </fieldset>
             </Form>

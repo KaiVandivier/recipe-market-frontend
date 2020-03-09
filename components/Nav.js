@@ -41,9 +41,14 @@ const Nav = () => {
                 <Signout />
               </>
             ) : (
-              <Link href="/signin">
-                <a>Sign In</a>
-              </Link>
+              <>
+                <Link href="/signin">
+                  <a>Sign In</a>
+                </Link>
+                <Link href="/signup">
+                  <a>Sign Up</a>
+                </Link>
+              </>
             )}
           </StyledNav>
         );
