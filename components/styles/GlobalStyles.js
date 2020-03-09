@@ -18,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     color: ${theme.black};
     font-style: italic;
+    cursor: pointer;
   }
   h1 {
     color: ${theme.yellow};
