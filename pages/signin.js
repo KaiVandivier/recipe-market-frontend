@@ -1,10 +1,10 @@
 import React from 'react';
-import Signup from "../components/Signup";
+import Signin from "../components/Signin";
 
 const SigninPage = props => {
   return (
     <div>
-      <Signup />
+      <Signin />
     </div>
   );
 };
