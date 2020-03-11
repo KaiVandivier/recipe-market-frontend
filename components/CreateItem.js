@@ -3,6 +3,7 @@ import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import Form from "./styles/Form";
 import Error from "./Error";
+import PleaseSignIn from "./PleaseSignIn";
 
 const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM_MUTATION(
@@ -67,76 +68,78 @@ class CreateItem extends Component {
 
   render() {
     return (
-      <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
-        {(createItem, { loading, error, called }) => {
-          if (error) return <Error error={error} />;
-          return (
-            <Form onSubmit={(e) => {
-              e.preventDefault();
-              e.target.reset();
-              createItem();
-              this.clearForm();
-            }}>
-              <h1>Create an Item for Sale</h1>
-              {!error && !loading && called && (
-                <h3>Item created successfully!</h3>
-              )}
-              <fieldset aria-disabled={loading}>
-                <label htmlFor="title">
-                  Title:
-                  <input
-                    id="title"
-                    type="text"
-                    name="title"
-                    placeholder="Item Title"
-                    required
-                    value={this.state.title}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <label htmlFor="description">
-                  Description:
-                  <input
-                    id="description"
-                    type="text"
-                    name="description"
-                    placeholder="Item Description"
-                    required
-                    value={this.state.description}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <label htmlFor="price">
-                  Price:
-                  <input
-                    id="price"
-                    type="number"
-                    name="price"
-                    // placeholder="Item price"
-                    required
-                    value={this.state.price}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <label htmlFor="image">
-                  Image:
-                  <input
-                    id="image"
-                    type="file"
-                    name="image"
-                    placeholder="Upload an image"
-                    required
-                    // value={this.state.image}
-                    onChange={this.uploadFile}
-                  />
-                </label>
-                {this.state.image && <div><img src={this.state.image} /></div>}
-                <button type="submit">Creat{loading ? "ing" : "e"} Item</button>
-              </fieldset>
-            </Form>
-          );
-        }}
-      </Mutation>
+      <PleaseSignIn>
+        <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
+          {(createItem, { loading, error, called }) => {
+            if (error) return <Error error={error} />;
+            return (
+              <Form onSubmit={(e) => {
+                e.preventDefault();
+                e.target.reset();
+                createItem();
+                this.clearForm();
+              }}>
+                <h1>Create an Item for Sale</h1>
+                {!error && !loading && called && (
+                  <h3>Item created successfully!</h3>
+                )}
+                <fieldset aria-disabled={loading}>
+                  <label htmlFor="title">
+                    Title:
+                    <input
+                      id="title"
+                      type="text"
+                      name="title"
+                      placeholder="Item Title"
+                      required
+                      value={this.state.title}
+                      onChange={this.handleChange}
+                    />
+                  </label>
+                  <label htmlFor="description">
+                    Description:
+                    <input
+                      id="description"
+                      type="text"
+                      name="description"
+                      placeholder="Item Description"
+                      required
+                      value={this.state.description}
+                      onChange={this.handleChange}
+                    />
+                  </label>
+                  <label htmlFor="price">
+                    Price:
+                    <input
+                      id="price"
+                      type="number"
+                      name="price"
+                      // placeholder="Item price"
+                      required
+                      value={this.state.price}
+                      onChange={this.handleChange}
+                    />
+                  </label>
+                  <label htmlFor="image">
+                    Image:
+                    <input
+                      id="image"
+                      type="file"
+                      name="image"
+                      placeholder="Upload an image"
+                      required
+                      // value={this.state.image}
+                      onChange={this.uploadFile}
+                    />
+                  </label>
+                  {this.state.image && <div><img src={this.state.image} /></div>}
+                  <button type="submit">Creat{loading ? "ing" : "e"} Item</button>
+                </fieldset>
+              </Form>
+            );
+          }}
+        </Mutation>
+      </PleaseSignIn>
     );
   }
 }
