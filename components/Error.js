@@ -5,9 +5,9 @@ const Error = ({ error }) => {
   return error ? (
     <div>
       <p>
-        <em>Oops! Something went wrong. Here's the error message: </em>
+        <em>Oops! Something went wrong.</em>
       </p>
-      <p>"{error.message.replace("GraphQL error: ", "")}"</p>
+      <p>{error.message.replace("GraphQL error: ", "")}</p>
     </div>
   ) : null;
 };

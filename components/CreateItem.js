@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import Form from "./styles/Form";
+import Error from "./Error";
 
 const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM_MUTATION(
@@ -68,10 +69,7 @@ class CreateItem extends Component {
     return (
       <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
         {(createItem, { loading, error, called }) => {
-          if (error) {
-            console.log(error);
-            return <h3>Uh oh! Something went wrong. :(</h3>
-          }
+          if (error) return <Error error={error} />;
           return (
             <Form onSubmit={(e) => {
               e.preventDefault();
