@@ -22,7 +22,7 @@ const DeleteItem = props => {
               <button
                 onClick={e => {
                   if (!confirm("Really delete item?")) return;
-                  deleteItem();
+                  deleteItem().catch(err => alert(err.message));
                 }}
               >
                 Delete Item
