@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Query, Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
+import styled from "styled-components";
 import PropTypes from "prop-types";
 import Error from "./Error";
 
@@ -33,6 +34,20 @@ const ALL_USERS_QUERY = gql`
   }
 `;
 
+const StyledTable = styled.table`
+  border-collapse: collapse;
+  td, th {
+    padding: 0.5rem;
+    border-right: 1px solid ${props => props.theme.black};
+  }
+  tr > *:last-child {
+    border-right: none;
+  }
+  tbody > tr {
+    border-top: 1px solid ${props => props.theme.black}
+  }
+`;
+
 const Permissions = () => {
   return (
     <Query query={ALL_USERS_QUERY}>
@@ -43,7 +58,7 @@ const Permissions = () => {
         return (
           <>
             <h1>User Permissions</h1>
-            <table>
+            <StyledTable>
               <thead>
                 <tr>
                   <th scope="col">Name</th>
@@ -61,7 +76,7 @@ const Permissions = () => {
                   <UserTR user={user} key={user.id} />
                 ))}
               </tbody>
-            </table>
+            </StyledTable>
           </>
         );
       }}
