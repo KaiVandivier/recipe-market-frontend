@@ -23,19 +23,15 @@ const SINGLE_ITEM_QUERY = gql`
 const EDIT_ITEM_MUTATION = gql`
   mutation EDIT_ITEM_MUTATION(
     $id: ID!
-    $title: String!
-    $description: String!
-    $price: Int!
-    $image: String!
-    $largeImage: String!
+    $title: String
+    $description: String
+    $price: Int
   ) {
     editItem(
       id: $id
       title: $title
       description: $description
       price: $price
-      image: $image
-      largeImage: $largeImage
     ) {
       id
     }
