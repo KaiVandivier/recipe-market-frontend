@@ -9,6 +9,7 @@ const possiblePermissions = [
   "ADMIN",
   "USER",
   "ITEM_CREATE",
+  "ITEM_UPDATE",
   "ITEM_DELETE",
   "PERMISSION_UPDATE"
 ];
@@ -123,7 +124,7 @@ class UserTR extends Component {
         variables={{ id, permissions: this.state.permissions }}
       >
         {(updatePermissions, { loading, error, called }) => {
-          return error ? (<tr><td colspan="7"><Error error={error} /></td></tr>) : (
+          return error ? (<tr><td colspan="8"><Error error={error} /></td></tr>) : (
             <tr>
               <th scope="row">{name}</th>
               <td>{email}</td>
