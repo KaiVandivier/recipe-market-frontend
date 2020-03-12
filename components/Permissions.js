@@ -37,14 +37,19 @@ const ALL_USERS_QUERY = gql`
 const StyledTable = styled.table`
   border-collapse: collapse;
   td, th {
-    padding: 0.5rem;
-    border-right: 1px solid ${props => props.theme.black};
+    padding: 0.25rem;
+    text-align: center;
+    border-right: 1px solid ${props => props.theme.lightgrey};
   }
   tr > *:last-child {
     border-right: none;
   }
   tbody > tr {
-    border-top: 1px solid ${props => props.theme.black}
+    border-top: 1px solid ${props => props.theme.lightgrey}
+  }
+  label {
+    padding: 0.5rem;
+    display: block;
   }
 `;
 
@@ -125,12 +130,15 @@ class UserTR extends Component {
               {possiblePermissions.map(permission => {
                 return (
                   <td key={permission}>
-                    <input
-                      type="checkbox"
-                      value={permission}
-                      onChange={this.handleChange}
-                      checked={this.state.permissions.includes(permission)}
-                    />
+                    <label htmlFor={`${name}-permission-${permission}`}>
+                      <input
+                        id={`${name}-permission-${permission}`}
+                        type="checkbox"
+                        value={permission}
+                        onChange={this.handleChange}
+                        checked={this.state.permissions.includes(permission)}
+                      />
+                    </label>
                   </td>
                 );
               })}
