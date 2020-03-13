@@ -4,6 +4,7 @@ import Header from "./Header";
 import Meta from "./Meta";
 import theme from "./styles/theme";
 import GlobalStyles from "./styles/GlobalStyles";
+import Cart from "./Cart";
 
 const Inner = styled.main`
   padding: 1.5rem 2rem;
@@ -16,6 +17,7 @@ const Page = props => {
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <Meta />
+      <Cart />
       <Header />
       <Inner>
         {props.children}
