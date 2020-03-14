@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import DeleteItem from "./DeleteItem";
+import AddToCart from "./AddToCart";
 
 // TODO: Prop types?
 
@@ -29,7 +30,8 @@ const Item = props => {
           <p>${price}</p>
         </a>
       </Link>
-      <button>Add to Cart</button>
+      {/* TODO: Make quantity adjustable */}
+      <AddToCart itemId={id} quantity={1} />
       {/* TODO: only enable edit and delete depending on permissions */}
       <Link href={{ pathname: "editItem", query: { id } }}>
         <button>Edit Item</button>
