@@ -40,9 +40,7 @@ const Nav = () => {
                       <a>Create Item</a>
                     </Link>
                     {/* TODO: Also make a `cart` page */}
-                    <Link href="/cart">
-                      <a onClick={toggleCart}>Cart</a>
-                    </Link>
+                    <a onClick={toggleCart}>Cart</a>
                     <Signout />
                   </>
                 ) : (
