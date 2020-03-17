@@ -5,6 +5,7 @@ import { Mutation } from "@apollo/react-components";
 import User from "./User";
 import Signout from "./Signout";
 import { TOGGLE_CART_MUTATION } from "./Cart";
+import CartCount from "./CartCount";
 
 const StyledNav = styled.nav`
   display: flex;
@@ -12,6 +13,7 @@ const StyledNav = styled.nav`
   align-items: space-between;
   a {
     flex-basis: 100px;
+    text-align: center;
   }
 `;
 
@@ -40,7 +42,8 @@ const Nav = () => {
                       <a>Create Item</a>
                     </Link>
                     {/* TODO: Also make a `cart` page */}
-                    <a onClick={toggleCart}>Cart</a>
+                    <a onClick={toggleCart}>Cart </a>
+                    <CartCount count={data.currentUser.cart.reduce((sum, { quantity }) => sum + quantity, 0)} />
                     <Signout />
                   </>
                 ) : (
