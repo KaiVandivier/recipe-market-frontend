@@ -4,14 +4,15 @@ import { gql } from "apollo-boost";
 import styled from "styled-components";
 import User from "./User";
 import Error from "./Error";
+import formatMoney from "../lib/formatMoney";
 
 const CartStyles = styled.aside`
   display: block;
   position: fixed;
   padding: 1rem;
   height: 100%;
-  width: 200px;
-  right: ${props => (props.open ? "0" : "-200px")};
+  width: 350px;
+  right: ${props => (props.open ? "0" : "-350px")};
   background: ${props => props.theme.white};
   border-left: 3px solid ${props => props.theme.yellow};
   transition: right 0.5s;
@@ -38,6 +39,7 @@ const Cart = () => {
         if (error) return <Error error={error} />
         if (loading) return null;
         const { currentUser } = data
+        const totalItems = currentUser.cart.reduce((sum, { quantity }) => sum + quantity, 0)
         return (
           <Mutation mutation={TOGGLE_CART_MUTATION}>
             {(toggleCart, { loading, error }) => (
@@ -45,12 +47,13 @@ const Cart = () => {
                 {({ data: { cartOpen }, loading, error }) => (
                   <CartStyles open={cartOpen}>
                     <h1>{currentUser.name}'s cart</h1>
-                    <p>Hello I'm the cart!</p>
-                    {currentUser.cart.length ? (
+                    {totalItems ? (
                       <>
+                        <h2>{totalItems} items in cart</h2>
                         {currentUser.cart.map(cartItem => (
-                          <p key={cartItem.id}>{cartItem.item.title}, {cartItem.quantity}</p>
+                          <p key={cartItem.id}>Item: {cartItem.item.title}, {cartItem.quantity} &times; {formatMoney(cartItem.item.price)} = {formatMoney(cartItem.quantity * cartItem.item.price)}</p>
                         ))}
+                        <h3>Total: {formatMoney(currentUser.cart.reduce((sum, { quantity, item }) => sum + quantity * item.price, 0))}</h3>
                       </>
                     ) : <p>No items in cart</p>}
                     <button onClick={toggleCart}>Toggle cart</button>
