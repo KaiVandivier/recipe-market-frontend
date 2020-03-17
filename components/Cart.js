@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { adopt } from "react-adopt";
 import User from "./User";
 import formatMoney from "../lib/formatMoney";
+import { totalCartItems, totalCartPrice } from "../lib/cartCalcs";
 import CartItem from "./CartItem";
 
 const CartStyles = styled.aside`
@@ -12,11 +13,14 @@ const CartStyles = styled.aside`
   position: fixed;
   padding: 1rem;
   height: 100%;
-  width: 350px;
-  right: ${props => (props.open ? "0" : "-350px")};
+  width: 500px;
+  right: ${props => (props.open ? "0" : "-500px")};
   background: ${props => props.theme.white};
   border-left: 3px solid ${props => props.theme.yellow};
   transition: right 0.5s;
+  ul {
+    padding-left: 0;
+  }
 `;
 
 const TOGGLE_CART_MUTATION = gql`
@@ -48,10 +52,7 @@ const Cart = () => {
         if (user.loading) return null;
         const { currentUser } = user.data;
         const { cartOpen } = localCartState.data;
-        const totalItems = currentUser.cart.reduce(
-          (sum, { quantity }) => sum + quantity,
-          0
-        );
+        const totalItems = totalCartItems(currentUser.cart);
         return (
           <CartStyles open={cartOpen}>
             <h1>{currentUser.name}'s cart</h1>
@@ -65,12 +66,7 @@ const Cart = () => {
                 </ul>
                 <h3>
                   Total:{" "}
-                  {formatMoney(
-                    currentUser.cart.reduce(
-                      (sum, { quantity, item }) => sum + quantity * item.price,
-                      0
-                    )
-                  )}
+                  {formatMoney(totalCartPrice(currentUser.cart))}
                 </h3>
               </>
             ) : (
