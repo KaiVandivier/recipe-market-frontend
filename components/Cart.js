@@ -4,6 +4,7 @@ import { gql } from "apollo-boost";
 import styled from "styled-components";
 import User from "./User";
 import Error from "./Error";
+import RemoveFromCart from "./RemoveFromCart";
 import formatMoney from "../lib/formatMoney";
 
 const CartStyles = styled.aside`
@@ -51,7 +52,10 @@ const Cart = () => {
                       <>
                         <h2>{totalItems} items in cart</h2>
                         {currentUser.cart.map(cartItem => (
-                          <p key={cartItem.id}>Item: {cartItem.item.title}, {cartItem.quantity} &times; {formatMoney(cartItem.item.price)} = {formatMoney(cartItem.quantity * cartItem.item.price)}</p>
+                          <div>
+                            <p key={cartItem.id}>Item: {cartItem.item.title}, {cartItem.quantity} &times; {formatMoney(cartItem.item.price)} = {formatMoney(cartItem.quantity * cartItem.item.price)}</p>
+                            <RemoveFromCart id={cartItem.id} />
+                          </div>
                         ))}
                         <h3>Total: {formatMoney(currentUser.cart.reduce((sum, { quantity, item }) => sum + quantity * item.price, 0))}</h3>
                       </>
