@@ -2,10 +2,10 @@ import React from "react";
 import { Query, Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import styled from "styled-components";
+import { adopt } from "react-adopt";
 import User from "./User";
-import Error from "./Error";
-import RemoveFromCart from "./RemoveFromCart";
 import formatMoney from "../lib/formatMoney";
+import CartItem from "./CartItem";
 
 const CartStyles = styled.aside`
   display: block;
@@ -31,44 +31,56 @@ const LOCAL_CART_STATE_QUERY = gql`
   }
 `;
 
-// TODO: Refetch user query (to refetch cart) on "AddToCart" mutation
+const Composed = adopt({
+  user: ({ render }) => <User>{render}</User>,
+  toggleCart: ({ render }) => (
+    <Mutation mutation={TOGGLE_CART_MUTATION}>{render}</Mutation>
+  ),
+  localCartState: ({ render }) => (
+    <Query query={LOCAL_CART_STATE_QUERY}>{render}</Query>
+  )
+});
 
 const Cart = () => {
   return (
-    <User>
-      {({ data, loading, error }) => {
-        if (error) return <Error error={error} />
-        if (loading) return null;
-        const { currentUser } = data
-        const totalItems = currentUser.cart.reduce((sum, { quantity }) => sum + quantity, 0)
+    <Composed>
+      {({ user, toggleCart, localCartState }) => {
+        if (user.loading) return null;
+        const { currentUser } = user.data;
+        const { cartOpen } = localCartState.data;
+        const totalItems = currentUser.cart.reduce(
+          (sum, { quantity }) => sum + quantity,
+          0
+        );
         return (
-          <Mutation mutation={TOGGLE_CART_MUTATION}>
-            {(toggleCart, { loading, error }) => (
-              <Query query={LOCAL_CART_STATE_QUERY}>
-                {({ data: { cartOpen }, loading, error }) => (
-                  <CartStyles open={cartOpen}>
-                    <h1>{currentUser.name}'s cart</h1>
-                    {totalItems ? (
-                      <>
-                        <h2>{totalItems} items in cart</h2>
-                        {currentUser.cart.map(cartItem => (
-                          <div key={cartItem.id}>
-                            <p>Item: {cartItem.item.title}, {cartItem.quantity} &times; {formatMoney(cartItem.item.price)} = {formatMoney(cartItem.quantity * cartItem.item.price)}</p>
-                            <RemoveFromCart id={cartItem.id} />
-                          </div>
-                        ))}
-                        <h3>Total: {formatMoney(currentUser.cart.reduce((sum, { quantity, item }) => sum + quantity * item.price, 0))}</h3>
-                      </>
-                    ) : <p>No items in cart</p>}
-                    <button onClick={toggleCart}>Toggle cart</button>
-                  </CartStyles>
-                )}
-              </Query>
+          <CartStyles open={cartOpen}>
+            <h1>{currentUser.name}'s cart</h1>
+            {totalItems ? (
+              <>
+                <h2>{totalItems} items in cart</h2>
+                <ul>
+                  {currentUser.cart.map(cartItem => (
+                    <CartItem cartItem={cartItem} key={cartItem.id} />
+                  ))}
+                </ul>
+                <h3>
+                  Total:{" "}
+                  {formatMoney(
+                    currentUser.cart.reduce(
+                      (sum, { quantity, item }) => sum + quantity * item.price,
+                      0
+                    )
+                  )}
+                </h3>
+              </>
+            ) : (
+              <p>No items in cart</p>
             )}
-          </Mutation>
-        )
+            <button onClick={toggleCart}>Toggle cart</button>
+          </CartStyles>
+        );
       }}
-    </User>
+    </Composed>
   );
 };
 
