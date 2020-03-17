@@ -52,8 +52,8 @@ const Cart = () => {
                       <>
                         <h2>{totalItems} items in cart</h2>
                         {currentUser.cart.map(cartItem => (
-                          <div>
-                            <p key={cartItem.id}>Item: {cartItem.item.title}, {cartItem.quantity} &times; {formatMoney(cartItem.item.price)} = {formatMoney(cartItem.quantity * cartItem.item.price)}</p>
+                          <div key={cartItem.id}>
+                            <p>Item: {cartItem.item.title}, {cartItem.quantity} &times; {formatMoney(cartItem.item.price)} = {formatMoney(cartItem.quantity * cartItem.item.price)}</p>
                             <RemoveFromCart id={cartItem.id} />
                           </div>
                         ))}
