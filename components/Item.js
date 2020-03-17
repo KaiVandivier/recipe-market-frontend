@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import DeleteItem from "./DeleteItem";
 import AddToCart from "./AddToCart";
+import formatMoney from "../lib/formatMoney";
 
 // TODO: Prop types?
 
@@ -27,7 +28,7 @@ const Item = props => {
           />
           <h3>{title}</h3>
           <p>{description}</p>
-          <p>${price}</p>
+          <p>{formatMoney(price)}</p>
         </a>
       </Link>
       {/* TODO: Make quantity adjustable */}
