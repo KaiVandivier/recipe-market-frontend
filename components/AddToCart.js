@@ -7,9 +7,6 @@ const ADD_TO_CART_MUTATION = gql`
   mutation ADD_TO_CART_MUTATION($itemId: ID!, $quantity: Int = 1) {
     addToCart(itemId: $itemId, quantity: $quantity) {
       id
-      item {
-        title
-      }
     }
   }
 `;
