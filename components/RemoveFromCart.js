@@ -15,10 +15,8 @@ const REMOVE_FROM_CART_MUTATION = gql`
 
 class RemoveFromCart extends React.Component {
   update = (cache, payload) => {
-    console.log(payload);
     // read the current user and their cart
     const data = cache.readQuery({ query: CURRENT_USER_QUERY });
-    console.log(data);
     // using the id in the mutation's payload, remove item from cart
     const cartItemId = payload.data.removeFromCart.id;
     data.currentUser.cart = data.currentUser.cart.filter(cartItem => cartItem.id !== cartItemId);
