@@ -8,12 +8,14 @@ import Router from "next/router";
 
 const SEARCH_ITEMS_QUERY = gql`
   query SEARCH_ITEMS_QUERY($searchTerm: String!) {
-    items(where: {
-      OR: [
-        { title_contains: $searchTerm },
-        { description_contains: $searchTerm }
-      ]
-    }) {
+    items(
+      where: {
+        OR: [
+          { title_contains: $searchTerm }
+          { description_contains: $searchTerm }
+        ]
+      }
+    ) {
       id
       title
       description
@@ -27,7 +29,7 @@ function routeToItem(selectedItem) {
   Router.push({
     pathname: "/item",
     query: { id: selectedItem.id }
-  })
+  });
 }
 
 class Search extends Component {
@@ -40,7 +42,7 @@ class Search extends Component {
     // Set state to loading
     this.setState({
       loading: true
-    })
+    });
     // Query items based on search terms
     const res = await client.query({
       query: SEARCH_ITEMS_QUERY,
@@ -50,18 +52,18 @@ class Search extends Component {
     this.setState({
       loading: false,
       items: res.data.items
-    })
+    });
   }, 350);
 
   render() {
     resetIdCounter();
     return (
       <ApolloConsumer>
-        {(client) => {
+        {client => {
           return (
             <Downshift
               onChange={routeToItem}
-              itemToString={item => item === null ? "" : item.title}
+              itemToString={item => (item === null ? "" : item.title)}
             >
               {({
                 getInputProps,
@@ -80,44 +82,50 @@ class Search extends Component {
                     style={{ display: "inline-block" }}
                     {...getRootProps({}, { suppressRefError: true })}
                   >
-                    <input {...getInputProps({
-                      type: "search",
-                      id: "search",
-                      className: this.state.loading ? "loading" : "",
-                      placeholder: "Search for an item",
-                      onChange: e => {
-                        e.persist();
-                        this.onChange(e, client);
-                      }
-                    })} />
+                    <input
+                      {...getInputProps({
+                        type: "search",
+                        id: "search",
+                        className: this.state.loading ? "loading" : "",
+                        placeholder: "Search for an item",
+                        onChange: e => {
+                          e.persist();
+                          this.onChange(e, client);
+                        }
+                      })}
+                    />
                   </div>
                   <ul {...getMenuProps()}>
                     {isOpen && inputValue ? (
                       this.state.items.map((item, index) => (
-                      <li
-                        {...getItemProps({
-                          key: item.id,
-                          index,
-                          item,
-                          style: {
-                            backgroundColor:
-                            // TODO: In a custom component, use a custom highlight prop
-                              highlightedIndex === index
-                                ? "lightgray"
-                                : "white",
-                            fontWeight:
-                              selectedItem === item ? "bold" : "normal"
-                          }
-                        })}
-                      >
-                        {item.title}
-                      </li>
-                    ))) : null}
+                        <li
+                          {...getItemProps({
+                            key: item.id,
+                            index,
+                            item,
+                            style: {
+                              backgroundColor:
+                                // TODO: In a custom component, use a custom highlight prop
+                                highlightedIndex === index
+                                  ? "lightgray"
+                                  : "white",
+                              fontWeight:
+                                selectedItem === item ? "bold" : "normal"
+                            }
+                          })}
+                        >
+                          {item.title}
+                        </li>
+                      ))
+                    ) : null}
+                    {isOpen && inputValue && !this.state.items.length && !this.state.loading && (
+                      <li {...getItemProps({ item: null, style: { backgroundColor: "white" }})}>No items found for search term "{inputValue}"</li>
+                    )}
                   </ul>
                 </div>
               )}
             </Downshift>
-          )
+          );
         }}
       </ApolloConsumer>
     );
