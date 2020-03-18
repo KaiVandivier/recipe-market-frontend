@@ -9,7 +9,8 @@ const Form = styled.form`
     display: block;
     margin-bottom: 1rem;
   }
-  input {
+  input, textarea {
+    font-family: inherit;
     margin-left: 1rem;
     border: 1px solid ${props => props.theme.black};
     border-radius: 0.5rem;
