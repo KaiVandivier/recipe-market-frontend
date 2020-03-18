@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SINGLE_ITEM_QUERY } from "./EditItem";
 import Error from "./Error";
 import DeleteItem from "./DeleteItem";
+import formatMoney from "../lib/formatMoney";
 
 const StyledSingleItem = styled.div`
   text-align: center;
@@ -25,7 +26,7 @@ const SingleItem = ({ id })  => {
             <h1>{title}</h1>
             <img src={largeImage} width="300px" alt={title} />
             <h3>{description}</h3>
-            <p>${price}</p>
+            <p>{formatMoney(price)}</p>
             <button>Add to Cart</button>
             {/* TODO: only enable edit and delete depending on permissions */}
             <Link href={{ pathname: "editItem", query: { id } }}>
