@@ -23,13 +23,13 @@ const CREATE_RECIPE_MUTATION = gql`
   }
 `;
 
-class CreateItem extends Component {
+class CreateRecipe extends Component {
   state = {
     title: "",
     description: "",
-    price: 0,
+    instructions: "",
     image: "",
-    largeImage: "",
+    items: [],
   };
 
   handleChange = e => {
@@ -58,9 +58,9 @@ class CreateItem extends Component {
     this.setState({
       title: "",
       description: "",
-      price: 0,
+      instructions: "",
       image: "",
-      largeImage: "",
+      items: [],
     })
   }
 
@@ -77,9 +77,9 @@ class CreateItem extends Component {
                 createRecipe();
                 this.clearForm();
               }}>
-                <h1>Create an Item for Sale</h1>
+                <h1>Create a Recipe!</h1>
                 {!error && !loading && called && (
-                  <h3>Item created successfully!</h3>
+                  <h3>Recipe created successfully!</h3>
                 )}
                 <fieldset aria-disabled={loading}>
                   <label htmlFor="title">
@@ -88,7 +88,7 @@ class CreateItem extends Component {
                       id="title"
                       type="text"
                       name="title"
-                      placeholder="Item Title"
+                      placeholder="Recipe Title"
                       required
                       value={this.state.title}
                       onChange={this.handleChange}
@@ -96,25 +96,21 @@ class CreateItem extends Component {
                   </label>
                   <label htmlFor="description">
                     Description:
-                    <input
+                    <textarea
                       id="description"
-                      type="text"
                       name="description"
-                      placeholder="Item Description"
-                      required
+                      placeholder="Recipe Description"
                       value={this.state.description}
                       onChange={this.handleChange}
                     />
-                  </label>
-                  <label htmlFor="price">
-                    Price:
-                    <input
-                      id="price"
-                      type="number"
-                      name="price"
-                      // placeholder="Item price"
-                      required
-                      value={this.state.price}
+                  </label>                  
+                  <label htmlFor="instructions">
+                    Instructions:
+                    <textarea
+                      id="instructions"
+                      name="instructions"
+                      placeholder="Recipe Instructions"
+                      value={this.state.instructions}
                       onChange={this.handleChange}
                     />
                   </label>
@@ -130,8 +126,9 @@ class CreateItem extends Component {
                       onChange={this.uploadFile}
                     />
                   </label>
+                  {/* TODO: Item search and add */}
                   {this.state.image && <div><img src={this.state.image} /></div>}
-                  <button type="submit">Creat{loading ? "ing" : "e"} Item</button>
+                  <button type="submit">Creat{loading ? "ing" : "e"} Recipe</button>
                 </fieldset>
               </Form>
             );
@@ -142,4 +139,4 @@ class CreateItem extends Component {
   }
 }
 
-export default CreateItem;
+export default CreateRecipe;
