@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import Downshift from "downshift";
+import Downshift, { resetIdCounter } from "downshift";
 import { ApolloConsumer } from "@apollo/react-common";
 import { gql } from "apollo-boost";
 import debounce from "lodash.debounce";
 import Router from "next/router";
 
-// Is search term required? (Ya I think so?)
 const SEARCH_ITEMS_QUERY = gql`
   query SEARCH_ITEMS_QUERY($searchTerm: String!) {
     items(where: {
@@ -24,14 +23,6 @@ const SEARCH_ITEMS_QUERY = gql`
   }
 `;
 
-const items = [
-  {value: 'apple'},
-  {value: 'pear'},
-  {value: 'orange'},
-  {value: 'grape'},
-  {value: 'banana'},
-]
-
 function routeToItem(selectedItem) {
   Router.push({
     pathname: "/item",
@@ -46,7 +37,7 @@ class Search extends Component {
   };
 
   onChange = debounce(async (e, client) => {
-    // Set state in loading
+    // Set state to loading
     this.setState({
       loading: true
     })
@@ -63,6 +54,7 @@ class Search extends Component {
   }, 350);
 
   render() {
+    resetIdCounter();
     return (
       <ApolloConsumer>
         {(client) => {
@@ -109,6 +101,7 @@ class Search extends Component {
                           item,
                           style: {
                             backgroundColor:
+                            // TODO: In a custom component, use a custom highlight prop
                               highlightedIndex === index
                                 ? "lightgray"
                                 : "white",
