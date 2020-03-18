@@ -20,10 +20,9 @@ const CartItemStyles = styled.li`
 const CartItem = ({ cartItem }) => {
   return (
     <CartItemStyles>
-      {/** TODO: subtotal */}
       {cartItem.item ? (
         <>
-          <img src={cartItem.item.image} width="100px" />
+          <img src={cartItem.item.image} width="100px" height="100px" />
           <div className="info">
             <h3>{cartItem.item.title}</h3>
             <p>
