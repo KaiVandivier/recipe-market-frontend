@@ -38,12 +38,20 @@ const Nav = () => {
                 </Link>
                 {data.currentUser ? (
                   <>
+                    <Link href="/createRecipe">
+                      <a>Create Recipe</a>
+                    </Link>
                     <Link href="/createItem">
                       <a>Create Item</a>
                     </Link>
                     {/* TODO: Also make a `cart` page */}
                     <a onClick={toggleCart}>Cart </a>
-                    <CartCount count={data.currentUser.cart.reduce((sum, { quantity }) => sum + quantity, 0)} />
+                    <CartCount
+                      count={data.currentUser.cart.reduce(
+                        (sum, { quantity }) => sum + quantity,
+                        0
+                      )}
+                    />
                     <Signout />
                   </>
                 ) : (
