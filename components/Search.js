@@ -62,7 +62,7 @@ class Search extends Component {
         {client => {
           return (
             <Downshift
-              onChange={routeToItem}
+              onChange={this.props.onChange}
               itemToString={item => (item === null ? "" : item.title)}
             >
               {({

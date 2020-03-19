@@ -30,12 +30,20 @@ const StyledHeader = styled.header`
   }
 `;
 
+// For use in the search `onChange` handler
+function routeToItem(selectedItem) {
+  Router.push({
+    pathname: "/item",
+    query: { id: selectedItem.id }
+  });
+}
+
 const Header = (props) => {
   return (
     <StyledHeader>
       <h1>Recipe Market!</h1>
       <Nav />
-      <Search />
+      <Search onChange={routeToItem} />
     </StyledHeader>
   );
 };
