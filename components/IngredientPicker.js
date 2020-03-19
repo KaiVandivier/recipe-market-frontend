@@ -1,66 +1,84 @@
 import React, { Component } from "react";
 import Search from "./Search";
+import Form from "./styles/Form";
 
 class IngredientPicker extends Component {
-  state = {
-    ingredients: [],
-    newIngredient: null,
-    quantity: ""
-  };
+  // state = {
+  //   ingredients: [],
+  //   newIngredient: null,
+  //   quantity: ""
+  // };
 
-  submitNewIngredient = () => {
-    const { newIngredient, quantity } = this.state;
-    const newIngredients = [
-      ...this.state.ingredients,
-      { item: newIngredient, quantity }
-    ];
-    this.setState({
-      ingredients: newIngredients,
-      newIngredient: null, // TODO: Do I really need to clear these things?
-      quantity: ""
-    });
-  };
+  // submitNewIngredient = () => {
+  //   const { newIngredient, quantity } = this.state;
+  //   const newIngredients = [
+  //     ...this.state.ingredients,
+  //     { item: newIngredient, quantity }
+  //   ];
+  //   this.setState({
+  //     ingredients: newIngredients
+  //   });
+  // };
 
-  deleteIngredient = deleteId => {
-    const newIngredients = [...this.state.ingredients].filter(
-      ingredient => ingredient.item.id !== deleteId
-    );
-    this.setState({
-      ingredients: newIngredients
-    });
-  };
+  // deleteIngredient = deleteId => {
+  //   const newIngredients = [...this.state.ingredients].filter(
+  //     ingredient => ingredient.item.id !== deleteId
+  //   );
+  //   this.setState({
+  //     ingredients: newIngredients
+  //   });
+  // };
 
-  setNewIngredientState = item => {
-    this.setState({
-      newIngredient: item
-    });
-  };
+  // setNewIngredientState = item => {
+  //   this.setState({
+  //     newIngredient: item
+  //   });
+  // };
 
-  handleChange = e => {
-    const { name, value, type } = e.target;
-    this.setState({
-      [name]: type === "number" ? Number(value) : value
-    });
-  };
+  // handleChange = e => {
+  //   const { name, value, type } = e.target;
+  //   this.setState({
+  //     [name]: type === "number" ? Number(value) : value
+  //   });
+  // };
 
   render() {
+    const {
+      handleChange,
+      setNewIngredientState,
+      submitNewIngredient,
+      deleteIngredient,
+      ingredients,
+      newIngredient,
+      quantity
+    } = this.props;
+
     return (
       <div>
         <h3>Ingredients:</h3>
 
-        {/* TODO: A list of the existing ingredients */}
+        {/* A list of the existing ingredients */}
         <ul>
-          {this.state.ingredients.map(({ item, quantity }) => (
-            <li>
-              {item.title}: {quantity} <button onClick={() => this.deleteIngredient(item.id)}>Remove ingredient</button>
-            </li>
-          ))}
+          {!!ingredients.length &&
+            ingredients.map(({ item, quantity }) => (
+              <li key={item && item.id}>
+                {item.title}: {quantity}{" "}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    deleteIngredient(item.id);
+                  }}
+                >
+                  Remove ingredient
+                </button>
+              </li>
+            ))}
         </ul>
 
-        {/* TODO: A form to add a new ingredient */}
+        {/* A form to add a new ingredient */}
         <h3>Add a new ingredient:</h3>
         <fieldset>
-          <Search onChange={this.setNewIngredientState} />
+          <Search onChange={setNewIngredientState} />
           <label htmlFor="quantity">
             Quantity:
             <input
@@ -69,10 +87,15 @@ class IngredientPicker extends Component {
               name="quantity"
               step="any"
               min="0"
-              value={this.state.quantity}
-              onChange={this.handleChange}
+              value={quantity}
+              onChange={handleChange}
             />
-            <button onClick={() => this.submitNewIngredient()}>
+            <button
+              onClick={e => {
+                e.preventDefault(); // don't try to submit the form
+                submitNewIngredient();
+              }}
+            >
               Submit New Ingredient
             </button>
           </label>
