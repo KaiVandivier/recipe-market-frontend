@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
 const Form = styled.form`
-  width: auto;
-  padding: 2rem;
-  box-shadow: 0 0 5px 3px rgba(0,0,0,0.1);
   font-weight: 600;
   label {
     display: block;
