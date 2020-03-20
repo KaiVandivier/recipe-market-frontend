@@ -38,6 +38,10 @@ class CreateRecipe extends Component {
   submitNewIngredient = () => {
     console.log("submitting new");
     const { newIngredient, quantity } = this.state;
+    if (this.state.ingredients.some(({ item }) => item.id === newIngredient.id)) {
+      alert("This ingredient is already in the list!");
+      return;
+    }
     const newIngredients = [
       ...this.state.ingredients,
       { item: newIngredient, quantity }
@@ -104,7 +108,16 @@ class CreateRecipe extends Component {
   render() {
     return (
       <PleaseSignIn>
-        <Mutation mutation={CREATE_RECIPE_MUTATION} variables={this.state}>
+        <Mutation
+          mutation={CREATE_RECIPE_MUTATION}
+          variables={{
+            ...this.state,
+            ingredients: this.state.ingredients.map(({ item, quantity }) => ({
+              id: item.id,
+              quantity
+            }))
+          }}
+        >
           {(createRecipe, { loading, error, called }) => {
             if (error) return <Error error={error} />;
             return (
@@ -164,7 +177,7 @@ class CreateRecipe extends Component {
                         onChange={this.handleChange}
                       />
                     </label>
-                    <label htmlFor="image">
+                    {/* <label htmlFor="image">
                       Image:
                       <input
                         id="image"
@@ -180,7 +193,7 @@ class CreateRecipe extends Component {
                       <div>
                         <img src={this.state.image} />
                       </div>
-                    )}
+                    )} */}
                     <button type="submit">
                       Creat{loading ? "ing" : "e"} Recipe
                     </button>
