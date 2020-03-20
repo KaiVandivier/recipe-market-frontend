@@ -172,6 +172,7 @@ class CreateRecipe extends Component {
                       // this.clearForm();
                     }}
                   >
+                    <h2>Details:</h2>
                     <fieldset aria-disabled={loading}>
                       <label htmlFor="title">
                         Recipe Title:

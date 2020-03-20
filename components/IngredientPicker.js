@@ -15,11 +15,11 @@ const IngredientPicker = props => {
 
   return (
     <div>
-      <h3>Ingredients:</h3>
+      <h2>Ingredients:</h2>
 
       {/* A list of the existing ingredients */}
       <ul>
-        {!!ingredients.length &&
+        {(ingredients.length) ? (
           ingredients.map(({ item, quantity }) => (
             <li key={item && item.id}>
               {item.title}: {quantity}{" "}
@@ -32,7 +32,10 @@ const IngredientPicker = props => {
                 Remove ingredient
               </button>
             </li>
-          ))}
+          ))
+        ) : (
+          <li>No ingredients added yet :)</li>
+        )}
       </ul>
 
       {/* A form to add a new ingredient */}
