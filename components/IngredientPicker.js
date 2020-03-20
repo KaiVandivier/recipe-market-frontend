@@ -2,7 +2,7 @@ import React from "react";
 import Search from "./Search";
 import Form from "./styles/Form";
 
-const IngredientPicker = (props) => {
+const IngredientPicker = props => {
   const {
     handleChange,
     setNewIngredientState,
@@ -24,7 +24,7 @@ const IngredientPicker = (props) => {
             <li key={item && item.id}>
               {item.title}: {quantity}{" "}
               <button
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   deleteIngredient(item.id);
                 }}
@@ -50,18 +50,18 @@ const IngredientPicker = (props) => {
             value={quantity}
             onChange={handleChange}
           />
-          <button
-            onClick={e => {
-              e.preventDefault(); // don't try to submit the form
-              submitNewIngredient();
-            }}
-          >
-            Submit New Ingredient
-          </button>
         </label>
+        <button
+          onClick={e => {
+            e.preventDefault(); // don't try to submit the form
+            submitNewIngredient();
+          }}
+        >
+          Submit New Ingredient
+        </button>
       </Form>
     </div>
   );
-}
+};
 
 export default IngredientPicker;

@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
+import styled from "styled-components";
 import Form from "./styles/Form";
 import Error from "./Error";
 import PleaseSignIn from "./PleaseSignIn";
 import IngredientPicker from "./IngredientPicker";
+import Card from "./styles/Card";
 
 const CREATE_RECIPE_MUTATION = gql`
   mutation CREATE_RECIPE_MUTATION(
@@ -12,15 +14,32 @@ const CREATE_RECIPE_MUTATION = gql`
     $description: String = ""
     $instructions: String!
     $ingredients: [RecipeItemCreateInput!]!
+    $image: String!
+    $largeImage: String!
   ) {
     createRecipe(
       title: $title
       description: $description
       instructions: $instructions
       ingredients: $ingredients
+      image: $image
+      largeImage: $largeImage
     ) {
       id
     }
+  }
+`;
+
+const CreateRecipeStyles = styled.section`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  & > * {
+    flex: 1 1 auto;
+  }
+  .header {
+    text-align: center;
+    flex: 1 1 100%;
   }
 `;
 
@@ -30,6 +49,7 @@ class CreateRecipe extends Component {
     description: "",
     instructions: "",
     image: "",
+    largeImage: "",
     ingredients: [],
     newIngredient: null,
     quantity: ""
@@ -38,7 +58,9 @@ class CreateRecipe extends Component {
   submitNewIngredient = () => {
     console.log("submitting new");
     const { newIngredient, quantity } = this.state;
-    if (this.state.ingredients.some(({ item }) => item.id === newIngredient.id)) {
+    if (
+      this.state.ingredients.some(({ item }) => item.id === newIngredient.id)
+    ) {
       alert("This ingredient is already in the list!");
       return;
     }
@@ -101,6 +123,7 @@ class CreateRecipe extends Component {
       description: "",
       instructions: "",
       image: "",
+      largeImage: "",
       ingredients: []
     });
   };
@@ -121,85 +144,91 @@ class CreateRecipe extends Component {
           {(createRecipe, { loading, error, called }) => {
             if (error) return <Error error={error} />;
             return (
-              <div>
-                <h1>Create a Recipe!</h1>
-                {!error && !loading && called && (
-                  <h3>Recipe created successfully!</h3>
-                )}
-                <IngredientPicker
-                  handleChange={this.handleChange}
-                  setNewIngredientState={this.setNewIngredientState}
-                  submitNewIngredient={this.submitNewIngredient}
-                  deleteIngredient={this.deleteIngredient}
-                  ingredients={this.state.ingredients}
-                  newIngredient={this.state.newIngredient}
-                  quantity={this.state.quantity}
-                />
-                <Form
-                  onSubmit={e => {
-                    console.log("submitting form");
-                    e.preventDefault();
-                    e.target.reset();
-                    createRecipe();
-                    // this.clearForm();
-                  }}
-                >
-                  <fieldset aria-disabled={loading}>
-                    <label htmlFor="title">
-                      Title:
-                      <input
-                        id="title"
-                        type="text"
-                        name="title"
-                        placeholder="Recipe Title"
-                        required
-                        value={this.state.title}
-                        onChange={this.handleChange}
-                      />
-                    </label>
-                    <label htmlFor="description">
-                      Description:
-                      <textarea
-                        id="description"
-                        name="description"
-                        placeholder="Recipe Description"
-                        value={this.state.description}
-                        onChange={this.handleChange}
-                      />
-                    </label>
-                    <label htmlFor="instructions">
-                      Instructions:
-                      <textarea
-                        id="instructions"
-                        name="instructions"
-                        placeholder="Recipe Instructions"
-                        value={this.state.instructions}
-                        onChange={this.handleChange}
-                      />
-                    </label>
-                    {/* <label htmlFor="image">
-                      Image:
-                      <input
-                        id="image"
-                        type="file"
-                        name="image"
-                        placeholder="Upload an image"
-                        required
-                        // value={this.state.image}
-                        onChange={this.uploadFile}
-                      />
-                    </label>
-                    {this.state.image && (
-                      <div>
-                        <img src={this.state.image} />
-                      </div>
-                    )} */}
-                    <button type="submit">
-                      Creat{loading ? "ing" : "e"} Recipe
-                    </button>
-                  </fieldset>
-                </Form>
-              </div>
+              <CreateRecipeStyles>
+                <div className="header">
+                  <h1>Create a Recipe!</h1>
+                  {!error && !loading && called && (
+                    <h3>Recipe created successfully!</h3>
+                  )}
+                </div>
+                <Card>
+                  <IngredientPicker
+                    handleChange={this.handleChange}
+                    setNewIngredientState={this.setNewIngredientState}
+                    submitNewIngredient={this.submitNewIngredient}
+                    deleteIngredient={this.deleteIngredient}
+                    ingredients={this.state.ingredients}
+                    newIngredient={this.state.newIngredient}
+                    quantity={this.state.quantity}
+                  />
+                </Card>
+                <Card>
+                  <Form
+                    onSubmit={e => {
+                      console.log("submitting form");
+                      e.preventDefault();
+                      e.target.reset();
+                      createRecipe();
+                      // this.clearForm();
+                    }}
+                  >
+                    <fieldset aria-disabled={loading}>
+                      <label htmlFor="title">
+                        Recipe Title:
+                        <input
+                          id="title"
+                          type="text"
+                          name="title"
+                          placeholder="Recipe Title"
+                          required
+                          value={this.state.title}
+                          onChange={this.handleChange}
+                        />
+                      </label>
+                      <label htmlFor="description">
+                        Description:
+                        <textarea
+                          id="description"
+                          name="description"
+                          placeholder="Recipe Description"
+                          value={this.state.description}
+                          onChange={this.handleChange}
+                        />
+                      </label>
+                      <label htmlFor="instructions">
+                        Instructions:
+                        <textarea
+                          id="instructions"
+                          name="instructions"
+                          placeholder="Recipe Instructions"
+                          required
+                          value={this.state.instructions}
+                          onChange={this.handleChange}
+                        />
+                      </label>
+                      <label htmlFor="image">
+                        Image:
+                        <input
+                          id="image"
+                          type="file"
+                          name="image"
+                          placeholder="Upload an image"
+                          required
+                          onChange={this.uploadFile}
+                        />
+                      </label>
+                      {this.state.image && (
+                        <div>
+                          <img src={this.state.image} />
+                        </div>
+                      )}
+                      <button type="submit">
+                        Creat{loading ? "ing" : "e"} Recipe
+                      </button>
+                    </fieldset>
+                  </Form>
+                </Card>
+              </CreateRecipeStyles>
             );
           }}
         </Mutation>
