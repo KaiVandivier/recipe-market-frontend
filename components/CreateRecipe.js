@@ -56,7 +56,6 @@ class CreateRecipe extends Component {
   };
 
   submitNewIngredient = () => {
-    console.log("submitting new");
     const { newIngredient, quantity } = this.state;
     if (
       this.state.ingredients.some(({ item }) => item.id === newIngredient.id)
@@ -74,7 +73,6 @@ class CreateRecipe extends Component {
   };
 
   deleteIngredient = deleteId => {
-    console.log("deleting");
     const newIngredients = [...this.state.ingredients].filter(
       ingredient => ingredient.item.id !== deleteId
     );
@@ -84,14 +82,12 @@ class CreateRecipe extends Component {
   };
 
   setNewIngredientState = item => {
-    console.log("changing state");
     this.setState({
       newIngredient: item
     });
   };
 
   handleChange = e => {
-    console.log("handling change");
     const { name, value, type } = e.target;
     this.setState({
       [name]: type === "number" ? Number(value) : value
@@ -117,7 +113,6 @@ class CreateRecipe extends Component {
   };
 
   clearForm = () => {
-    console.log("clearing");
     this.setState({
       title: "",
       description: "",
@@ -165,7 +160,6 @@ class CreateRecipe extends Component {
                 <Card>
                   <Form
                     onSubmit={e => {
-                      console.log("submitting form");
                       e.preventDefault();
                       e.target.reset();
                       createRecipe();
