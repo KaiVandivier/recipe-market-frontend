@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { perPage } from "../config";
 import Error from "./Error";
 import RecipeCard from "./RecipeCard";
+import RecipePagination from "./RecipePagination";
 
 const ALL_RECIPES_QUERY = gql`
   query ALL_RECIPES_QUERY(
@@ -61,12 +62,14 @@ const Recipes = ({ page }) => {
         return (
           <StyledSection>
             <h1>Recipes!</h1>
+            <RecipePagination page={page} />
             {/* TODO: Pagination */}
             <StyledRecipes>
               {data.recipes.map(recipe => (
                 <RecipeCard recipe={recipe} key={recipe.id} />
               ))}
             </StyledRecipes>
+            <RecipePagination page={page} />
           </StyledSection>
         )
       }}
