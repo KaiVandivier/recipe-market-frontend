@@ -47,6 +47,7 @@ const StyledRecipes = styled.div`
 `;
 
 // TODO: Pagination
+// TODO: Set a `recipesPerPage` value in config to differentiate from items
 
 const Recipes = ({ page }) => {
   return (
