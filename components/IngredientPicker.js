@@ -19,7 +19,7 @@ const IngredientPicker = props => {
 
       {/* A list of the existing ingredients */}
       <ul>
-        {(ingredients.length) ? (
+        {ingredients.length ? (
           ingredients.map(({ item, quantity }) => (
             <li key={item && item.id}>
               {item.title}: {quantity}{" "}
@@ -40,7 +40,12 @@ const IngredientPicker = props => {
 
       {/* A form to add a new ingredient */}
       <h3>Add a new ingredient:</h3>
-      <Form>
+      <Form
+        onSubmit={e => {
+          e.preventDefault(); // don't try to submit the form
+          submitNewIngredient();
+        }}
+      >
         <Search onChange={setNewIngredientState} />
         <label htmlFor="quantity">
           Quantity:
@@ -52,16 +57,10 @@ const IngredientPicker = props => {
             min="0"
             value={quantity}
             onChange={handleChange}
+            required
           />
         </label>
-        <button
-          onClick={e => {
-            e.preventDefault(); // don't try to submit the form
-            submitNewIngredient();
-          }}
-        >
-          Submit New Ingredient
-        </button>
+        <button type="submit">Submit New Ingredient</button>
       </Form>
     </div>
   );
