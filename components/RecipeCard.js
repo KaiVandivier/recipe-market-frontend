@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-
-// Like ItemCard, this will receive its `recipe` from props and make a little 
+import Link from "next/link";
 
 const RecipeCardStyles = styled.div`
   text-align: center;
@@ -21,10 +20,17 @@ const RecipeCard = ({ recipe }) => {
 
   return (
     <RecipeCardStyles>
-      <h2>{title}</h2>
-      {image ? <img src={image} alt={title} width="100px" /> : null}
-      <p><em>{description}</em></p>
-      {/* TODO: Calculated price? */}
+      <Link href={{
+        pathname: "recipe",
+        query: { id }
+      }}>
+        <a>
+          <h2>{title}</h2>
+          {image ? <img src={image} alt={title} width="100px" /> : null}
+          <p><em>{description}</em></p>
+          {/* TODO: Calculated price? */}
+        </a>
+      </Link>
       <button>Add Ingredients to Cart</button>
       <button>Edit Recipe</button>
       <button>Delete Recipe</button>
