@@ -73,3 +73,4 @@ const SingleRecipe = ({ id }) => {
 };
 
 export default SingleRecipe;
+export { SINGLE_RECIPE_QUERY };
