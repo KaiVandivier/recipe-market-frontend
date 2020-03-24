@@ -47,7 +47,6 @@ const StyledRecipes = styled.div`
   grid-gap: 0.5rem;
 `;
 
-// TODO: Pagination
 // TODO: Set a `recipesPerPage` value in config to differentiate from items
 
 const Recipes = ({ page }) => {
@@ -63,7 +62,6 @@ const Recipes = ({ page }) => {
           <StyledSection>
             <h1>Recipes!</h1>
             <RecipePagination page={page} />
-            {/* TODO: Pagination */}
             <StyledRecipes>
               {data.recipes.map(recipe => (
                 <RecipeCard recipe={recipe} key={recipe.id} />
