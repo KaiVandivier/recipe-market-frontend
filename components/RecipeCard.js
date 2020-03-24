@@ -2,6 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import Link from "next/link";
 import EditRecipe from "./EditRecipe";
+import DeleteRecipe from "./DeleteRecipe";
 
 const RecipeCardStyles = styled.div`
   text-align: center;
@@ -36,7 +37,7 @@ const RecipeCard = ({ recipe }) => {
       <Link href={{ pathname: "editRecipe", query: { id }}}>
         <button>Edit Recipe</button>
       </Link>
-      <button>Delete Recipe</button>
+      <DeleteRecipe id={id} />
     </RecipeCardStyles>
   );
 };
