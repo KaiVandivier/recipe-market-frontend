@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import Link from "next/link";
-import EditRecipe from "./EditRecipe";
+import AddRecipeToCart from "./AddRecipeToCart";
 import DeleteRecipe from "./DeleteRecipe";
 
 const RecipeCardStyles = styled.div`
@@ -33,7 +33,7 @@ const RecipeCard = ({ recipe }) => {
           {/* TODO: Calculated price? */}
         </a>
       </Link>
-      <button>Add Ingredients to Cart</button>
+      <AddRecipeToCart id={id} />
       <Link href={{ pathname: "editRecipe", query: { id }}}>
         <button>Edit Recipe</button>
       </Link>
