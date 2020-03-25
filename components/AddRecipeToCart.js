@@ -9,7 +9,7 @@ const ADD_RECIPE_TO_CART_MUTATION = gql`
     $quantity: Int = 1
   ) {
     addRecipeToCart(id: $id, quantity: $quantity) {
-      message
+      id
     }
   }
 `;
