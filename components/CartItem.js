@@ -6,6 +6,12 @@ import formatMoney from "../lib/formatMoney";
 const CartItemStyles = styled.li`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr;
+  img {
+    height: 100px;
+    width: 100px;
+    object-position: center;
+    object-fit: scale-down;
+  }
   .info {
     padding: 0.5rem;
   }
@@ -22,7 +28,7 @@ const CartItem = ({ cartItem }) => {
     <CartItemStyles>
       {cartItem.item ? (
         <>
-          <img src={cartItem.item.image} width="100px" height="100px" />
+          <img src={cartItem.item.image} width="100px" />
           <div className="info">
             <h3>{cartItem.item.title}</h3>
             <p>
