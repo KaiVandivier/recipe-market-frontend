@@ -1,8 +1,10 @@
-import React from 'react';
+import React from "react";
 import { Query } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import styled from "styled-components";
 import Card from "./styles/Card";
+import Ingredient from "./Ingredient";
+import AddRecipeToCart from "./AddRecipeToCart";
 
 const SINGLE_RECIPE_QUERY = gql`
   query SINGLE_RECIPE_QUERY($id: ID!) {
@@ -27,12 +29,22 @@ const SINGLE_RECIPE_QUERY = gql`
   }
 `;
 
+const SingleRecipeStyles = styled.section`
+  .header {
+    text-align: center;
+    img {
+      padding: 1rem;
+      box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.1);
+    }
+  }
+`;
+
 const SingleRecipe = ({ id }) => {
   return (
     <Query query={SINGLE_RECIPE_QUERY} variables={{ id }}>
       {({ data, loading, error }) => {
-        if (loading) return <Card>Loading...</Card>
-        if (error) return <Error error={error} />
+        if (loading) return <Card>Loading...</Card>;
+        if (error) return <Error error={error} />;
         const {
           id,
           title,
@@ -40,33 +52,34 @@ const SingleRecipe = ({ id }) => {
           instructions,
           image,
           largeImage,
-          ingredients,
+          ingredients
         } = data.recipe;
         return (
           <Card>
-            <h1>{title}</h1>
+            <SingleRecipeStyles>
+              <div className="header">
+                <h1>{title}</h1>
 
-            {image ? <img src={image} alt={title} /> : null}
+                {image ? <img src={image} alt={title} height="200px" /> : null}
 
-            <p>{description}</p>
+                <p><em>{description}</em></p>
+              </div>
 
-            <h3>Ingredients:</h3>
-            <button>Add Ingredients to Cart</button>
-            <ul>
-              {ingredients.map(({ item, quantity }) => (
-                <li key={item.id}>
-                  {item.image ? <img src={item.image} alt={item.title} height="100px" /> : null}
-                  {quantity} {item.title}
-                </li>
-              ))}
-            </ul>
-            
-            <h3>Instructions:</h3>
-            <p>{instructions}</p>
+              <h2>Ingredients:</h2>
+              <ul>
+                {ingredients.map(ingredient => (
+                  <Ingredient ingredient={ingredient} key={ingredient.id} />
+                ))}
+              </ul>
+              <AddRecipeToCart id={id} />
 
-            <button>Add Ingredients to Cart</button>
+              <h2>Instructions:</h2>
+              <p>{instructions}</p>
+
+              <AddRecipeToCart id={id} />
+            </SingleRecipeStyles>
           </Card>
-        )
+        );
       }}
     </Query>
   );
