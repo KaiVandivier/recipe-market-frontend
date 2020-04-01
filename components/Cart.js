@@ -7,6 +7,7 @@ import User from "./User";
 import formatMoney from "../lib/formatMoney";
 import { totalCartItems, totalCartPrice } from "../lib/cartCalcs";
 import CartItem from "./CartItem";
+import Checkout from "./Checkout";
 
 const CartStyles = styled.aside`
   display: block;
@@ -73,6 +74,7 @@ const Cart = () => {
               <p>No items in cart</p>
             )}
             <button onClick={toggleCart}>Toggle cart</button>
+            <Checkout />
           </CartStyles>
         );
       }}
