@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Card from "./styles/Card";
+import Link from "next/link";
 import formatMoney from "../lib/formatMoney";
-
 
 const OrderLineStyles = styled.li`
   display: grid;
@@ -27,18 +27,26 @@ const OrderLineStyles = styled.li`
 const OrderLine = ({ order }) => {
   const { id, items, total, createdAt } = order;
 
-  // TODO: Link to order using id
   return (
     <OrderLineStyles>
       <img src={items[0].image} width="100px" />
       <div className="info">
-        <h3>
-          {items[0].title} {items.length > 1 ? (`and ${items.length - 1} other item${items.length > 2 ? "s" : ""}`) : ""}
-        </h3>
-        <p>
-          {/* TODO: Format date */}
-          <em>Order placed at {createdAt}</em>
-        </p>
+        <Link href={{ pathname: "/order", query: { id } }}>
+          <a>
+            <h3>
+              {items[0].title}{" "}
+              {items.length > 1
+                ? `and ${items.length - 1} other item${
+                    items.length > 2 ? "s" : ""
+                  }`
+                : ""}
+            </h3>
+            <p>
+              {/* TODO: Format date */}
+              <em>Order placed at {createdAt}</em>
+            </p>
+          </a>
+        </Link>
       </div>
       <div className="total">
         <h3>{formatMoney(total)}</h3>
