@@ -6,6 +6,8 @@ import { SINGLE_ITEM_QUERY } from "./EditItem";
 import Error from "./Error";
 import DeleteItem from "./DeleteItem";
 import formatMoney from "../lib/formatMoney";
+import Button from "./styles/Button";
+import AddToCart from "./AddToCart";
 
 const StyledSingleItem = styled.div`
   text-align: center;
@@ -27,10 +29,10 @@ const SingleItem = ({ id })  => {
             <img src={largeImage} width="300px" alt={title} />
             <h3>{description}</h3>
             <p>{formatMoney(price)}</p>
-            <button>Add to Cart</button>
+            <AddToCart itemId={id} />
             {/* TODO: only enable edit and delete depending on permissions */}
             <Link href={{ pathname: "editItem", query: { id } }}>
-              <button>Edit Item</button>
+              <Button>Edit Item</Button>
             </Link>
             <DeleteItem id={id} />
           </StyledSingleItem>

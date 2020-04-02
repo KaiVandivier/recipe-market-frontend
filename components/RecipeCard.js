@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import AddRecipeToCart from "./AddRecipeToCart";
 import DeleteRecipe from "./DeleteRecipe";
+import Button from "./styles/Button";
 
 const RecipeCardStyles = styled.div`
   text-align: center;
@@ -35,7 +36,7 @@ const RecipeCard = ({ recipe }) => {
       </Link>
       <AddRecipeToCart id={id} />
       <Link href={{ pathname: "editRecipe", query: { id }}}>
-        <button>Edit Recipe</button>
+        <Button>Edit Recipe</Button>
       </Link>
       <DeleteRecipe id={id} />
     </RecipeCardStyles>

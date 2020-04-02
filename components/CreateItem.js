@@ -5,6 +5,7 @@ import Form from "./styles/Form";
 import Error from "./Error";
 import PleaseSignIn from "./PleaseSignIn";
 import Card from "./styles/Card";
+import Button from "./styles/Button";
 
 const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM_MUTATION(
@@ -144,9 +145,9 @@ class CreateItem extends Component {
                         <img src={this.state.image} />
                       </div>
                     )}
-                    <button type="submit">
+                    <Button primary type="submit">
                       Creat{loading ? "ing" : "e"} Item
-                    </button>
+                    </Button>
                   </fieldset>
                 </Form>
               </Card>

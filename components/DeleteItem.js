@@ -1,6 +1,7 @@
 import React from "react";
 import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
+import Button from "./styles/Button";
 
 const DELETE_ITEM_MUTATION = gql`
   mutation DELETE_ITEM_MUTATION($id: ID!) {
@@ -19,14 +20,14 @@ const DeleteItem = props => {
         return (
           <div>
             {!called ? (
-              <button
+              <Button
                 onClick={e => {
                   if (!confirm("Really delete item?")) return;
                   deleteItem().catch(err => alert(err.message));
                 }}
               >
                 Delete Item
-              </button>
+              </Button>
             ) : (
               <p>Item successfully deleted.</p>
             )}

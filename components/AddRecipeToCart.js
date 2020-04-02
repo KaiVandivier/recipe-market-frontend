@@ -2,6 +2,7 @@ import React from "react";
 import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import { CURRENT_USER_QUERY } from "./User";
+import Button from "./styles/Button";
 
 const ADD_RECIPE_TO_CART_MUTATION = gql`
   mutation ADD_RECIPE_TO_CART_MUTATION(
@@ -28,9 +29,9 @@ const AddRecipeToCart = ({ id }) => {
         return (
           <>
             {!error && !loading && called && <p>Ingredients added to cart!</p>}
-            <button onClick={addRecipeToCart}>
+            <Button primary onClick={addRecipeToCart}>
               Add Recipe Ingredients to Cart
-            </button>
+            </Button>
           </>
         );
       }}

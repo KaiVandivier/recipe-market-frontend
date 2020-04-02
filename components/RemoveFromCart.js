@@ -2,6 +2,7 @@ import React from "react";
 import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import { CURRENT_USER_QUERY } from "./User";
+import Button from "./styles/Button";
 
 const REMOVE_FROM_CART_MUTATION = gql`
   mutation REMOVE_FROM_CART_MUTATION($id: ID!) {
@@ -10,8 +11,6 @@ const REMOVE_FROM_CART_MUTATION = gql`
     }
   }
 `;
-
-// TODO: Optimistic response for removal
 
 class RemoveFromCart extends React.Component {
   update = (cache, payload) => {
@@ -40,7 +39,7 @@ class RemoveFromCart extends React.Component {
         }}
       >
         {(removeFromCart) => {
-          return <button onClick={removeFromCart}>Remove From Cart</button>;
+          return <Button onClick={removeFromCart}>Remove From Cart</Button>;
         }}
       </Mutation>
     );

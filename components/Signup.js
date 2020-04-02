@@ -4,6 +4,7 @@ import { gql } from "apollo-boost";
 import Link from "next/link";
 import Form from "./styles/Form";
 import Error from "./Error";
+import Button from "./styles/Button";
 
 const CREATE_USER_MUTATION = gql`
   mutation CREATE_USER_MUTATION(
@@ -108,7 +109,7 @@ class Signup extends Component {
                     <a>Click here to sign in</a>
                   </Link>
                 </p>
-                <button type="submit">Mak{loading ? "ing" : "e"} Account</button>
+                <Button primary type="submit">Mak{loading ? "ing" : "e"} Account</Button>
               </fieldset>
             </Form>
           );

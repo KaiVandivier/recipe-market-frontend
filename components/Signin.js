@@ -5,6 +5,7 @@ import Link from "next/link";
 import Form from "./styles/Form";
 import Error from "./Error";
 import { CURRENT_USER_QUERY } from "./User";
+import Button from "./styles/Button";
 
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -86,7 +87,7 @@ class Signin extends Component {
                     <a>Click here to reset it</a>
                   </Link>
                 </p>
-                <button type="submit">Sign{loading ? "ing" : ""} In</button>
+                <Button primary type="submit">Sign{loading ? "ing" : ""} In</Button>
               </fieldset>
             </Form>
           );

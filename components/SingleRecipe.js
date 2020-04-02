@@ -75,8 +75,6 @@ const SingleRecipe = ({ id }) => {
 
               <h2>Instructions:</h2>
               <p>{instructions}</p>
-
-              <AddRecipeToCart id={id} />
             </SingleRecipeStyles>
           </Card>
         );

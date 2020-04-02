@@ -8,6 +8,8 @@ import formatMoney from "../lib/formatMoney";
 import { totalCartItems, totalCartPrice } from "../lib/cartCalcs";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
+import Button from "./styles/Button";
+
 
 const CartStyles = styled.aside`
   display: block;
@@ -74,7 +76,7 @@ const Cart = () => {
             ) : (
               <p>No items in cart</p>
             )}
-            <button onClick={toggleCart}>Toggle cart</button>
+            <Button onClick={toggleCart}>Close cart</Button>
             <Checkout />
           </CartStyles>
         );

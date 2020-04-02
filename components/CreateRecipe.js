@@ -7,6 +7,7 @@ import Error from "./Error";
 import PleaseSignIn from "./PleaseSignIn";
 import IngredientPicker from "./IngredientPicker";
 import Card from "./styles/Card";
+import Button from "./styles/Button";
 
 const CREATE_RECIPE_MUTATION = gql`
   mutation CREATE_RECIPE_MUTATION(
@@ -217,9 +218,9 @@ class CreateRecipe extends Component {
                           <img src={this.state.image} />
                         </div>
                       )}
-                      <button type="submit">
+                      <Button primary type="submit">
                         Creat{loading ? "ing" : "e"} Recipe
-                      </button>
+                      </Button>
                     </fieldset>
                   </Form>
                 </Card>

@@ -4,6 +4,7 @@ import { gql } from "apollo-boost";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Error from "./Error";
+import Button from "./styles/Button";
 
 const possiblePermissions = [
   "ADMIN",
@@ -144,7 +145,7 @@ class UserTR extends Component {
                 );
               })}
               <td>
-                <button disabled={loading} onClick={updatePermissions}>Submit Changes</button>
+                <Button primary disabled={loading} onClick={updatePermissions}>Submit Changes</Button>
               </td>
             </tr>
           );

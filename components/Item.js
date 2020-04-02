@@ -4,6 +4,7 @@ import Link from "next/link";
 import DeleteItem from "./DeleteItem";
 import AddToCart from "./AddToCart";
 import formatMoney from "../lib/formatMoney";
+import Button from "./styles/Button";
 
 // TODO: Prop types?
 
@@ -15,8 +16,7 @@ const StyledItem = styled.div`
 `;
 
 const Item = props => {
-  const { id, title, description, price, image, largeImage } = props.item;
-  // TODO: Add link to individual item page
+  const { id, title, description, price, image } = props.item;
   return (
     <StyledItem>
       <Link href={{ pathname: "item", query: { id } }}>
@@ -35,7 +35,7 @@ const Item = props => {
       <AddToCart itemId={id} quantity={1} />
       {/* TODO: only enable edit and delete depending on permissions */}
       <Link href={{ pathname: "editItem", query: { id } }}>
-        <button>Edit Item</button>
+        <Button>Edit Item</Button>
       </Link>
       <DeleteItem id={id} />
     </StyledItem>

@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import { Query, Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import Form from "./styles/Form";
+import Button from "./styles/Button";
 
-// TODO:
-// SIngle item query
-// remove image and large image editing?
+// TODO: image and large image editing?
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($id: ID!) {
@@ -108,7 +107,7 @@ class EditItem extends Component {
                         />
                       </label>
                       {data.item.image && <div><img src={data.item.image} /></div>}
-                      <button type="submit">Edit{loading ? "ing" : ""} Item</button>
+                      <Button primary type="submit">Edit{loading ? "ing" : ""} Item</Button>
                     </fieldset>
                   </Form>
                 );

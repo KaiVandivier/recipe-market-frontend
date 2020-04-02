@@ -4,6 +4,7 @@ import { gql } from "apollo-boost";
 import Form from "./styles/Form";
 import Error from "./Error";
 import { CURRENT_USER_QUERY } from "./User";
+import Button from "./styles/Button";
 
 const RESET_PASSWORD_MUTATION = gql`
   mutation RESET_PASSWORD_MUTATION($resetToken: String!, $password: String!) {
@@ -80,9 +81,9 @@ class ResetPassword extends Component {
                     onChange={this.handleChange}
                   />
                 </label>
-                <button type="submit">
+                <Button primary type="submit">
                   Reset{loading ? "ting" : ""} Password
-                </button>
+                </Button>
               </fieldset>
             </Form>
           );

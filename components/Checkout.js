@@ -3,6 +3,7 @@ import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import { loadStripe } from "@stripe/stripe-js";
 import { stripePublicKey } from "../config";
+import Button from "./styles/Button";
 
 const CHECKOUT_MUTATION = gql`
   mutation CHECKOUT_MUTATION {
@@ -17,7 +18,8 @@ const Checkout = () => {
     <Mutation mutation={CHECKOUT_MUTATION}>
       {(checkout, { loading, error, called }) => {
         return (
-          <button
+          <Button
+            primary
             onClick={async () => {
               const res = await checkout();
               const { sessionId } = res.data.checkout;
@@ -29,7 +31,7 @@ const Checkout = () => {
             }}
           >
             Check Out
-          </button>
+          </Button>
         );
       }}
     </Mutation>

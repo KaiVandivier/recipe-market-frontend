@@ -4,6 +4,7 @@ import { gql } from "apollo-boost";
 import Link from "next/link";
 import Form from "./styles/Form";
 import Error from "./Error";
+import Button from "./styles/Button";
 
 const REQUEST_PASSWORD_RESET_MUTATION = gql`
   mutation REQUEST_PASSWORD_RESET_MUTATION($email: String!) {
@@ -65,7 +66,7 @@ class RequestPasswordReset extends Component {
                     <a>Click here to sign up</a>
                   </Link>
                 </p>
-                <button type="submit">Request{loading ? "ing" : ""} Reset</button>
+                <Button primary type="submit">Request{loading ? "ing" : ""} Reset</Button>
               </fieldset>
             </Form>
           );

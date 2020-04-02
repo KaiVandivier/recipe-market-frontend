@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
+import Button from "./styles/Button";
 
 const DELETE_RECIPE_MUTATION = gql`
   mutation DELETE_RECIPE_MUTATION($id: ID!) {
@@ -9,8 +10,6 @@ const DELETE_RECIPE_MUTATION = gql`
     }
   }
 `;
-
-// TODO: Build backend
 
 const DeleteRecipe = ({ id }) => {
   return (
@@ -22,10 +21,10 @@ const DeleteRecipe = ({ id }) => {
         }
         if (!loading && !error && called) return <p>Recipe deleted.</p>
         return (
-          <button onClick={e => {
+          <Button onClick={e => {
             if (!confirm("Are you sure you want to delete this recipe?")) return;
             deleteRecipe().catch(err => alert(err.message))
-          }}>Delete Recipe</button>
+          }}>Delete Recipe</Button>
         )
       }}
     </Mutation>
