@@ -17,21 +17,16 @@ const DeleteItem = props => {
       {(deleteItem, { error, loading, called }) => {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error :(</p>;
+        if (called) return <p>Item successfully deleted.</p>;
         return (
-          <div>
-            {!called ? (
-              <Button
-                onClick={e => {
-                  if (!confirm("Really delete item?")) return;
-                  deleteItem().catch(err => alert(err.message));
-                }}
-              >
-                Delete Item
-              </Button>
-            ) : (
-              <p>Item successfully deleted.</p>
-            )}
-          </div>
+          <Button
+            onClick={e => {
+              if (!confirm("Really delete item?")) return;
+              deleteItem().catch(err => alert(err.message));
+            }}
+          >
+            Delete Item
+          </Button>
         );
       }}
     </Mutation>
