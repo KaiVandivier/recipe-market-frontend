@@ -79,7 +79,7 @@ class Search extends Component {
                 getRootProps
               }) => (
                 <div>
-                  <label {...getLabelProps()}>Search for an item</label>
+                  <label {...getLabelProps()}>Search for an item: </label>
                   <div
                     style={{ display: "inline-block" }}
                     {...getRootProps({}, { suppressRefError: true })}
@@ -111,24 +111,6 @@ class Search extends Component {
                           title={item.title}
                           highlighted={highlightedIndex === index}
                         />  
-                        // <li
-                        //   {...getItemProps({
-                        //     key: item.id,
-                        //     index,
-                        //     item,
-                        //     style: {
-                        //       backgroundColor:
-                        //         // TODO: In a custom component, use a custom highlight prop
-                        //         highlightedIndex === index
-                        //           ? "lightgray"
-                        //           : "white",
-                        //       fontWeight:
-                        //         selectedItem === item ? "bold" : "normal"
-                        //     }
-                        //   })}
-                        // >
-                        //   {item.title}
-                        // </li>
                       ))
                     ) : null}
                     {isOpen && inputValue && !this.state.items.length && !this.state.loading && (
