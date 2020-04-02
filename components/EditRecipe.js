@@ -233,7 +233,7 @@ class EditRecipe extends Component {
                       </label>
                       {this.state.image && (
                         <div>
-                          <img src={this.state.image} />
+                          <img src={this.state.image} width="200px" />
                         </div>
                       )}
                       <Button primary type="submit">
