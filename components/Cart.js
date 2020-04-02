@@ -52,6 +52,7 @@ const Cart = () => {
       {({ user, toggleCart, localCartState }) => {
         if (user.loading) return null;
         const { currentUser } = user.data;
+        if (!currentUser) return null; // TODO: better handling of logged-out state
         const { cartOpen } = localCartState.data;
         const totalItems = totalCartItems(currentUser.cart);
         return (
