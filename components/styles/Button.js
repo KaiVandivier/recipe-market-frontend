@@ -10,9 +10,11 @@ const Button = styled.button`
     if (props.primary || props.secondary) return "white";
     return props.theme.darkgrey
   }};
-  border: 3px solid ${props => (
-    props.primary ? props.theme.yellow : props.theme.darkgrey
-  )};
+  border: 3px solid ${props => {
+    if (props.primary) return props.theme.yellow;
+    if (props.secondary) return props.theme.black;
+    return props.theme.darkgrey;
+  }};
   border-radius: 0.5rem;
   background: ${props => {
     if (props.primary) return props.theme.yellow;
