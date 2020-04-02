@@ -5,6 +5,8 @@ import { ApolloConsumer } from "@apollo/react-common";
 import { gql } from "apollo-boost";
 import debounce from "lodash.debounce";
 import Router from "next/router";
+import SearchResult from "./SearchResult";
+import DropdownStyles from "./styles/DropdownStyles";
 
 const SEARCH_ITEMS_QUERY = gql`
   query SEARCH_ITEMS_QUERY($searchTerm: String!) {
@@ -95,33 +97,44 @@ class Search extends Component {
                       })}
                     />
                   </div>
-                  <ul {...getMenuProps()}>
+                  <DropdownStyles {...getMenuProps()}>
                     {isOpen && inputValue ? (
                       this.state.items.map((item, index) => (
-                        <li
-                          {...getItemProps({
-                            key: item.id,
-                            index,
-                            item,
-                            style: {
-                              backgroundColor:
-                                // TODO: In a custom component, use a custom highlight prop
-                                highlightedIndex === index
-                                  ? "lightgray"
-                                  : "white",
-                              fontWeight:
-                                selectedItem === item ? "bold" : "normal"
-                            }
-                          })}
-                        >
-                          {item.title}
-                        </li>
+                        <SearchResult {...getItemProps({
+                          key: item.id,
+                          index,
+                          item,
+                        })} 
+                          image={item.image}
+                          price={item.price}
+                          description={item.description}
+                          title={item.title}
+                          highlighted={highlightedIndex === index}
+                        />  
+                        // <li
+                        //   {...getItemProps({
+                        //     key: item.id,
+                        //     index,
+                        //     item,
+                        //     style: {
+                        //       backgroundColor:
+                        //         // TODO: In a custom component, use a custom highlight prop
+                        //         highlightedIndex === index
+                        //           ? "lightgray"
+                        //           : "white",
+                        //       fontWeight:
+                        //         selectedItem === item ? "bold" : "normal"
+                        //     }
+                        //   })}
+                        // >
+                        //   {item.title}
+                        // </li>
                       ))
                     ) : null}
                     {isOpen && inputValue && !this.state.items.length && !this.state.loading && (
                       <li {...getItemProps({ item: null, style: { backgroundColor: "white" }})}>No items found for search term "{inputValue}"</li>
                     )}
-                  </ul>
+                  </DropdownStyles>
                 </div>
               )}
             </Downshift>
