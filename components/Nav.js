@@ -45,6 +45,9 @@ const Nav = () => {
                       <a>Create Item</a>
                     </Link>
                     {/* TODO: Also make a `cart` page */}
+                    <Link href="/myOrders">
+                      <a>My Orders</a>
+                    </Link>
                     <a onClick={toggleCart}>Cart </a>
                     <CartCount
                       count={data.currentUser.cart.reduce(
