@@ -4,7 +4,7 @@ import formatMoney from "../lib/formatMoney";
 
 const IngredientStyles = styled.li`
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 1fr 3fr 1fr ${props => props.children ? "1fr" : ""};
   h1, h2, h3 {
     text-align: left;
   }
@@ -25,7 +25,7 @@ const IngredientStyles = styled.li`
   }
 `;
 
-const Ingredient = ({ ingredient }) => {
+const Ingredient = ({ ingredient, children }) => {
   return (
     <IngredientStyles>
       {ingredient.item ? (
@@ -48,6 +48,7 @@ const Ingredient = ({ ingredient }) => {
           <h3>This item has been deleted.</h3>
         </div>
       )}
+      {children ? children : null}
     </IngredientStyles>
   );
 };

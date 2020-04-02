@@ -2,6 +2,7 @@ import React from "react";
 import Search from "./Search";
 import Form from "./styles/Form";
 import Button from "./styles/Button";
+import Ingredient from "./Ingredient";
 
 const IngredientPicker = props => {
   const {
@@ -21,18 +22,17 @@ const IngredientPicker = props => {
       {/* A list of the existing ingredients */}
       <ul>
         {ingredients.length ? (
-          ingredients.map(({ item, quantity }) => (
-            <li key={item && item.id}>
-              {item.title}: {quantity}{" "}
+          ingredients.map(ingredient => (
+            <Ingredient ingredient={ingredient} key={ingredient.item.id}>
               <Button
                 onClick={e => {
                   e.preventDefault();
-                  deleteIngredient(item.id);
+                  deleteIngredient(ingredient.item.id);
                 }}
               >
                 Remove ingredient
               </Button>
-            </li>
+            </Ingredient>
           ))
         ) : (
           <li>No ingredients added yet :)</li>
@@ -61,7 +61,9 @@ const IngredientPicker = props => {
             required
           />
         </label>
-        <Button secondary type="submit">Submit New Ingredient</Button>
+        <Button secondary type="submit">
+          Submit New Ingredient
+        </Button>
       </Form>
     </div>
   );
