@@ -9,6 +9,8 @@ import IngredientPicker from "./IngredientPicker";
 import Card from "./styles/Card";
 import Button from "./styles/Button";
 
+// TODO: Improve layout
+
 const CREATE_RECIPE_MUTATION = gql`
   mutation CREATE_RECIPE_MUTATION(
     $title: String!
@@ -215,7 +217,7 @@ class CreateRecipe extends Component {
                       </label>
                       {this.state.image && (
                         <div>
-                          <img src={this.state.image} />
+                          <img src={this.state.image} width="200px" />
                         </div>
                       )}
                       <Button primary type="submit">
