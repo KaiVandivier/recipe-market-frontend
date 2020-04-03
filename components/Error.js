@@ -1,4 +1,13 @@
 import React from "react";
+import styled from "styled-components";
+
+const ErrorStyles = styled.div`
+  padding: 0 1rem;
+  margin: 1rem 0;
+  border: 1px solid ${props => props.theme.lightgrey};
+  border-left: 1rem solid ${props => props.theme.danger};
+  background: white;
+`;
 
 const Error = ({ error }) => {
   if (!error || !error.message) return null;
@@ -7,23 +16,23 @@ const Error = ({ error }) => {
     return (
       <div>
         {error.networkError.result.errors.map((error, i) => (
-          <div key={i}>
+          <ErrorStyles key={i}>
             <p>
               <em>Oops! Something went wrong.</em>
             </p>
             <p>{JSON.stringify(error.message).replace("GraphQL error: ", "")}</p>
-          </div>
+          </ErrorStyles>
         ))}
       </div>
     )
   }
   return (
-    <div>
+    <ErrorStyles>
       <p>
         <em>Oops! Something went wrong.</em>
       </p>
       <p>{JSON.stringify(error.message).replace("GraphQL error: ", "")}</p>
-    </div>
+    </ErrorStyles>
   );
 };
 
