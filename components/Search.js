@@ -6,7 +6,7 @@ import { gql } from "apollo-boost";
 import debounce from "lodash.debounce";
 import Router from "next/router";
 import SearchResult from "./SearchResult";
-import DropdownStyles from "./styles/DropdownStyles";
+import { SearchStyles, DropdownStyles } from "./styles/SearchStyles";
 
 const SEARCH_ITEMS_QUERY = gql`
   query SEARCH_ITEMS_QUERY($searchTerm: String!) {
@@ -78,7 +78,7 @@ class Search extends Component {
                 selectedItem,
                 getRootProps
               }) => (
-                <div>
+                <SearchStyles>
                   <label {...getLabelProps()}>Search for an item: </label>
                   <div
                     style={{ display: "inline-block" }}
@@ -117,7 +117,7 @@ class Search extends Component {
                       <li {...getItemProps({ item: null, style: { backgroundColor: "white" }})}>No items found for search term "{inputValue}"</li>
                     )}
                   </DropdownStyles>
-                </div>
+                </SearchStyles>
               )}
             </Downshift>
           );

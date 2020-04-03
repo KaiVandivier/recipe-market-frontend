@@ -11,4 +11,11 @@ const DropdownStyles = styled.ul`
   margin: 0;
 `;
 
-export default DropdownStyles;
+const SearchStyles = styled.div`
+  margin-bottom: 1rem;
+  & > label {
+    display: inline;
+  }
+`;
+
+export { SearchStyles, DropdownStyles };
