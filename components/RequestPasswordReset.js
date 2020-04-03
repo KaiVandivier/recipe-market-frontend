@@ -5,6 +5,7 @@ import Link from "next/link";
 import Form from "./styles/Form";
 import Error from "./Error";
 import Button from "./styles/Button";
+import Success from "./Success";
 
 const REQUEST_PASSWORD_RESET_MUTATION = gql`
   mutation REQUEST_PASSWORD_RESET_MUTATION($email: String!) {
@@ -46,7 +47,6 @@ class RequestPasswordReset extends Component {
             >
               <h1>Request a Password Reset</h1>
               <Error error={error} />
-              {!error && !loading && called && <h3>Succcess! Check your email for a link to reset your password.</h3>}
               <fieldset aria-disabled={loading}>
                 <label htmlFor="email">
                   Email:
@@ -61,12 +61,21 @@ class RequestPasswordReset extends Component {
                   />
                 </label>
                 <p>
-                  Don't have an account yet? {" "}
+                  Don't have an account yet?{" "}
                   <Link href="/signup">
                     <a>Click here to sign up</a>
                   </Link>
                 </p>
-                <Button primary type="submit">Request{loading ? "ing" : ""} Reset</Button>
+                {!error && !loading && called && (
+                  <Success
+                    message={
+                      "Check your email for a link to reset your password."
+                    }
+                  />
+                )}
+                <Button primary type="submit">
+                  Request{loading ? "ing" : ""} Reset
+                </Button>
               </fieldset>
             </Form>
           );

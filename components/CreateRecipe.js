@@ -8,6 +8,7 @@ import PleaseSignIn from "./PleaseSignIn";
 import IngredientPicker from "./IngredientPicker";
 import Card from "./styles/Card";
 import Button from "./styles/Button";
+import Success from "./Success";
 
 // TODO: Improve layout
 
@@ -145,9 +146,6 @@ class CreateRecipe extends Component {
               <CreateRecipeStyles>
                 <div className="header">
                   <h1>Create a Recipe!</h1>
-                  {!error && !loading && called && (
-                    <h3>Recipe created successfully!</h3>
-                  )}
                 </div>
                 <Card className="ingredients">
                   <IngredientPicker
@@ -219,6 +217,9 @@ class CreateRecipe extends Component {
                         <div>
                           <img src={this.state.image} width="200px" />
                         </div>
+                      )}
+                      {!error && !loading && called && (
+                        <Success message={"Recipe created!"} />
                       )}
                       <Button primary type="submit">
                         Creat{loading ? "ing" : "e"} Recipe

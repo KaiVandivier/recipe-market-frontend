@@ -5,6 +5,7 @@ import Form from "./styles/Form";
 import Error from "./Error";
 import { CURRENT_USER_QUERY } from "./User";
 import Button from "./styles/Button";
+import Success from "./Success";
 
 const RESET_PASSWORD_MUTATION = gql`
   mutation RESET_PASSWORD_MUTATION($resetToken: String!, $password: String!) {
@@ -54,9 +55,6 @@ class ResetPassword extends Component {
             >
               <h1>Reset Password</h1>
               <Error error={error} />
-              {!error && !loading && called && (
-                <h3>Succcess! Your password has been changed.</h3>
-              )}
               <fieldset aria-disabled={loading}>
                 <label htmlFor="password">
                   Password:
@@ -81,6 +79,9 @@ class ResetPassword extends Component {
                     onChange={this.handleChange}
                   />
                 </label>
+                {!error && !loading && called && (
+                  <Success message={"Your password has been changed."} />
+                )}
                 <Button primary type="submit">
                   Reset{loading ? "ting" : ""} Password
                 </Button>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import Form from "./styles/Form";
 import Error from "./Error";
 import Button from "./styles/Button";
+import Success from "./Success";
 
 const CREATE_USER_MUTATION = gql`
   mutation CREATE_USER_MUTATION(
@@ -23,14 +24,14 @@ class Signup extends Component {
     name: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    confirmPassword: ""
   };
 
   handleChange = e => {
     const { name, value, type } = e.target;
     this.setState({
-      [name]: (type === "number") ? Number(value) : value
-    })
+      [name]: type === "number" ? Number(value) : value
+    });
   };
 
   render() {
@@ -39,22 +40,22 @@ class Signup extends Component {
         {(createUser, { loading, error, called }) => {
           if (error) return <Error error={error} />;
           return (
-            <Form method="post" onSubmit={(e) => {
-              e.preventDefault();
-              // TODO: Include this in form validation
-              if (this.state.password !== this.state.confirmPassword) return;
-              createUser();
-              this.setState({
-                email: "",
-                name: "",
-                password: "",
-                confirmPassword: "",
-              });
-            }}>
+            <Form
+              method="post"
+              onSubmit={e => {
+                e.preventDefault();
+                // TODO: Include this in form validation
+                if (this.state.password !== this.state.confirmPassword) return;
+                createUser();
+                this.setState({
+                  email: "",
+                  name: "",
+                  password: "",
+                  confirmPassword: ""
+                });
+              }}
+            >
               <h1>Make an Account</h1>
-              {!error && !loading && called && (
-                <h3>Account created successfully!</h3>
-              )}
               <fieldset aria-disabled={loading}>
                 <label htmlFor="name">
                   User name:
@@ -104,12 +105,17 @@ class Signup extends Component {
                   />
                 </label>
                 <p>
-                  Already have an account? {" "}
+                  Already have an account?{" "}
                   <Link href="/signin">
                     <a>Click here to sign in</a>
                   </Link>
                 </p>
-                <Button primary type="submit">Mak{loading ? "ing" : "e"} Account</Button>
+                {!error && !loading && called && (
+                  <Success message={"Account created!"} />
+                )}
+                <Button primary type="submit">
+                  Mak{loading ? "ing" : "e"} Account
+                </Button>
               </fieldset>
             </Form>
           );

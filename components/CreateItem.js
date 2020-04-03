@@ -6,6 +6,7 @@ import Error from "./Error";
 import PleaseSignIn from "./PleaseSignIn";
 import Card from "./styles/Card";
 import Button from "./styles/Button";
+import Success from "./Success";
 
 const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM_MUTATION(
@@ -88,9 +89,6 @@ class CreateItem extends Component {
                   }}
                 >
                   <h1>Create an Item for Sale</h1>
-                  {!error && !loading && called && (
-                    <h3>Item created successfully!</h3>
-                  )}
                   <fieldset aria-disabled={loading}>
                     <label htmlFor="title">
                       Title:
@@ -144,6 +142,9 @@ class CreateItem extends Component {
                       <div>
                         <img src={this.state.image} />
                       </div>
+                    )}
+                    {!error && !loading && called && (
+                      <Success message={"Item created."} />
                     )}
                     <Button primary type="submit">
                       Creat{loading ? "ing" : "e"} Item

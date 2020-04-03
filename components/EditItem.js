@@ -3,6 +3,7 @@ import { Query, Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import Form from "./styles/Form";
 import Button from "./styles/Button";
+import Success from "./Success";
 
 // TODO: image and large image editing?
 
@@ -66,9 +67,6 @@ class EditItem extends Component {
                     editItem();
                   }}>
                     <h1>Edit Item</h1>
-                    {!error && !loading && called && (
-                      <h3>Item edited successfully!</h3>
-                    )}
                     <fieldset aria-disabled={loading}>
                       <label htmlFor="title">
                         Title:
@@ -107,7 +105,10 @@ class EditItem extends Component {
                         />
                       </label>
                       {data.item.image && <div><img src={data.item.image} /></div>}
-                      <Button primary type="submit">Edit{loading ? "ing" : ""} Item</Button>
+                      {!error && !loading && called && (
+                        <Success message={"Changes submitted."} />
+                      )}
+                      <Button primary type="submit">Submit{loading ? "ting" : ""} Changes</Button>
                     </fieldset>
                   </Form>
                 );

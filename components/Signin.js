@@ -6,6 +6,7 @@ import Form from "./styles/Form";
 import Error from "./Error";
 import { CURRENT_USER_QUERY } from "./User";
 import Button from "./styles/Button";
+import Success from "./Success";
 
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -50,7 +51,6 @@ class Signin extends Component {
             >
               <h1>Sign in to Your Account</h1>
               <Error error={error} />
-              {!error && !loading && called && <h3>Signed in successfully!</h3>}
               <fieldset aria-disabled={loading}>
                 <label htmlFor="email">
                   Email:
@@ -87,6 +87,7 @@ class Signin extends Component {
                     <a>Click here to reset it</a>
                   </Link>
                 </p>
+                {!error && !loading && called && <Success message={"You are now signed in!"} />}
                 <Button primary type="submit">Sign{loading ? "ing" : ""} In</Button>
               </fieldset>
             </Form>

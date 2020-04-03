@@ -9,6 +9,7 @@ import IngredientPicker from "./IngredientPicker";
 import Card from "./styles/Card";
 import { SINGLE_RECIPE_QUERY } from "./SingleRecipe";
 import Button from "./styles/Button";
+import Success from "./Success";
 
 const EDIT_RECIPE_MUTATION = gql`
   mutation EDIT_RECIPE_MUTATION(
@@ -162,9 +163,6 @@ class EditRecipe extends Component {
               <EditRecipeStyles>
                 <div className="header">
                   <h1>Edit Recipe</h1>
-                  {!error && !loading && called && (
-                    <h3>Recipe edited successfully!</h3>
-                  )}
                 </div>
                 <Card>
                   <IngredientPicker
@@ -236,8 +234,11 @@ class EditRecipe extends Component {
                           <img src={this.state.image} width="200px" />
                         </div>
                       )}
+                      {!error && !loading && called && (
+                        <Success message={"Recipe edited successfully!"} />
+                      )}
                       <Button primary type="submit">
-                        Edit{loading ? "ing" : null} Recipe
+                        Submit{loading ? "ting" : null} Changes
                       </Button>
                     </fieldset>
                   </Form>

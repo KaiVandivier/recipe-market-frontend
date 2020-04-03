@@ -3,12 +3,10 @@ import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import { CURRENT_USER_QUERY } from "./User";
 import Button from "./styles/Button";
+import Success from "./Success";
 
 const ADD_RECIPE_TO_CART_MUTATION = gql`
-  mutation ADD_RECIPE_TO_CART_MUTATION(
-    $id: ID!
-    $quantity: Int = 1
-  ) {
+  mutation ADD_RECIPE_TO_CART_MUTATION($id: ID!, $quantity: Int = 1) {
     addRecipeToCart(id: $id, quantity: $quantity) {
       id
     }
@@ -25,10 +23,12 @@ const AddRecipeToCart = ({ id }) => {
       refetchQueries={[{ query: CURRENT_USER_QUERY }]}
     >
       {(addRecipeToCart, { loading, error, called }) => {
-        if (loading) return <p>Loading...</p>
+        if (loading) return <p>Loading...</p>;
         return (
           <>
-            {!error && !loading && called && <p>Ingredients added to cart!</p>}
+            {!error && !loading && called && (
+              <Success message={"Ingredients added to cart."} />
+            )}
             <Button primary onClick={addRecipeToCart}>
               Add Recipe Ingredients to Cart
             </Button>
