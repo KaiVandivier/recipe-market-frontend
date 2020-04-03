@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const Form = styled.form`
-  font-weight: 600;
   label {
+    font-weight: 600;
     display: block;
     margin-bottom: 1rem;
   }
