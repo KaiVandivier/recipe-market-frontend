@@ -149,7 +149,7 @@ class CreateRecipe extends Component {
                     <h3>Recipe created successfully!</h3>
                   )}
                 </div>
-                <Card>
+                <Card className="ingredients">
                   <IngredientPicker
                     handleChange={this.handleChange}
                     setNewIngredientState={this.setNewIngredientState}
@@ -160,7 +160,7 @@ class CreateRecipe extends Component {
                     quantity={this.state.quantity}
                   />
                 </Card>
-                <Card>
+                <Card className="details">
                   <Form
                     onSubmit={e => {
                       e.preventDefault();
