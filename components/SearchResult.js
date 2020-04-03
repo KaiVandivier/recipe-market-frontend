@@ -24,12 +24,15 @@ const SearchResultStyles = styled.li`
     object-position: center;
     object-fit: scale-down;
     margin-right: 1rem;
+    ${props => props.noItem ? "display: none;" : ""}
   }
   .info {
     padding: 0.25rem;
+    ${props => props.noItem ? "grid-column: 1 / span 3;" : ""}
   }
   .price {
     padding: 0.25rem;
+    ${props => props.noItem ? "display: none;" : ""}
   }
   .error {
     grid-column: 1 / span 3;

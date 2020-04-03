@@ -114,7 +114,8 @@ class Search extends Component {
                       ))
                     ) : null}
                     {isOpen && inputValue && !this.state.items.length && !this.state.loading && (
-                      <li {...getItemProps({ item: null, style: { backgroundColor: "white" }})}>No items found for search term "{inputValue}"</li>
+                      // <li {...getItemProps({ item: null, style: { backgroundColor: "white" }})}>No items found for search term "{inputValue}"</li>
+                      <SearchResult {...getItemProps({ item: null})} noItem title={`No items found for search term "${inputValue}"`}/>
                     )}
                   </DropdownStyles>
                 </SearchStyles>
