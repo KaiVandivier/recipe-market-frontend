@@ -101,7 +101,7 @@ class RecipeSearch extends Component {
                         />  
                       ))
                     ) : null}
-                    {isOpen && inputValue && !this.state.items.length && !this.state.loading && (
+                    {isOpen && inputValue && !this.state.recipes.length && !this.state.loading && (
                       <SearchResult {...getItemProps({ item: null})} noItem title={`No recipes found for search term "${inputValue}"`}/>
                     )}
                   </DropdownStyles>
