@@ -98,7 +98,6 @@ class Search extends Component {
                         })} 
                           image={item.image}
                           price={item.price}
-                          description={item.description}
                           title={item.title}
                           highlighted={highlightedIndex === index}
                         />  

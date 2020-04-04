@@ -39,8 +39,6 @@ const SearchResultStyles = styled.li`
   }
 `;
 
-// TODO: Handle "highlighted" prop
-
 const SearchResult = ({ image, title, description, price, ...rest }) => {
   return (
     <SearchResultStyles {...rest} >
@@ -49,7 +47,7 @@ const SearchResult = ({ image, title, description, price, ...rest }) => {
         <h3>{title}</h3>
       </div>
       <div className="price">
-        <h3>{formatMoney(price)}</h3>
+        <h3>{price ? formatMoney(price) : null}</h3>
       </div>
     </SearchResultStyles>
   );
