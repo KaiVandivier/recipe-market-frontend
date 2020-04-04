@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import Downshift, { resetIdCounter } from "downshift";
 import { ApolloConsumer } from "@apollo/react-common";
 import { gql } from "apollo-boost";
 import debounce from "lodash.debounce";
-import Router from "next/router";
 import SearchResult from "./SearchResult";
 import { SearchStyles, DropdownStyles } from "./styles/SearchStyles";
 
@@ -27,13 +25,6 @@ const SEARCH_ITEMS_QUERY = gql`
   }
 `;
 
-function routeToItem(selectedItem) {
-  Router.push({
-    pathname: "/item",
-    query: { id: selectedItem.id }
-  });
-}
-
 class Search extends Component {
   state = {
     loading: false,
@@ -47,7 +38,7 @@ class Search extends Component {
     });
     // Query items based on search terms
     const res = await client.query({
-      query: SEARCH_ITEMS_QUERY,
+      query: SEARCH_ITEMS_QUERY, // This seems like where I can make this modular!
       variables: { searchTerm: e.target.value }
     });
     // Set state to clear loading and add items
@@ -114,7 +105,6 @@ class Search extends Component {
                       ))
                     ) : null}
                     {isOpen && inputValue && !this.state.items.length && !this.state.loading && (
-                      // <li {...getItemProps({ item: null, style: { backgroundColor: "white" }})}>No items found for search term "{inputValue}"</li>
                       <SearchResult {...getItemProps({ item: null})} noItem title={`No items found for search term "${inputValue}"`}/>
                     )}
                   </DropdownStyles>
