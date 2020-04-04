@@ -4,6 +4,7 @@ import NProgress from "nprogress";
 import Router from "next/router";
 import Nav from "./Nav";
 import Search from "./Search";
+import RecipeSearch from "./RecipeSearch";
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -37,13 +38,19 @@ function routeToItem(selectedItem) {
     query: { id: selectedItem.id }
   });
 }
+function routeToRecipe(selectedItem) {
+  Router.push({
+    pathname: "/recipe",
+    query: { id: selectedItem.id }
+  });
+}
 
 const Header = (props) => {
   return (
     <StyledHeader>
       <h1>Recipe Market!</h1>
       <Nav />
-      <Search onChange={routeToItem} />
+      <RecipeSearch onChange={routeToRecipe} />
     </StyledHeader>
   );
 };
