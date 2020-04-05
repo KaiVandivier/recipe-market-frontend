@@ -17,17 +17,15 @@ Router.onRouteChangeError = () => {
 }
 
 const StyledHeader = styled.header`
-  padding: 1.5rem 2rem;
   background-color: ${props => props.theme.black};
   width: 100%;
   border-bottom: .25rem solid ${props => props.theme.yellow};
-  h1, a {
-    color: ${props => props.theme.yellow};
-  }
   h1 {
     font-family: "Leckerli One", Arial, Helvetica, sans-serif;
+    color: ${props => props.theme.yellow};
+    margin: 0;
+    padding: 1rem 2rem;
     font-size: 4rem;
-    line-height: 1rem;
   }
 `;
 
@@ -50,7 +48,7 @@ const Header = (props) => {
     <StyledHeader>
       <h1>Recipe Market!</h1>
       <Nav />
-      <RecipeSearch onChange={routeToRecipe} />
+      {/* <RecipeSearch onChange={routeToRecipe} /> */}
     </StyledHeader>
   );
 };

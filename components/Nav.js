@@ -9,11 +9,20 @@ import CartCount from "./CartCount";
 
 const StyledNav = styled.nav`
   display: flex;
-  justify-content: start;
-  align-items: space-between;
+  flex-wrap: wrap;
+  line-height: 3rem;
+  justify-content: flex-start;
   a {
-    flex-basis: 100px;
+    color: ${props => props.theme.yellow};
+    font-weight: 700;
+    font-size: 1.25rem;
+    flex: 1 1 auto;
+    padding: 0 1rem;
     text-align: center;
+    &:hover {
+      background: ${props=> props.theme.yellow};
+      color: ${props => props.theme.black};
+    }
   }
 `;
 
@@ -48,13 +57,16 @@ const Nav = () => {
                     <Link href="/myOrders">
                       <a>My Orders</a>
                     </Link>
-                    <a onClick={toggleCart}>Cart </a>
-                    <CartCount
-                      count={data.currentUser.cart.reduce(
-                        (sum, { quantity }) => sum + quantity,
-                        0
-                      )}
-                    />
+                    <a onClick={toggleCart}>
+                      Cart
+                      <CartCount
+                        count={data.currentUser.cart.reduce(
+                          (sum, { quantity }) => sum + quantity,
+                          0
+                        )}
+                      />
+                    </a>
+
                     <Signout />
                   </>
                 ) : (
