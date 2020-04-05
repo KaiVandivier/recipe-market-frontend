@@ -22,6 +22,9 @@ const OrderLineStyles = styled.li`
   .error {
     grid-column: 1 / span 3;
   }
+  .link {
+    cursor: pointer;
+  }
 `;
 
 const OrderLine = ({ order }) => {
@@ -32,7 +35,7 @@ const OrderLine = ({ order }) => {
       <img src={items[0].image} width="100px" />
       <div className="info">
         <Link href={{ pathname: "/order", query: { id } }}>
-          <a>
+          <div className="link">
             <h3>
               {items[0].title}{" "}
               {items.length > 1
@@ -45,7 +48,7 @@ const OrderLine = ({ order }) => {
               {/* TODO: Format date */}
               <em>Order placed at {createdAt}</em>
             </p>
-          </a>
+          </div>
         </Link>
       </div>
       <div className="total">

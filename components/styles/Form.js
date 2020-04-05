@@ -20,10 +20,6 @@ const Form = styled.form`
     border: none;
     padding: 0;
   }
-  a {
-    color: ${props => props.theme.yellow};
-    font-style: italic;
-  }
 `;
 
 export default Form;

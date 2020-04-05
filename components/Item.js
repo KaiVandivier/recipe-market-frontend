@@ -13,6 +13,9 @@ const StyledItem = styled.div`
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   background-color: white;
+  .link {
+    cursor: pointer;
+  }
 `;
 
 const Item = props => {
@@ -20,7 +23,7 @@ const Item = props => {
   return (
     <StyledItem>
       <Link href={{ pathname: "item", query: { id } }}>
-        <a>
+        <div className="link">
           <img
             src={image ? image : "https://i.imgur.com/x7AQMpk.jpg"}
             alt={title}
@@ -29,7 +32,7 @@ const Item = props => {
           <h3>{title}</h3>
           <p>{description}</p>
           <p>{formatMoney(price)}</p>
-        </a>
+        </div>
       </Link>
       {/* TODO: Make quantity adjustable */}
       <AddToCart itemId={id} quantity={1} />

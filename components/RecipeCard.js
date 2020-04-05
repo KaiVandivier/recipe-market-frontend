@@ -10,6 +10,9 @@ const RecipeCardStyles = styled.div`
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   background-color: white;
+  .link {
+    cursor: pointer;
+  }
 `;
 
 const RecipeCard = ({ recipe }) => {
@@ -27,12 +30,12 @@ const RecipeCard = ({ recipe }) => {
         pathname: "recipe",
         query: { id }
       }}>
-        <a>
+        <div className="link">
           <h2>{title}</h2>
           {image ? <img src={image} alt={title} width="100px" /> : null}
           <p><em>{description}</em></p>
           {/* TODO: Calculated price? */}
-        </a>
+        </div>
       </Link>
       <AddRecipeToCart id={id} />
       <Link href={{ pathname: "editRecipe", query: { id }}}>

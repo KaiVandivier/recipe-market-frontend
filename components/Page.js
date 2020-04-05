@@ -10,6 +10,10 @@ const Inner = styled.main`
   padding: 1.5rem 2rem;
   margin: 0 auto;
   max-width: ${props => props.theme.maxWidth};
+  a {
+    color: ${props => props.theme.yellow};
+    font-style: italic;
+  }
 `;
 
 const Page = props => {
