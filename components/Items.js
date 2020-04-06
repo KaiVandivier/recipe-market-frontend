@@ -3,7 +3,7 @@ import { Query } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import styled from "styled-components";
 import { perPage } from "../config";
-import Item from "./Item";
+import ItemCard from "./ItemCard";
 import PaginationNav from "./PaginationNav";
 import Error from "./Error";
 
@@ -54,7 +54,7 @@ const Items = props => {
             <StyledItems>
               {items.map(item => {
                 return (
-                  <Item key={item.id} item={item} />
+                  <ItemCard key={item.id} item={item} />
                 );
               })}
             </StyledItems>
