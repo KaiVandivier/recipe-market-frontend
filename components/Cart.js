@@ -21,7 +21,16 @@ const CartStyles = styled.aside`
   right: ${props => (props.open ? "0" : "-500px")};
   background: ${props => props.theme.white};
   border-left: 3px solid ${props => props.theme.yellow};
-  transition: right 0.4s;
+  box-shadow: ${props => props. open ? `
+    -0.9px 0 2.2px rgba(0, 0, 0, 0.02),
+    -2.3px 0 5.3px rgba(0, 0, 0, 0.028),
+    -4.3px 0 10px rgba(0, 0, 0, 0.035),
+    -7.6px 0 17.9px rgba(0, 0, 0, 0.042),
+    -14.2px 0 33.4px rgba(0, 0, 0, 0.05),
+    -34px 0 80px rgba(0, 0, 0, 0.07)
+  ` : "none"}
+  ;
+  transition: right 0.4s, box-shadow 0.4s;
   ul {
     padding-left: 0;
   }
