@@ -25,6 +25,16 @@ const CartStyles = styled.aside`
   ul {
     padding-left: 0;
   }
+  .close-cart {
+    font-size: 1.5rem;
+    padding: 1rem;
+    line-height: 1rem;
+  }
+  .flex-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;
 
 const TOGGLE_CART_MUTATION = gql`
@@ -60,7 +70,10 @@ const Cart = () => {
         const totalItems = totalCartItems(currentUser.cart);
         return (
           <CartStyles open={cartOpen}>
-            <h1>{currentUser.name}'s cart</h1>
+            <header className="flex-header">
+              <h1>{currentUser.name}'s cart</h1>
+              <Button className="close-cart" secondary onClick={toggleCart}>&times;</Button>
+            </header>
             {totalItems ? (
               <>
                 <h2>{totalItems} items in cart</h2>
@@ -78,7 +91,6 @@ const Cart = () => {
             ) : (
               <p>No items in cart</p>
             )}
-            <Button onClick={toggleCart}>Close cart</Button>
             <Checkout />
           </CartStyles>
         );
