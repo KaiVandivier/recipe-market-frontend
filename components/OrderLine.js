@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Card from "./styles/Card";
 import Link from "next/link";
 import formatMoney from "../lib/formatMoney";
+import dateTimeFormat from "../lib/dateTimeFormat";
 
 const OrderLineStyles = styled.li`
   display: grid;
@@ -45,8 +45,7 @@ const OrderLine = ({ order }) => {
                 : ""}
             </h3>
             <p>
-              {/* TODO: Format date */}
-              <em>Order placed at {createdAt}</em>
+              <em>Order placed at {dateTimeFormat.format(new Date(createdAt))}</em>
             </p>
           </div>
         </Link>
