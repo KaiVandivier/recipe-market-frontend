@@ -14,13 +14,14 @@ import Button from "./styles/Button";
 const CartStyles = styled.aside`
   display: block;
   position: fixed;
+  overflow-y: auto;
   padding: 1rem;
   height: 100%;
   width: 500px;
   right: ${props => (props.open ? "0" : "-500px")};
   background: ${props => props.theme.white};
   border-left: 3px solid ${props => props.theme.yellow};
-  transition: right 0.5s;
+  transition: right 0.4s;
   ul {
     padding-left: 0;
   }
@@ -63,6 +64,7 @@ const Cart = () => {
             {totalItems ? (
               <>
                 <h2>{totalItems} items in cart</h2>
+                <p><em>Note: Fractional quantities will be rounded up upon checkout.</em></p>
                 <ul>
                   {currentUser.cart.map(cartItem => (
                     <CartItem cartItem={cartItem} key={cartItem.id} />
