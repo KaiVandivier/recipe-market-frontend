@@ -1,32 +1,24 @@
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Mutation } from "@apollo/react-components";
 import User from "./User";
 import Signout from "./Signout";
 import { TOGGLE_CART_MUTATION } from "./Cart";
 import CartCount from "./CartCount";
+import NavA from "./styles/NavA";
 
 const StyledNav = styled.nav`
   display: flex;
   flex-wrap: wrap;
   line-height: 3rem;
   justify-content: flex-start;
-  a {
-    color: ${props => props.theme.yellow};
-    font-weight: 700;
-    font-size: 1.25rem;
-    flex: 1 1 auto;
-    padding: 0 1rem;
-    text-align: center;
-    &:hover {
-      background: ${props=> props.theme.yellow};
-      color: ${props => props.theme.black};
-    }
-  }
 `;
 
 const Nav = () => {
+  const { pathname } = useRouter();
+
   return (
     <Mutation mutation={TOGGLE_CART_MUTATION}>
       {toggleCart => (
@@ -37,27 +29,29 @@ const Nav = () => {
             return (
               <StyledNav>
                 <Link href="/">
-                  <a>Home</a>
+                  <NavA here={pathname === "/"}>Home</NavA>
                 </Link>
                 <Link href="/recipes">
-                  <a>Recipes</a>
+                  <NavA here={pathname === "/recipes"}>Recipes</NavA>
                 </Link>
                 <Link href="/items">
-                  <a>Items</a>
+                  <NavA here={pathname === "/items"}>Items</NavA>
                 </Link>
                 {data.currentUser ? (
                   <>
                     <Link href="/createRecipe">
-                      <a>Create Recipe</a>
+                      <NavA here={pathname === "/createRecipe"}>
+                        Create Recipe
+                      </NavA>
                     </Link>
                     <Link href="/createItem">
-                      <a>Create Item</a>
+                      <NavA here={pathname === "/createItem"}>Create Item</NavA>
                     </Link>
                     {/* TODO: Also make a `cart` page */}
                     <Link href="/myOrders">
-                      <a>My Orders</a>
+                      <NavA here={pathname === "/myOrders"}>My Orders</NavA>
                     </Link>
-                    <a onClick={toggleCart}>
+                    <NavA onClick={toggleCart}>
                       Cart
                       <CartCount
                         count={data.currentUser.cart.reduce(
@@ -65,17 +59,17 @@ const Nav = () => {
                           0
                         )}
                       />
-                    </a>
+                    </NavA>
 
                     <Signout />
                   </>
                 ) : (
                   <>
                     <Link href="/signin">
-                      <a>Sign In</a>
+                      <NavA here={pathname === "/signin"}>Sign In</NavA>
                     </Link>
                     <Link href="/signup">
-                      <a>Sign Up</a>
+                      <NavA here={pathname === "/signup"}>Sign Up</NavA>
                     </Link>
                   </>
                 )}
