@@ -4,6 +4,7 @@ import { gql } from "apollo-boost";
 import { perPage } from "../config";
 import Link from "next/link";
 import styled from "styled-components";
+import PaginationStyles from "./styles/PaginationStyles";
 
 const PAGE_COUNT_QUERY = gql`
   query PAGE_COUNT_QUERY {
@@ -12,14 +13,6 @@ const PAGE_COUNT_QUERY = gql`
         count
       }
     }
-  }
-`;
-
-const PaginationStyles = styled.div`
-  margin: 1rem auto;
-  a[aria-disabled="true"] {
-    color: grey;
-    pointer-events: none;
   }
 `;
 
@@ -33,20 +26,13 @@ const PaginationNav = ({ page }) => {
         const pages = Math.ceil(count / perPage);
         return (
           <PaginationStyles>
-            <Link
-              href={{ pathname: "/items", query: { page: page - 1 } }}
-            >
+            <Link href={{ pathname: "/items", query: { page: page - 1 } }}>
               <a aria-disabled={page <= 1}>Previous Page</a>
             </Link>
-            <p>
-              Page {page} of {pages}. {count} total items.
-            </p>
-            <Link
-              href={{ pathname: "/items", query: { page: page + 1 } }}
-            >
-              <a aria-disabled={page >= pages}>
-                Next Page
-              </a>
+            <p>Page {page} of {pages}</p>
+            <p>{count} total items</p>
+            <Link href={{ pathname: "/items", query: { page: page + 1 } }}>
+              <a aria-disabled={page >= pages}>Next Page</a>
             </Link>
           </PaginationStyles>
         );

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import Error from "./Error";
 import { perPage } from "../config";
+import PaginationStyles from "./styles/PaginationStyles";
 
 const RECIPE_PAGE_QUERY = gql`
   query RECIPE_PAGE_QUERY {
@@ -13,17 +14,6 @@ const RECIPE_PAGE_QUERY = gql`
         count
       }
     }
-  }
-`;
-
-const PaginationStyles = styled.div`
-  margin: 1rem auto;
-  a {
-    display: block;
-  }
-  a[aria-disabled="true"] {
-    color: ${props => props.theme.lightgrey};
-    pointer-events: none;
   }
 `;
 
@@ -44,7 +34,8 @@ const RecipePagination = (props) => {
             }}>
               <a aria-disabled={page <= 1}>Previous Page</a>
             </Link>
-            <p>Page {page} of {totalPages}. {count} total recipes!</p>
+            <p>Page {page} of {totalPages}</p>
+            <p>{count} total recipes</p>
             <Link href={{
               pathname: "recipes",
               query: { page: page + 1 }
