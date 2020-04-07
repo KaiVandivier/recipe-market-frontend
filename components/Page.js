@@ -14,6 +14,10 @@ const Inner = styled.main`
     color: ${props => props.theme.yellow};
     font-style: italic;
   }
+  h1 {
+    font-size: 2rem;
+    margin-top: 0;
+  }
 `;
 
 const Page = props => {

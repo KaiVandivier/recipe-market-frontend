@@ -60,7 +60,6 @@ const Recipes = ({ page }) => {
         if (error) return <Error error={error} />
         return (
           <StyledSection>
-            <h1>Recipes!</h1>
             <RecipePagination page={page} />
             <StyledRecipes>
               {data.recipes.map(recipe => (
