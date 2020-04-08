@@ -34,9 +34,8 @@ const CREATE_RECIPE_MUTATION = gql`
   }
 `;
 
-const CreateRecipeStyles = styled.section`
+export const CreateRecipeStyles = styled.section`
   display: flex;
-  /* grid-template: auto / repeat(2, auto); */
   justify-content: space-between;
   flex-wrap: wrap;
   & > * {
