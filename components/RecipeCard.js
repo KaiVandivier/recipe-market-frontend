@@ -5,6 +5,7 @@ import AddRecipeToCart from "./AddRecipeToCart";
 import DeleteRecipe from "./DeleteRecipe";
 import Button from "./styles/Button";
 import Card from "./styles/Card";
+import truncateText from "../lib/truncateText";
 
 const RecipeCardStyles = styled.div`
   text-align: center;
@@ -29,7 +30,7 @@ const RecipeCard = ({ recipe }) => {
             <h2>{title}</h2>
             {image ? <img src={image} alt={title} width="100px" /> : null}
             <p>
-              <em>{description}</em>
+              <em>{truncateText(description, 80)}</em>
             </p>
             {/* TODO: Calculated price? */}
           </div>

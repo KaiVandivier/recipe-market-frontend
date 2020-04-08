@@ -6,6 +6,7 @@ import AddToCart from "./AddToCart";
 import formatMoney from "../lib/formatMoney";
 import Button from "./styles/Button";
 import Card from "./styles/Card";
+import truncateText from "../lib/truncateText";
 
 // TODO: Prop types?
 
@@ -29,7 +30,7 @@ const ItemCard = props => {
               width={"150px"}
             />
             <h3>{title}</h3>
-            <p>{description}</p>
+            <p>{truncateText(description, 80)}</p>
             <p>{formatMoney(price)}</p>
           </div>
         </Link>
