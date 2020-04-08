@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 const Button = styled.button`
-  padding: 0.5rem 1rem;
+  padding: ${props => props.small ? "0.4rem 0.8rem" : "0.5rem 1rem"};
   margin: 0.5rem;
-  font-size: 1rem;
+  font-size: ${props => props.small ? "0.75rem" : "1rem"};
   font-weight: 800;
   cursor: pointer;
   color: ${props => {
