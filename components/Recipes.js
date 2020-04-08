@@ -80,7 +80,7 @@ const Recipes = ({ page }) => {
             <StyledRecipes>
               {data.recipes.map(recipe => (
                 <RecipeCard editDeletePermissions={editDeletePermissions} 
-                  userOwnsItem={currentUser ? currentUser.id === recipe.id : false} recipe={recipe} key={recipe.id} />
+                  userOwnsRecipe={currentUser ? currentUser.id === recipe.id : false} recipe={recipe} key={recipe.id} />
               ))}
             </StyledRecipes>
             <RecipePagination page={page} />
