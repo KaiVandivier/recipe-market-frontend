@@ -1,8 +1,20 @@
 import React from "react";
+import styled from "styled-components";
 import Search from "./Search";
 import Form from "./styles/Form";
 import Button from "./styles/Button";
 import Ingredient from "./Ingredient";
+
+// Dividing this component into its own thing from create/edit recipe
+// feels awkward because it has to receive all the stateful logic from
+// the parent, but putting it all in the former would make it huge...
+// Maybe there's a better way to refactor all this
+
+const IngredientPickerStyles = styled.div`
+  ul {
+    padding-left: 0;
+  }
+`;
 
 const IngredientPicker = props => {
   const {
@@ -16,26 +28,29 @@ const IngredientPicker = props => {
   } = props;
 
   return (
-    <div>
+    <IngredientPickerStyles>
       <h2>Ingredients:</h2>
 
       {/* A list of the existing ingredients */}
       <ul>
         {ingredients.length ? (
           ingredients.map(ingredient => (
-            <Ingredient ingredient={ingredient} key={ingredient.item.id}>
+            <Ingredient small ingredient={ingredient} key={ingredient.item.id}>
+              {/* Remove ingredient */}
               <Button
+                small
+                secondary
                 onClick={e => {
                   e.preventDefault();
                   deleteIngredient(ingredient.item.id);
                 }}
               >
-                Remove ingredient
+                &times;
               </Button>
             </Ingredient>
           ))
         ) : (
-          <li>No ingredients added yet :)</li>
+          <p>No ingredients added yet :)</p>
         )}
       </ul>
 
@@ -43,7 +58,7 @@ const IngredientPicker = props => {
       <h3>Add a new ingredient:</h3>
       <Form
         onSubmit={e => {
-          e.preventDefault(); // don't try to submit the form
+          e.preventDefault();
           submitNewIngredient();
         }}
       >
@@ -62,10 +77,10 @@ const IngredientPicker = props => {
           />
         </label>
         <Button secondary type="submit">
-          Submit New Ingredient
+          Add Ingredient to List
         </Button>
       </Form>
-    </div>
+    </IngredientPickerStyles>
   );
 };
 
