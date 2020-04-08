@@ -1,11 +1,14 @@
 import React from "react";
 import { Query } from "@apollo/react-components";
+import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import styled from "styled-components";
 import { perPage } from "../config";
 import ItemCard from "./ItemCard";
 import ItemPagination from "./ItemPagination";
 import Error from "./Error";
+import { CURRENT_USER_QUERY } from "./User";
+import { hasPermissions } from "../lib/checkPermissions";
 
 const ITEMS_QUERY = gql`
   query ITEMS_QUERY(
@@ -23,6 +26,7 @@ const ITEMS_QUERY = gql`
       price
       image
       largeImage
+      user { id }
     }
   }
 `;
@@ -38,14 +42,25 @@ const StyledItems = styled.div`
 `;
 
 const Items = props => {
+  const user = useQuery(CURRENT_USER_QUERY);
+  if (user.loading) return <p>Loading...</p>;
+  if (user.error) return <Error error={user.error} />;
+  const { currentUser } = user.data;
+  const editDeletePermissions = currentUser
+    ? hasPermissions(currentUser, ["ADMIN", "ITEM_EDIT", "ITEM_DELETE"])
+    : null;
+
   return (
     <StyledSection>
       <ItemPagination page={Number(props.page)} />
 
-      <Query query={ITEMS_QUERY} variables={{
-        skip: (props.page - 1) * perPage,
-        first: perPage,
-      }}>
+      <Query
+        query={ITEMS_QUERY}
+        variables={{
+          skip: (props.page - 1) * perPage,
+          first: perPage
+        }}
+      >
         {({ data, loading, error }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <Error error={error} />;
@@ -54,7 +69,14 @@ const Items = props => {
             <StyledItems>
               {items.map(item => {
                 return (
-                  <ItemCard key={item.id} item={item} />
+                  <ItemCard
+                    key={item.id}
+                    item={item}
+                    editDeletePermissions={editDeletePermissions}
+                    userOwnsItem={
+                      currentUser ? currentUser.id === item.user.id : false
+                    }
+                  />
                 );
               })}
             </StyledItems>

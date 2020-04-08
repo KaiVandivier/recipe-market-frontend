@@ -17,8 +17,8 @@ const ItemStyles = styled.div`
   }
 `;
 
-const ItemCard = props => {
-  const { id, title, description, price, image } = props.item;
+const ItemCard = ({ item, editDeletePermissions, userOwnsItem }) => {
+  const { id, title, description, price, image } = item;
   return (
     <Card>
       <ItemStyles>
@@ -37,10 +37,14 @@ const ItemCard = props => {
         {/* TODO: Make quantity adjustable */}
         <AddToCart itemId={id} quantity={1} />
         {/* TODO: only enable edit and delete depending on permissions */}
-        <Link href={{ pathname: "editItem", query: { id } }}>
-          <Button>Edit Item</Button>
-        </Link>
-        <DeleteItem id={id} />
+        {(editDeletePermissions || userOwnsItem) ? (
+          <>
+            <Link href={{ pathname: "editItem", query: { id } }}>
+              <Button>Edit Item</Button>
+            </Link>
+            <DeleteItem id={id} />
+          </>
+        ): null}
       </ItemStyles>
     </Card>
   );
