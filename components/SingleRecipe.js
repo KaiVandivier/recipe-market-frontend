@@ -66,12 +66,12 @@ const SingleRecipe = ({ id }) => {
               </div>
 
               <h2>Ingredients:</h2>
+              <AddRecipeToCart id={id} />
               <ul>
                 {ingredients.map(ingredient => (
                   <Ingredient ingredient={ingredient} key={ingredient.id} />
                 ))}
               </ul>
-              <AddRecipeToCart id={id} />
 
               <h2>Instructions:</h2>
               <p>{instructions}</p>
