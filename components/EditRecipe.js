@@ -42,39 +42,22 @@ const EditRecipeStyles = styled.section`
   & > * {
     flex: 1 1 auto;
   }
-  .header {
-    text-align: center;
-    flex: 1 1 100%;
-  }
 `;
 
-const EditRecipeWithQuery = (props) => {
+const EditRecipeWithQuery = props => {
   return (
     <Query query={SINGLE_RECIPE_QUERY} variables={{ id: props.id }}>
       {({ data, loading, error }) => {
         if (loading) return null;
         if (error) return <Error error={error} />;
-        return (
-          <EditRecipe recipe={data.recipe} />
-        )
+        return <EditRecipe recipe={data.recipe} />;
       }}
     </Query>
-  )
-}
+  );
+};
 
 class EditRecipe extends Component {
-  // state = {
-  //   title: "",
-  //   description: "",
-  //   instructions: "",
-  //   image: "",
-  //   largeImage: "",
-  //   ingredients: [],
-  //   newIngredient: null,
-  //   quantity: ""
-  // };
-
-  state = { ...this.props.recipe, newIngredient: null, quantity: "" }
+  state = { ...this.props.recipe, newIngredient: null, quantity: "" };
 
   submitNewIngredient = () => {
     const { newIngredient, quantity } = this.state;
@@ -160,11 +143,8 @@ class EditRecipe extends Component {
           {(editRecipe, { loading, error, called }) => {
             if (error) return <Error error={error} />;
             return (
-              <EditRecipeStyles>
-                <div className="header">
-                  <h1>Edit Recipe</h1>
-                </div>
-                <Card>
+              <Card>
+                <EditRecipeStyles>
                   <IngredientPicker
                     handleChange={this.handleChange}
                     setNewIngredientState={this.setNewIngredientState}
@@ -174,8 +154,6 @@ class EditRecipe extends Component {
                     newIngredient={this.state.newIngredient}
                     quantity={this.state.quantity}
                   />
-                </Card>
-                <Card>
                   <Form
                     onSubmit={e => {
                       e.preventDefault();
@@ -246,8 +224,8 @@ class EditRecipe extends Component {
                       </Button>
                     </fieldset>
                   </Form>
-                </Card>
-              </EditRecipeStyles>
+                </EditRecipeStyles>
+              </Card>
             );
           }}
         </Mutation>
