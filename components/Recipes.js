@@ -1,11 +1,14 @@
-import React from 'react';
+import React from "react";
 import { Query } from "@apollo/react-components";
+import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import styled from "styled-components";
 import { perPage } from "../config";
 import Error from "./Error";
 import RecipeCard from "./RecipeCard";
 import RecipePagination from "./RecipePagination";
+import { CURRENT_USER_QUERY } from "./User";
+import { hasPermissions, ownsItem } from "../lib/checkPermissions";
 
 const ALL_RECIPES_QUERY = gql`
   query ALL_RECIPES_QUERY(
@@ -50,27 +53,40 @@ const StyledRecipes = styled.div`
 // TODO: Set a `recipesPerPage` value in config to differentiate from items
 
 const Recipes = ({ page }) => {
+  const user = useQuery(CURRENT_USER_QUERY);
+  if (user.loading) return <p>Loading...</p>;
+  if (user.error) return <Error error={user.error} />;
+  const { currentUser } = user.data
+  const editDeletePermissions = currentUser ? hasPermissions(currentUser, [
+    "ADMIN",
+    "ITEM_EDIT",
+    "ITEM_DELETE"
+  ]) : null;
+
   return (
-    <Query query={ALL_RECIPES_QUERY} variables={{
-      skip: (page - 1) * perPage,
-      first: perPage
-    }}>
+    <Query
+      query={ALL_RECIPES_QUERY}
+      variables={{
+        skip: (page - 1) * perPage,
+        first: perPage
+      }}
+    >
       {({ data, loading, error }) => {
-        if (loading) return <p>Loading...</p>
-        if (error) return <Error error={error} />
+        if (loading) return <p>Loading...</p>;
+        if (error) return <Error error={error} />;
         return (
           <StyledSection>
             <RecipePagination page={page} />
             <StyledRecipes>
               {data.recipes.map(recipe => (
-                <RecipeCard recipe={recipe} key={recipe.id} />
+                <RecipeCard editDeletePermissions={editDeletePermissions} 
+                  userOwnsItem={currentUser ? currentUser.id === recipe.id : false} recipe={recipe} key={recipe.id} />
               ))}
             </StyledRecipes>
             <RecipePagination page={page} />
           </StyledSection>
-        )
+        );
       }}
-      
     </Query>
   );
 };
