@@ -70,7 +70,7 @@ class Search extends Component {
                 getRootProps
               }) => (
                 <SearchStyles>
-                  <label {...getLabelProps()}>Search for an item: </label>
+                  <label {...getLabelProps()} className="search-label">Search for an item: </label>
                   <div
                     style={{ display: "inline-block" }}
                     {...getRootProps({}, { suppressRefError: true })}
