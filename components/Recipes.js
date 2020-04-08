@@ -25,7 +25,7 @@ const ALL_RECIPES_QUERY = gql`
       description
       instructions
       image
-      largeImage
+      user { id }
       ingredients {
         id
         quantity
@@ -80,7 +80,7 @@ const Recipes = ({ page }) => {
                 <RecipeCard
                   editDeletePermissions={editDeletePermissions}
                   userOwnsRecipe={
-                    currentUser ? currentUser.id === recipe.id : false
+                    currentUser ? currentUser.id === recipe.user.id : false
                   }
                   recipe={recipe}
                   key={recipe.id}
