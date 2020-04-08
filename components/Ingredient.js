@@ -27,9 +27,9 @@ const IngredientStyles = styled.li`
 `;
 
 const Ingredient = (props) => {
-  const { ingredient, children } = props;
+  const { ingredient, children, small } = props;
   return (
-    <IngredientStyles>
+    <IngredientStyles small={small}>
       {ingredient.item ? (
         <>
           <img src={ingredient.item.image} width="100px" />
