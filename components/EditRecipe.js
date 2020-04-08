@@ -179,6 +179,10 @@ class EditRecipe extends Component {
                   <Form
                     onSubmit={e => {
                       e.preventDefault();
+                      if (!this.state.ingredients.length) {
+                        alert("Please add some ingredients!");
+                        return;
+                      }
                       e.target.reset();
                       editRecipe();
                       // this.clearForm();

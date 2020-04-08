@@ -36,14 +36,11 @@ const CREATE_RECIPE_MUTATION = gql`
 
 const CreateRecipeStyles = styled.section`
   display: flex;
+  /* grid-template: auto / repeat(2, auto); */
   justify-content: space-between;
   flex-wrap: wrap;
   & > * {
     flex: 1 1 auto;
-  }
-  .header {
-    text-align: center;
-    flex: 1 1 100%;
   }
 `;
 
@@ -143,11 +140,8 @@ class CreateRecipe extends Component {
           {(createRecipe, { loading, error, called }) => {
             if (error) return <Error error={error} />;
             return (
-              <CreateRecipeStyles>
-                <div className="header">
-                  <h1>Create a Recipe!</h1>
-                </div>
-                <Card className="ingredients">
+              <Card>
+                <CreateRecipeStyles>
                   <IngredientPicker
                     handleChange={this.handleChange}
                     setNewIngredientState={this.setNewIngredientState}
@@ -157,11 +151,13 @@ class CreateRecipe extends Component {
                     newIngredient={this.state.newIngredient}
                     quantity={this.state.quantity}
                   />
-                </Card>
-                <Card className="details">
                   <Form
                     onSubmit={e => {
                       e.preventDefault();
+                      if (!this.state.ingredients.length) {
+                        alert("Please add some ingredients!");
+                        return;
+                      }
                       e.target.reset();
                       createRecipe();
                       // this.clearForm();
@@ -226,8 +222,8 @@ class CreateRecipe extends Component {
                       </Button>
                     </fieldset>
                   </Form>
-                </Card>
-              </CreateRecipeStyles>
+                </CreateRecipeStyles>
+              </Card>
             );
           }}
         </Mutation>
