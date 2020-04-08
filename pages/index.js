@@ -1,14 +1,12 @@
 import Head from 'next/head'
-import Link from "next/link";
-import User from "../components/User";
+import Recipes from "../components/Recipes";
 
-const Home = (props) => (
-  <div>
-    <h2>Home</h2>
-    <Link href="/items">
-      <a>Go to items</a>
-    </Link>
-  </div>
-)
+const Home = props => {
+  return (
+    <div>
+      <Recipes page={props.query.page || 1} />
+    </div>
+  );
+};
 
-export default Home
+export default Home;
