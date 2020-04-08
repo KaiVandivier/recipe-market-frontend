@@ -13,7 +13,7 @@ const DropdownStyles = styled.ul`
 
 const SearchStyles = styled.div`
   margin-bottom: 1rem;
-  & > label {
+  label.search-label {
     display: inline;
   }
 `;
