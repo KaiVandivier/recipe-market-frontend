@@ -16,7 +16,7 @@ const PAGE_COUNT_QUERY = gql`
   }
 `;
 
-const PaginationNav = ({ page }) => {
+const ItemPagination = ({ page }) => {
   return (
     <Query query={PAGE_COUNT_QUERY}>
       {({ data, error, loading }) => {
@@ -41,4 +41,4 @@ const PaginationNav = ({ page }) => {
   );
 };
 
-export default PaginationNav;
+export default ItemPagination;

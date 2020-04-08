@@ -4,7 +4,7 @@ import { gql } from "apollo-boost";
 import styled from "styled-components";
 import { perPage } from "../config";
 import ItemCard from "./ItemCard";
-import PaginationNav from "./PaginationNav";
+import ItemPagination from "./ItemPagination";
 import Error from "./Error";
 
 const ITEMS_QUERY = gql`
@@ -40,7 +40,7 @@ const StyledItems = styled.div`
 const Items = props => {
   return (
     <StyledSection>
-      <PaginationNav page={Number(props.page)} />
+      <ItemPagination page={Number(props.page)} />
 
       <Query query={ITEMS_QUERY} variables={{
         skip: (props.page - 1) * perPage,
@@ -62,7 +62,7 @@ const Items = props => {
         }}
       </Query>
 
-      <PaginationNav page={Number(props.page)} />
+      <ItemPagination page={Number(props.page)} />
     </StyledSection>
   );
 };
