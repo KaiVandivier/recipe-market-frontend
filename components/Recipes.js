@@ -8,7 +8,7 @@ import Error from "./Error";
 import RecipeCard from "./RecipeCard";
 import RecipePagination from "./RecipePagination";
 import { CURRENT_USER_QUERY } from "./User";
-import { hasPermissions, ownsItem } from "../lib/checkPermissions";
+import { hasPermissions } from "../lib/checkPermissions";
 
 const ALL_RECIPES_QUERY = gql`
   query ALL_RECIPES_QUERY(
@@ -56,12 +56,10 @@ const Recipes = ({ page }) => {
   const user = useQuery(CURRENT_USER_QUERY);
   if (user.loading) return <p>Loading...</p>;
   if (user.error) return <Error error={user.error} />;
-  const { currentUser } = user.data
-  const editDeletePermissions = currentUser ? hasPermissions(currentUser, [
-    "ADMIN",
-    "ITEM_EDIT",
-    "ITEM_DELETE"
-  ]) : null;
+  const { currentUser } = user.data;
+  const editDeletePermissions = currentUser
+    ? hasPermissions(currentUser, ["ADMIN", "ITEM_EDIT", "ITEM_DELETE"])
+    : null;
 
   return (
     <Query
@@ -79,8 +77,14 @@ const Recipes = ({ page }) => {
             <RecipePagination page={page} />
             <StyledRecipes>
               {data.recipes.map(recipe => (
-                <RecipeCard editDeletePermissions={editDeletePermissions} 
-                  userOwnsRecipe={currentUser ? currentUser.id === recipe.id : false} recipe={recipe} key={recipe.id} />
+                <RecipeCard
+                  editDeletePermissions={editDeletePermissions}
+                  userOwnsRecipe={
+                    currentUser ? currentUser.id === recipe.id : false
+                  }
+                  recipe={recipe}
+                  key={recipe.id}
+                />
               ))}
             </StyledRecipes>
             <RecipePagination page={page} />
