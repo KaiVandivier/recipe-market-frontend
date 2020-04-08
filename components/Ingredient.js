@@ -4,28 +4,30 @@ import formatMoney from "../lib/formatMoney";
 
 const IngredientStyles = styled.li`
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr ${props => props.children ? "1fr" : ""};
-  h1, h2, h3 {
-    text-align: left;
-  }
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-auto-flow: column;
+  align-items: center;
+  font-size: ${props => props.small ? "0.75rem" : "1rem"};
+  ${props => props.small ? "max-width: 400px;" : ""};  
   img {
-    height: 100px;
-    width: 100px;
+    height: ${props => props.small ? "60px" : "100px"};
+    width: ${props => props.small ? "60px" : "100px"};
     object-position: center;
     object-fit: scale-down;
   }
-  .info {
+  .info, .subtotal {
     padding: 0.5rem;
   }
-  .subtotal {
-    padding: 0.5rem;
+  .child {
+    place-self: center;
   }
   .error {
     grid-column: 1 / span 3;
   }
 `;
 
-const Ingredient = ({ ingredient, children }) => {
+const Ingredient = (props) => {
+  const { ingredient, children } = props;
   return (
     <IngredientStyles>
       {ingredient.item ? (
@@ -40,7 +42,7 @@ const Ingredient = ({ ingredient, children }) => {
             </p>
           </div>
           <div className="subtotal">
-            <h3>{formatMoney(ingredient.quantity * ingredient.item.price)}</h3>
+            <p>{formatMoney(ingredient.quantity * ingredient.item.price)}</p>
           </div>
         </>
       ) : (
@@ -48,7 +50,11 @@ const Ingredient = ({ ingredient, children }) => {
           <h3>This item has been deleted.</h3>
         </div>
       )}
-      {children ? children : null}
+      {children ? (
+        <div className="child">
+          {children}
+        </div>
+      ) : null}
     </IngredientStyles>
   );
 };
