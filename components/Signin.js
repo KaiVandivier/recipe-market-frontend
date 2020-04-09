@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import Link from "next/link";
-import Head from "next/Head";
+import Head from "next/head";
 import Error from "./Error";
 import Success from "./Success";
 import Button from "./styles/Button";
