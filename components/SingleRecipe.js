@@ -3,11 +3,13 @@ import { Query } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import styled from "styled-components";
 import Link from "next/link";
-import Card from "./styles/Card";
-import Button from "./styles/Button";
+import Head from "next/head";
 import Ingredient from "./Ingredient";
 import AddRecipeToCart from "./AddRecipeToCart";
 import DeleteRecipe from "./DeleteRecipe";
+import Error from "./Error";
+import Card from "./styles/Card";
+import Button from "./styles/Button";
 
 const SINGLE_RECIPE_QUERY = gql`
   query SINGLE_RECIPE_QUERY($id: ID!) {
@@ -62,6 +64,9 @@ const SingleRecipe = ({ id }) => {
         } = data.recipe;
         return (
           <Card>
+            <Head>
+              <title>Recipe Market! | {title}</title>
+            </Head>
             <SingleRecipeStyles>
               <div className="header">
                 <h1>{title}</h1>

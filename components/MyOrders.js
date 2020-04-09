@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import Head from "next/head";
 import PleaseSignIn from "./PleaseSignIn";
 import Card from "./styles/Card";
 import Error from "./Error";
@@ -32,6 +33,9 @@ const MyOrders = () => {
 
   return (
     <PleaseSignIn>
+      <Head>
+        <title>Recipe Market! | My Orders</title>
+      </Head>
       <Card>
         <h1>Your orders</h1>
         {myOrders ? (

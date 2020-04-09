@@ -3,6 +3,7 @@ import { Query } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import styled from "styled-components";
 import Link from "next/link";
+import Head from "next/head";
 import Error from "./Error";
 import { perPage } from "../config";
 import PaginationStyles from "./styles/PaginationStyles";
@@ -28,6 +29,9 @@ const RecipePagination = (props) => {
         const totalPages = Math.ceil(count / perPage);
         return (
           <PaginationStyles>
+            <Head>
+              <title>Recipe Market! | Recipes page {page} of {totalPages}</title>
+            </Head>
             <Link href={{
               pathname: "recipes",
               query: { page: page - 1 }

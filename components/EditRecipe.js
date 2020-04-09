@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation, Query } from "@apollo/react-components";
 import { gql } from "apollo-boost";
+import Head from "next/head";
 import styled from "styled-components";
 import Form from "./styles/Form";
 import Error from "./Error";
@@ -144,6 +145,9 @@ class EditRecipe extends Component {
             if (error) return <Error error={error} />;
             return (
               <Card>
+                <Head>
+                  <title>Recipe Market! | Recipes {page} of {totalPages}</title>
+                </Head>
                 <EditRecipeStyles>
                   <IngredientPicker
                     handleChange={this.handleChange}

@@ -3,6 +3,7 @@ import { Query } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import { perPage } from "../config";
 import Link from "next/link";
+import Head from "next/head";
 import styled from "styled-components";
 import PaginationStyles from "./styles/PaginationStyles";
 
@@ -23,16 +24,19 @@ const ItemPagination = ({ page }) => {
         if (error) return <p>Error!</p>;
         if (loading) return <p>Loading...</p>;
         const { count } = data.itemsConnection.aggregate;
-        const pages = Math.ceil(count / perPage);
+        const totalPages = Math.ceil(count / perPage);
         return (
           <PaginationStyles>
+            <Head>
+              <title>Recipe Market! | Items page {page} of {totalPages}</title>
+            </Head>
             <Link href={{ pathname: "/items", query: { page: page - 1 } }}>
               <a aria-disabled={page <= 1}>Previous Page</a>
             </Link>
-            <p>Page {page} of {pages}</p>
+            <p>Page {page} of {totalPages}</p>
             <p>{count} total items</p>
             <Link href={{ pathname: "/items", query: { page: page + 1 } }}>
-              <a aria-disabled={page >= pages}>Next Page</a>
+              <a aria-disabled={page >= totalPages}>Next Page</a>
             </Link>
           </PaginationStyles>
         );

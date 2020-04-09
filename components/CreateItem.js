@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
-import Form from "./styles/Form";
+import Head from "next/head";
 import Error from "./Error";
+import Success from "./Success";
 import PleaseSignIn from "./PleaseSignIn";
+import Form from "./styles/Form";
 import Card from "./styles/Card";
 import Button from "./styles/Button";
-import Success from "./Success";
 
 const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM_MUTATION(
@@ -34,17 +35,17 @@ class CreateItem extends Component {
     description: "",
     price: 0,
     image: "",
-    largeImage: ""
+    largeImage: "",
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { name, value, type } = e.target;
     this.setState({
-      [name]: type === "number" ? Number(value) : value
+      [name]: type === "number" ? Number(value) : value,
     });
   };
 
-  uploadFile = async e => {
+  uploadFile = async (e) => {
     const { files } = e.target;
     const data = new FormData();
     data.append("file", files[0]);
@@ -58,7 +59,7 @@ class CreateItem extends Component {
 
     this.setState({
       image: file.secure_url,
-      largeImage: file.eager[0].secure_url
+      largeImage: file.eager[0].secure_url,
     });
   };
 
@@ -68,7 +69,7 @@ class CreateItem extends Component {
       description: "",
       price: 0,
       image: "",
-      largeImage: ""
+      largeImage: "",
     });
   };
 
@@ -80,8 +81,11 @@ class CreateItem extends Component {
             if (error) return <Error error={error} />;
             return (
               <Card>
+                <Head>
+                  <title>Recipe Market! | Create Item</title>
+                </Head>
                 <Form
-                  onSubmit={e => {
+                  onSubmit={(e) => {
                     e.preventDefault();
                     e.target.reset();
                     createItem();

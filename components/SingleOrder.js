@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import Head from "next/head";
 import CartItem from "./CartItem";
 import OrderItem from "./OrderItem";
 import Error from "./Error";
@@ -36,6 +37,9 @@ const SingleOrder = ({ id }) => {
 
   return (
     <Card>
+      <Head>
+        <title>Recipe Market! | Viewing Order</title>
+      </Head>
       <h1>Viewing Order</h1>
       <h2>{formatMoney(total)}</h2>
       <p>Placed on {createdAt}</p>

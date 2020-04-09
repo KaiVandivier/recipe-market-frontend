@@ -76,6 +76,7 @@ const IngredientPicker = props => {
             required
           />
         </label>
+        <p><em>You can add decimal quantities! Fractional quantities will be rounded up when a user checks out.</em></p>
         <Button secondary type="submit">
           Add Ingredient to List
         </Button>
