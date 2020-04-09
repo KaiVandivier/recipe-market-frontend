@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
+import Head from "next/head";
 import styled from "styled-components";
 import Form from "./styles/Form";
 import Error from "./Error";
@@ -35,11 +36,8 @@ const CREATE_RECIPE_MUTATION = gql`
 `;
 
 export const CreateRecipeStyles = styled.section`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  & > * {
-    flex: 1 1 auto;
+  .header > h1 {
+    text-align: center;
   }
 `;
 
@@ -140,7 +138,13 @@ class CreateRecipe extends Component {
             if (error) return <Error error={error} />;
             return (
               <Card>
+                <Head>
+                  <title>Recipe Market! | Create Recipe</title>
+                </Head>
                 <CreateRecipeStyles>
+                  <div className="header">
+                    <h1>Create a New Recipe</h1>
+                  </div>
                   <IngredientPicker
                     handleChange={this.handleChange}
                     setNewIngredientState={this.setNewIngredientState}
