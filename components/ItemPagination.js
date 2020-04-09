@@ -4,7 +4,6 @@ import { gql } from "apollo-boost";
 import { perPage } from "../config";
 import Link from "next/link";
 import Head from "next/head";
-import styled from "styled-components";
 import PaginationStyles from "./styles/PaginationStyles";
 
 const PAGE_COUNT_QUERY = gql`

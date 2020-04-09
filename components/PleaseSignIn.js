@@ -1,5 +1,5 @@
 import React from "react";
-import Head from "next/link";
+import Head from "next/head";
 import User from "./User";
 import Signin from "./Signin";
 
