@@ -1,5 +1,6 @@
 import React from "react";
 import { Query } from "@apollo/react-components";
+import { useQuery } from "@apollo/react-hooks";
 import styled from "styled-components";
 import Link from "next/link";
 import Head from "next/head";
@@ -10,12 +11,23 @@ import formatMoney from "../lib/formatMoney";
 import Button from "./styles/Button";
 import Card from "./styles/Card";
 import { SINGLE_ITEM_QUERY } from "./EditItem";
+import { CURRENT_USER_QUERY } from "./User";
+import { hasPermissions } from "../lib/checkPermissions";
 
 const StyledSingleItem = styled.div`
   text-align: center;
 `;
 
 const SingleItem = ({ id }) => {
+  const user = useQuery(CURRENT_USER_QUERY);
+  if (user.loading) return <p>Loading...</p>;
+  if (user.error) return <Error error={user.error} />;
+  const { currentUser } = user.data;
+  const editDeletePermissions = currentUser
+    ? hasPermissions(currentUser, ["ADMIN", "ITEM_EDIT", "ITEM_DELETE"])
+    : null;
+  const userOwnsItem = currentUser ? currentUser.id === id : null;
+
   return (
     <Query query={SINGLE_ITEM_QUERY} variables={{ id }}>
       {({ data, loading, error }) => {
@@ -33,11 +45,14 @@ const SingleItem = ({ id }) => {
               <h3>{description}</h3>
               <p>{formatMoney(price)}</p>
               <AddToCart itemId={id} />
-              {/* TODO: only enable edit and delete depending on permissions */}
-              <Link href={{ pathname: "editItem", query: { id } }}>
-                <Button>Edit Item</Button>
-              </Link>
-              <DeleteItem id={id} />
+              {editDeletePermissions || userOwnsItem ? (
+                <>
+                  <Link href={{ pathname: "editItem", query: { id } }}>
+                    <Button>Edit Item</Button>
+                  </Link>
+                  <DeleteItem id={id} />
+                </>
+              ) : null}
             </StyledSingleItem>
           </Card>
         );
