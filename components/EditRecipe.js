@@ -146,7 +146,7 @@ class EditRecipe extends Component {
             return (
               <Card>
                 <Head>
-                  <title>Recipe Market! | Recipes {page} of {totalPages}</title>
+                  <title>Recipe Market! | Edit Recipe</title>
                 </Head>
                 <EditRecipeStyles>
                   <IngredientPicker
