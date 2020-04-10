@@ -4,10 +4,11 @@ import { gql } from "apollo-boost";
 import styled from "styled-components";
 import { CURRENT_USER_QUERY } from "./User";
 import Button from "./styles/Button";
+import Success from "./Success";
 
 const ADD_TO_CART_MUTATION = gql`
-  mutation ADD_TO_CART_MUTATION($itemId: ID!, $quantity: Float = 1) {
-    addToCart(itemId: $itemId, quantity: $quantity) {
+  mutation ADD_TO_CART_MUTATION($id: ID!, $quantity: Float = 1) {
+    addItemToCart(id: $id, quantity: $quantity) {
       id
     }
   }
@@ -36,6 +37,9 @@ const AddToCart = ({ id }) => {
 
   return (
     <div>
+      {!error && !loading && called && (
+        <Success message={"Item added to cart."} />
+      )}
       <Button primary onClick={addToCart}>
         Add To Cart
       </Button>

@@ -37,7 +37,7 @@ const SingleItem = ({ id }) => {
         <img src={largeImage} width="300px" alt={title} />
         <h3>{description}</h3>
         <p>{formatMoney(price)}</p>
-        <AddToCart itemId={id} />
+        <AddToCart id={id} />
         {editDeletePermissions || userOwnsItem ? (
           <>
             <Link href={{ pathname: "editItem", query: { id } }}>

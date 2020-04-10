@@ -34,8 +34,7 @@ const ItemCard = ({ item, editDeletePermissions, userOwnsItem }) => {
             <p>{formatMoney(price)}</p>
           </div>
         </Link>
-        {/* TODO: Make quantity adjustable */}
-        <AddToCart itemId={id} quantity={1} />
+        <AddToCart id={id} />
         {/* TODO: only enable edit and delete depending on permissions */}
         {(editDeletePermissions || userOwnsItem) ? (
           <>
