@@ -1,7 +1,5 @@
 import React from "react";
-import { Query } from "@apollo/react-components";
 import { useQuery } from "@apollo/react-hooks";
-import styled from "styled-components";
 import Link from "next/link";
 import Head from "next/head";
 import Error from "./Error";
@@ -14,50 +12,42 @@ import { SINGLE_ITEM_QUERY } from "./EditItem";
 import { CURRENT_USER_QUERY } from "./User";
 import { hasPermissions } from "../lib/checkPermissions";
 
-const StyledSingleItem = styled.div`
-  text-align: center;
-`;
-
 const SingleItem = ({ id }) => {
-  const user = useQuery(CURRENT_USER_QUERY);
-  if (user.loading) return <p>Loading...</p>;
-  if (user.error) return <Error error={user.error} />;
-  const { currentUser } = user.data;
+  const userQ = useQuery(CURRENT_USER_QUERY);
+  const itemQ = useQuery(SINGLE_ITEM_QUERY, { variables: { id } });
+
+  const currentUser =
+    !userQ.loading && !userQ.error ? userQ.data.currentUser : null;
   const editDeletePermissions = currentUser
     ? hasPermissions(currentUser, ["ADMIN", "ITEM_EDIT", "ITEM_DELETE"])
     : null;
   const userOwnsItem = currentUser ? currentUser.id === id : null;
 
+  if (itemQ.loading) return <Card>Loading...</Card>;
+  if (itemQ.error) return <Error error={itemQ.error} />;
+  const { title, description, price, largeImage } = itemQ.data.item;
+
   return (
-    <Query query={SINGLE_ITEM_QUERY} variables={{ id }}>
-      {({ data, loading, error }) => {
-        if (loading) return <p>Loading...</p>;
-        if (error) return <Error error={error} />;
-        const { title, description, price, largeImage } = data.item;
-        return (
-          <Card>
-            <Head>
-              <title>Recipe Market! | {title}</title>
-            </Head>
-            <StyledSingleItem>
-              <h1>{title}</h1>
-              <img src={largeImage} width="300px" alt={title} />
-              <h3>{description}</h3>
-              <p>{formatMoney(price)}</p>
-              <AddToCart itemId={id} />
-              {editDeletePermissions || userOwnsItem ? (
-                <>
-                  <Link href={{ pathname: "editItem", query: { id } }}>
-                    <Button>Edit Item</Button>
-                  </Link>
-                  <DeleteItem id={id} />
-                </>
-              ) : null}
-            </StyledSingleItem>
-          </Card>
-        );
-      }}
-    </Query>
+    <Card>
+      <Head>
+        <title>Recipe Market! | {title}</title>
+      </Head>
+      <div className="center">
+        <h1>{title}</h1>
+        <img src={largeImage} width="300px" alt={title} />
+        <h3>{description}</h3>
+        <p>{formatMoney(price)}</p>
+        <AddToCart itemId={id} />
+        {editDeletePermissions || userOwnsItem ? (
+          <>
+            <Link href={{ pathname: "editItem", query: { id } }}>
+              <Button>Edit Item</Button>
+            </Link>
+            <DeleteItem id={id} />
+          </>
+        ) : null}
+      </div>
+    </Card>
   );
 };
 

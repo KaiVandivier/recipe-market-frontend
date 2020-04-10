@@ -1,5 +1,4 @@
 import React from "react";
-import { Query } from "@apollo/react-components";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import styled from "styled-components";
@@ -17,12 +16,10 @@ import { hasPermissions } from "../lib/checkPermissions";
 const SINGLE_RECIPE_QUERY = gql`
   query SINGLE_RECIPE_QUERY($id: ID!) {
     recipe(where: { id: $id }) {
-      id
       title
       description
       instructions
       image
-      largeImage
       ingredients {
         id
         quantity
@@ -45,78 +42,72 @@ const SingleRecipeStyles = styled.section`
       box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.1);
     }
   }
-  .buttons {
-    text-align: center;
-  }
 `;
 
 const SingleRecipe = ({ id }) => {
-  const user = useQuery(CURRENT_USER_QUERY);
-  if (user.loading) return <p>Loading...</p>;
-  if (user.error) return <Error error={user.error} />;
-  const { currentUser } = user.data;
+  const userQ = useQuery(CURRENT_USER_QUERY);
+  const recipeQ = useQuery(SINGLE_RECIPE_QUERY, {
+    variables: { id },
+  });
+
+  const currentUser =
+    !userQ.loading && !userQ.error ? userQ.data.currentUser : null;
   const editDeletePermissions = currentUser
     ? hasPermissions(currentUser, ["ADMIN", "ITEM_EDIT", "ITEM_DELETE"])
     : null;
   const userOwnsRecipe = currentUser ? currentUser.id === id : null;
 
+  if (recipeQ.loading) return <Card>Loading...</Card>;
+  if (recipeQ.error) return <Error error={recipeQ.error} />;
+  const {
+    title,
+    description,
+    instructions,
+    image,
+    ingredients,
+  } = recipeQ.data.recipe;
+
   return (
-    <Query query={SINGLE_RECIPE_QUERY} variables={{ id }}>
-      {({ data, loading, error }) => {
-        if (loading) return <Card>Loading...</Card>;
-        if (error) return <Error error={error} />;
-        const {
-          id,
-          title,
-          description,
-          instructions,
-          image,
-          largeImage,
-          ingredients,
-        } = data.recipe;
-        return (
-          <Card>
-            <Head>
-              <title>Recipe Market! | {title}</title>
-            </Head>
-            <SingleRecipeStyles>
-              <div className="header">
-                <h1>{title}</h1>
+    <Card>
+      <Head>
+        <title>Recipe Market! | {title}</title>
+      </Head>
+      <SingleRecipeStyles>
+        {userQ.error ? <Error error={userQ.error} /> : null}
+        <div className="header">
+          <h1>{title}</h1>
 
-                {image ? <img src={image} alt={title} height="200px" /> : null}
+          {image ? <img src={image} alt={title} height="200px" /> : null}
 
-                <p>
-                  <em>{description}</em>
-                </p>
-              </div>
+          <p>
+            <em>{description}</em>
+          </p>
+        </div>
 
-              <h2>Ingredients:</h2>
-              <AddRecipeToCart id={id} />
-              <ul>
-                {ingredients.map((ingredient) => (
-                  <Ingredient ingredient={ingredient} key={ingredient.id} />
-                ))}
-              </ul>
+        <h2>Ingredients:</h2>
+        <AddRecipeToCart id={id} />
+        <ul>
+          {ingredients.map((ingredient) => (
+            <Ingredient ingredient={ingredient} key={ingredient.id} />
+          ))}
+        </ul>
 
-              <h2>Instructions:</h2>
-              <p>{instructions}</p>
+        <h2>Instructions:</h2>
+        <p>{instructions}</p>
 
-              <div className="buttons">
-                <AddRecipeToCart id={id} />
-                {editDeletePermissions || userOwnsRecipe ? (
-                  <>
-                    <Link href={{ pathname: "editRecipe", query: { id } }}>
-                      <Button>Edit Recipe</Button>
-                    </Link>
-                    <DeleteRecipe id={id} />
-                  </>
-                ) : null}
-              </div>
-            </SingleRecipeStyles>
-          </Card>
-        );
-      }}
-    </Query>
+        <div className="center">
+          <AddRecipeToCart id={id} />
+          {editDeletePermissions || userOwnsRecipe ? (
+            <>
+              <Link href={{ pathname: "editRecipe", query: { id } }}>
+                <Button>Edit Recipe</Button>
+              </Link>
+              <DeleteRecipe id={id} />
+            </>
+          ) : null}
+        </div>
+      </SingleRecipeStyles>
+    </Card>
   );
 };
 
