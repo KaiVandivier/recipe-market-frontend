@@ -4,7 +4,7 @@ import Link from "next/link";
 import Head from "next/head";
 import Error from "./Error";
 import DeleteItem from "./DeleteItem";
-import AddToCart from "./AddToCart";
+import AddItemToCart from "./AddItemToCart";
 import formatMoney from "../lib/formatMoney";
 import Button from "./styles/Button";
 import Card from "./styles/Card";
@@ -37,7 +37,7 @@ const SingleItem = ({ id }) => {
         <img src={largeImage} width="300px" alt={title} />
         <h3>{description}</h3>
         <p>{formatMoney(price)}</p>
-        <AddToCart id={id} />
+        <AddItemToCart id={id} />
         {editDeletePermissions || userOwnsItem ? (
           <>
             <Link href={{ pathname: "editItem", query: { id } }}>

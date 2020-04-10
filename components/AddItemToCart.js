@@ -6,8 +6,8 @@ import { CURRENT_USER_QUERY } from "./User";
 import Button from "./styles/Button";
 import Success from "./Success";
 
-const ADD_TO_CART_MUTATION = gql`
-  mutation ADD_TO_CART_MUTATION($id: ID!, $quantity: Float = 1) {
+const ADD_ITEM_TO_CART_MUTATION = gql`
+  mutation ADD_ITEM_TO_CART_MUTATION($id: ID!, $quantity: Float = 1) {
     addItemToCart(id: $id, quantity: $quantity) {
       id
     }
@@ -18,10 +18,10 @@ const QtyStyles = styled.input`
   max-width: 4rem;
 `;
 
-const AddToCart = ({ id }) => {
+const AddItemToCart = ({ id }) => {
   const [quantity, setQuantity] = useState(1);
-  const [addToCart, { loading, error, called }] = useMutation(
-    ADD_TO_CART_MUTATION,
+  const [addItemToCart, { loading, error, called }] = useMutation(
+    ADD_ITEM_TO_CART_MUTATION,
     {
       variables: { id, quantity },
       refetchQueries: [{ query: CURRENT_USER_QUERY }],
@@ -40,7 +40,7 @@ const AddToCart = ({ id }) => {
       {!error && !loading && called && (
         <Success message={"Item added to cart."} />
       )}
-      <Button primary onClick={addToCart}>
+      <Button primary onClick={addItemToCart}>
         Add To Cart
       </Button>
       <label htmlFor={`quantity-${id}`}>
@@ -60,4 +60,4 @@ const AddToCart = ({ id }) => {
   );
 };
 
-export default AddToCart;
+export default AddItemToCart;

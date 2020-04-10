@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import DeleteItem from "./DeleteItem";
-import AddToCart from "./AddToCart";
+import AddItemToCart from "./AddItemToCart";
 import formatMoney from "../lib/formatMoney";
 import Button from "./styles/Button";
 import Card from "./styles/Card";
@@ -34,8 +34,7 @@ const ItemCard = ({ item, editDeletePermissions, userOwnsItem }) => {
             <p>{formatMoney(price)}</p>
           </div>
         </Link>
-        <AddToCart id={id} />
-        {/* TODO: only enable edit and delete depending on permissions */}
+        <AddItemToCart id={id} />
         {(editDeletePermissions || userOwnsItem) ? (
           <>
             <Link href={{ pathname: "editItem", query: { id } }}>
