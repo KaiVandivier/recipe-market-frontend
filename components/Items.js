@@ -1,5 +1,4 @@
 import React from "react";
-import { Query } from "@apollo/react-components";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import styled from "styled-components";
@@ -47,11 +46,8 @@ const Items = (props) => {
   });
 
   const currentUser =
-    !userQ.error && !userQ.loading
-      ? userQ.data.currentUser
-      : null;
-  const items =
-    !itemsQ.error && !itemsQ.loading ? itemsQ.data.items : [];
+    !userQ.error && !userQ.loading ? userQ.data.currentUser : null;
+  const items = !itemsQ.error && !itemsQ.loading ? itemsQ.data.items : [];
 
   const editDeletePermissions = currentUser
     ? hasPermissions(currentUser, ["ADMIN", "ITEM_EDIT", "ITEM_DELETE"])
@@ -62,7 +58,9 @@ const Items = (props) => {
       {userQ.error ? <Error error={userQ.error} /> : null}
       <ItemPagination page={Number(props.page)} />
       {itemsQ.error ? <Error error={itemsQ.error} /> : null}
-      {itemsQ.loading ? <p>Loading...</p> : (
+      {itemsQ.loading ? (
+        <p>Loading...</p>
+      ) : (
         <StyledItems>
           {items.map((item) => {
             return (

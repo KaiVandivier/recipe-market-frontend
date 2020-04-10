@@ -1,5 +1,4 @@
 import React from "react";
-import { Query } from "@apollo/react-components";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import styled from "styled-components";
@@ -40,10 +39,6 @@ const ALL_RECIPES_QUERY = gql`
   }
 `;
 
-const StyledSection = styled.section`
-  text-align: center;
-`;
-
 const StyledRecipes = styled.div`
   display: grid;
   grid-template: auto / repeat(4, 1fr);
@@ -53,45 +48,46 @@ const StyledRecipes = styled.div`
 // TODO: Set a `recipesPerPage` value in config to differentiate from items
 
 const Recipes = ({ page }) => {
-  const user = useQuery(CURRENT_USER_QUERY);
-  if (user.loading) return <p>Loading...</p>;
-  if (user.error) return <Error error={user.error} />;
-  const { currentUser } = user.data;
+  const userQ = useQuery(CURRENT_USER_QUERY);
+  const recipesQ = useQuery(ALL_RECIPES_QUERY, {
+    variables: {
+      skip: (page - 1) * perPage,
+      first: perPage,
+    },
+  });
+
+  const currentUser =
+    !userQ.loading && !userQ.error ? userQ.data.currentUser : null;
+  const recipes =
+    !recipesQ.loading && !recipesQ.error ? recipesQ.data.recipes : [];
+
   const editDeletePermissions = currentUser
     ? hasPermissions(currentUser, ["ADMIN", "ITEM_EDIT", "ITEM_DELETE"])
     : null;
 
   return (
-    <Query
-      query={ALL_RECIPES_QUERY}
-      variables={{
-        skip: (page - 1) * perPage,
-        first: perPage
-      }}
-    >
-      {({ data, loading, error }) => {
-        if (loading) return <p>Loading...</p>;
-        if (error) return <Error error={error} />;
-        return (
-          <StyledSection>
-            <RecipePagination page={page} />
-            <StyledRecipes>
-              {data.recipes.map(recipe => (
-                <RecipeCard
-                  editDeletePermissions={editDeletePermissions}
-                  userOwnsRecipe={
-                    currentUser ? currentUser.id === recipe.user.id : false
-                  }
-                  recipe={recipe}
-                  key={recipe.id}
-                />
-              ))}
-            </StyledRecipes>
-            <RecipePagination page={page} />
-          </StyledSection>
-        );
-      }}
-    </Query>
+    <div className="center">
+      {userQ.error ? <Error error={userQ.error} /> : null}
+      <RecipePagination page={page} />
+      {recipesQ.error ? <Error error={recipesQ.error} /> : null}
+      {recipesQ.loading ? (
+        <p>Loading...</p>
+      ) : (
+        <StyledRecipes>
+          {recipes.map((recipe) => (
+            <RecipeCard
+              editDeletePermissions={editDeletePermissions}
+              userOwnsRecipe={
+                currentUser ? currentUser.id === recipe.user.id : false
+              }
+              recipe={recipe}
+              key={recipe.id}
+            />
+          ))}
+        </StyledRecipes>
+      )}
+      <RecipePagination page={page} />
+    </div>
   );
 };
 
