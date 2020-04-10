@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Mutation, Query } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import Head from "next/head";
-import styled from "styled-components";
 import Form from "./styles/Form";
 import Error from "./Error";
 import PleaseSignIn from "./PleaseSignIn";
@@ -36,16 +35,7 @@ const EDIT_RECIPE_MUTATION = gql`
   }
 `;
 
-const EditRecipeStyles = styled.section`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  & > * {
-    flex: 1 1 auto;
-  }
-`;
-
-const EditRecipeWithQuery = props => {
+const EditRecipeWithQuery = (props) => {
   return (
     <Query query={SINGLE_RECIPE_QUERY} variables={{ id: props.id }}>
       {({ data, loading, error }) => {
@@ -70,36 +60,36 @@ class EditRecipe extends Component {
     }
     const newIngredients = [
       ...this.state.ingredients,
-      { item: newIngredient, quantity }
+      { item: newIngredient, quantity },
     ];
     this.setState({
-      ingredients: newIngredients
+      ingredients: newIngredients,
     });
   };
 
-  deleteIngredient = deleteId => {
+  deleteIngredient = (deleteId) => {
     const newIngredients = [...this.state.ingredients].filter(
-      ingredient => ingredient.item.id !== deleteId
+      (ingredient) => ingredient.item.id !== deleteId
     );
     this.setState({
-      ingredients: newIngredients
+      ingredients: newIngredients,
     });
   };
 
-  setNewIngredientState = item => {
+  setNewIngredientState = (item) => {
     this.setState({
-      newIngredient: item
+      newIngredient: item,
     });
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { name, value, type } = e.target;
     this.setState({
-      [name]: type === "number" ? Number(value) : value
+      [name]: type === "number" ? Number(value) : value,
     });
   };
 
-  uploadFile = async e => {
+  uploadFile = async (e) => {
     const { files } = e.target;
     const data = new FormData();
     data.append("file", files[0]);
@@ -113,7 +103,7 @@ class EditRecipe extends Component {
 
     this.setState({
       image: file.secure_url,
-      largeImage: file.eager[0].secure_url
+      largeImage: file.eager[0].secure_url,
     });
   };
 
@@ -124,7 +114,7 @@ class EditRecipe extends Component {
       instructions: "",
       image: "",
       largeImage: "",
-      ingredients: []
+      ingredients: [],
     });
   };
 
@@ -137,8 +127,8 @@ class EditRecipe extends Component {
             ...this.state,
             ingredients: this.state.ingredients.map(({ item, quantity }) => ({
               id: item.id,
-              quantity
-            }))
+              quantity,
+            })),
           }}
         >
           {(editRecipe, { loading, error, called }) => {
@@ -148,87 +138,86 @@ class EditRecipe extends Component {
                 <Head>
                   <title>Recipe Market! | Edit Recipe</title>
                 </Head>
-                <EditRecipeStyles>
-                  <IngredientPicker
-                    handleChange={this.handleChange}
-                    setNewIngredientState={this.setNewIngredientState}
-                    submitNewIngredient={this.submitNewIngredient}
-                    deleteIngredient={this.deleteIngredient}
-                    ingredients={this.state.ingredients}
-                    newIngredient={this.state.newIngredient}
-                    quantity={this.state.quantity}
-                  />
-                  <Form
-                    onSubmit={e => {
-                      e.preventDefault();
-                      if (!this.state.ingredients.length) {
-                        alert("Please add some ingredients!");
-                        return;
-                      }
-                      e.target.reset();
-                      editRecipe();
-                      // this.clearForm();
-                    }}
-                  >
-                    <h2>Details:</h2>
-                    <fieldset aria-disabled={loading}>
-                      <label htmlFor="title">
-                        Recipe Title:
-                        <input
-                          id="title"
-                          type="text"
-                          name="title"
-                          placeholder="Recipe Title"
-                          required
-                          value={this.state.title}
-                          onChange={this.handleChange}
-                        />
-                      </label>
-                      <label htmlFor="description">
-                        Description:
-                        <textarea
-                          id="description"
-                          name="description"
-                          placeholder="Recipe Description"
-                          value={this.state.description}
-                          onChange={this.handleChange}
-                        />
-                      </label>
-                      <label htmlFor="instructions">
-                        Instructions:
-                        <textarea
-                          id="instructions"
-                          name="instructions"
-                          placeholder="Recipe Instructions"
-                          required
-                          value={this.state.instructions}
-                          onChange={this.handleChange}
-                        />
-                      </label>
-                      <label htmlFor="image">
-                        Image:
-                        <input
-                          id="image"
-                          type="file"
-                          name="image"
-                          placeholder="Upload an image"
-                          onChange={this.uploadFile}
-                        />
-                      </label>
-                      {this.state.image && (
-                        <div>
-                          <img src={this.state.image} width="200px" />
-                        </div>
-                      )}
-                      {!error && !loading && called && (
-                        <Success message={"Recipe edited successfully!"} />
-                      )}
-                      <Button primary type="submit">
-                        Submit{loading ? "ting" : null} Changes
-                      </Button>
-                    </fieldset>
-                  </Form>
-                </EditRecipeStyles>
+                <h1 className="center">Edit Recipe</h1>
+                <IngredientPicker
+                  handleChange={this.handleChange}
+                  setNewIngredientState={this.setNewIngredientState}
+                  submitNewIngredient={this.submitNewIngredient}
+                  deleteIngredient={this.deleteIngredient}
+                  ingredients={this.state.ingredients}
+                  newIngredient={this.state.newIngredient}
+                  quantity={this.state.quantity}
+                />
+                <Form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (!this.state.ingredients.length) {
+                      alert("Please add some ingredients!");
+                      return;
+                    }
+                    e.target.reset();
+                    editRecipe();
+                    // this.clearForm();
+                  }}
+                >
+                  <h2>Details:</h2>
+                  <fieldset aria-disabled={loading}>
+                    <label htmlFor="title">
+                      Recipe Title:
+                      <input
+                        id="title"
+                        type="text"
+                        name="title"
+                        placeholder="Recipe Title"
+                        required
+                        value={this.state.title}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                    <label htmlFor="description">
+                      Description:
+                      <textarea
+                        id="description"
+                        name="description"
+                        placeholder="Recipe Description"
+                        value={this.state.description}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                    <label htmlFor="instructions">
+                      Instructions:
+                      <textarea
+                        id="instructions"
+                        name="instructions"
+                        placeholder="Recipe Instructions"
+                        required
+                        value={this.state.instructions}
+                        onChange={this.handleChange}
+                      />
+                    </label>
+                    <label htmlFor="image">
+                      Image:
+                      <input
+                        id="image"
+                        type="file"
+                        name="image"
+                        placeholder="Upload an image"
+                        onChange={this.uploadFile}
+                      />
+                    </label>
+                    {this.state.image && (
+                      <div>
+                        <img src={this.state.image} width="200px" />
+                      </div>
+                    )}
+                    {!error && !loading && called && (
+                      <Success message={"Recipe edited successfully!"} />
+                    )}
+                    <Button primary type="submit">
+                      Submit{loading ? "ting" : null} Changes
+                    </Button>
+                  </fieldset>
+                </Form>
               </Card>
             );
           }}

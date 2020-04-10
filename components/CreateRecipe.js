@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Mutation } from "@apollo/react-components";
 import { gql } from "apollo-boost";
 import Head from "next/head";
-import styled from "styled-components";
 import Form from "./styles/Form";
 import Error from "./Error";
 import PleaseSignIn from "./PleaseSignIn";
@@ -10,8 +9,6 @@ import IngredientPicker from "./IngredientPicker";
 import Card from "./styles/Card";
 import Button from "./styles/Button";
 import Success from "./Success";
-
-// TODO: Improve layout
 
 const CREATE_RECIPE_MUTATION = gql`
   mutation CREATE_RECIPE_MUTATION(
@@ -32,12 +29,6 @@ const CREATE_RECIPE_MUTATION = gql`
     ) {
       id
     }
-  }
-`;
-
-export const CreateRecipeStyles = styled.section`
-  .header > h1 {
-    text-align: center;
   }
 `;
 
@@ -141,10 +132,7 @@ class CreateRecipe extends Component {
                 <Head>
                   <title>Recipe Market! | Create Recipe</title>
                 </Head>
-                <CreateRecipeStyles>
-                  <div className="header">
-                    <h1>Create a New Recipe</h1>
-                  </div>
+                  <h1 className="center">Create a New Recipe</h1>
                   <IngredientPicker
                     handleChange={this.handleChange}
                     setNewIngredientState={this.setNewIngredientState}
@@ -225,7 +213,6 @@ class CreateRecipe extends Component {
                       </Button>
                     </fieldset>
                   </Form>
-                </CreateRecipeStyles>
               </Card>
             );
           }}
