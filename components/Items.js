@@ -31,61 +31,55 @@ const ITEMS_QUERY = gql`
   }
 `;
 
-const StyledSection = styled.section`
-  text-align: center;
-`;
-
 const StyledItems = styled.div`
   display: grid;
   grid-template: auto / repeat(4, 1fr);
   grid-gap: 0.5rem;
 `;
 
-const Items = props => {
-  const user = useQuery(CURRENT_USER_QUERY);
-  if (user.loading) return <p>Loading...</p>;
-  if (user.error) return <Error error={user.error} />;
-  const { currentUser } = user.data;
+const Items = (props) => {
+  const userQ = useQuery(CURRENT_USER_QUERY);
+  const itemsQ = useQuery(ITEMS_QUERY, {
+    variables: {
+      skip: (props.page - 1) * perPage,
+      first: perPage,
+    },
+  });
+
+  const currentUser =
+    !userQ.error && !userQ.loading
+      ? userQ.data.currentUser
+      : null;
+  const items =
+    !itemsQ.error && !itemsQ.loading ? itemsQ.data.items : [];
+
   const editDeletePermissions = currentUser
     ? hasPermissions(currentUser, ["ADMIN", "ITEM_EDIT", "ITEM_DELETE"])
     : null;
 
   return (
-    <StyledSection>
+    <div className="center">
+      {userQ.error ? <Error error={userQ.error} /> : null}
       <ItemPagination page={Number(props.page)} />
-
-      <Query
-        query={ITEMS_QUERY}
-        variables={{
-          skip: (props.page - 1) * perPage,
-          first: perPage
-        }}
-      >
-        {({ data, loading, error }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <Error error={error} />;
-          const { items } = data;
-          return (
-            <StyledItems>
-              {items.map(item => {
-                return (
-                  <ItemCard
-                    key={item.id}
-                    item={item}
-                    editDeletePermissions={editDeletePermissions}
-                    userOwnsItem={
-                      currentUser ? currentUser.id === item.user.id : false
-                    }
-                  />
-                );
-              })}
-            </StyledItems>
-          );
-        }}
-      </Query>
-
+      {itemsQ.error ? <Error error={itemsQ.error} /> : null}
+      {itemsQ.loading ? <p>Loading...</p> : (
+        <StyledItems>
+          {items.map((item) => {
+            return (
+              <ItemCard
+                key={item.id}
+                item={item}
+                editDeletePermissions={editDeletePermissions}
+                userOwnsItem={
+                  currentUser ? currentUser.id === item.user.id : false
+                }
+              />
+            );
+          })}
+        </StyledItems>
+      )}
       <ItemPagination page={Number(props.page)} />
-    </StyledSection>
+    </div>
   );
 };
 
