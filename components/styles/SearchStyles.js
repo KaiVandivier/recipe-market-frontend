@@ -22,6 +22,9 @@ const SearchStyles = styled.div`
       padding: 1rem;
       border: none;
     ` : ""}
+    &:focus {
+      box-shadow: 0 0 4px 4px ${props => props.theme.yellow};
+    }
   }
   label.search-label {
     display: ${props => props.fullWidth ? "none" : "inline"};

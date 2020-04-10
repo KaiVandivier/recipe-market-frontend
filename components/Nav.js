@@ -14,6 +14,7 @@ const StyledNav = styled.nav`
   flex-wrap: wrap;
   line-height: 3rem;
   justify-content: flex-start;
+  border-bottom: 3px solid ${props => props.theme.yellow};
 `;
 
 const Nav = () => {
