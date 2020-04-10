@@ -22,6 +22,9 @@ const GlobalStyles = createGlobalStyle`
   h1 {
     color: ${theme.yellow};
   }
+  .center {
+    text-align: center;
+  }
 `;
 
 export default GlobalStyles;
