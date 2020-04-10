@@ -12,9 +12,19 @@ const DropdownStyles = styled.ul`
 `;
 
 const SearchStyles = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: ${props => props.fullWidth ? "0" : "1rem"};
+  ${props => props.fullWidth ? "" : ""}
+  input {
+    ${props => props.fullWidth ? `
+      display: block;
+      height: 2rem;
+      width: 100vw;
+      padding: 1rem;
+      border: none;
+    ` : ""}
+  }
   label.search-label {
-    display: inline;
+    display: ${props => props.fullWidth ? "none" : "inline"};
   }
 `;
 

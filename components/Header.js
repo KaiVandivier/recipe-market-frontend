@@ -48,7 +48,7 @@ const Header = (props) => {
     <StyledHeader>
       <h1>Recipe Market!</h1>
       <Nav />
-      {/* <RecipeSearch onChange={routeToRecipe} /> */}
+      <RecipeSearch fullWidth onChange={routeToRecipe} />
     </StyledHeader>
   );
 };

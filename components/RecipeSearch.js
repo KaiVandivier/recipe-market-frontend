@@ -68,8 +68,8 @@ class RecipeSearch extends Component {
                 selectedItem,
                 getRootProps
               }) => (
-                <SearchStyles>
-                  <label {...getLabelProps()}>Search for a recipe: </label>
+                <SearchStyles fullWidth={this.props.fullWidth}>
+                  <label className="search-label" {...getLabelProps()}>Search for a recipe: </label>
                   <div
                     style={{ display: "inline-block" }}
                     {...getRootProps({}, { suppressRefError: true })}
