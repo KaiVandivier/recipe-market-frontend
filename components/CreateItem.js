@@ -84,6 +84,7 @@ class CreateItem extends Component {
                 <Head>
                   <title>Recipe Market! | Create Item</title>
                 </Head>
+                <h1 className="center">Create an Item for Sale</h1>
                 <Form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -92,7 +93,6 @@ class CreateItem extends Component {
                     this.clearForm();
                   }}
                 >
-                  <h1>Create an Item for Sale</h1>
                   <fieldset aria-disabled={loading}>
                     <label htmlFor="title">
                       Title:

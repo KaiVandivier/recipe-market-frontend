@@ -67,13 +67,13 @@ class EditItem extends Component {
                       <title>Recipe Market! | Edit Item</title>
                     </Head>
 
+                    <h1 className="center">Edit Item</h1>
                     <Form
                       onSubmit={(e) => {
                         e.preventDefault();
                         editItem();
                       }}
                     >
-                      <h1>Edit Item</h1>
                       <fieldset aria-disabled={loading}>
                         <label htmlFor="title">
                           Title:
