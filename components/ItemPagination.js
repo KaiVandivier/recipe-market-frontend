@@ -4,6 +4,7 @@ import { gql } from "apollo-boost";
 import { perPage } from "../config";
 import Link from "next/link";
 import Head from "next/head";
+import Error from "./Error";
 import PaginationStyles from "./styles/PaginationStyles";
 
 const PAGE_COUNT_QUERY = gql`
@@ -20,7 +21,7 @@ const ItemPagination = ({ page }) => {
   return (
     <Query query={PAGE_COUNT_QUERY}>
       {({ data, error, loading }) => {
-        if (error) return <p>Error!</p>;
+        if (error) return <Error error={error} />;
         if (loading) return <p>Loading...</p>;
         const { count } = data.itemsConnection.aggregate;
         const totalPages = Math.ceil(count / perPage);

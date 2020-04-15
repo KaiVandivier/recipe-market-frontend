@@ -24,9 +24,7 @@ const Nav = () => {
     <Mutation mutation={TOGGLE_CART_MUTATION}>
       {toggleCart => (
         <User>
-          {({ data, loading, error }) => {
-            if (loading) return <p>Loading...</p>;
-            if (error) return <Error error={error} />;
+          {({ data }) => {
             return (
               <StyledNav>
                 <Link href="/">
@@ -38,7 +36,7 @@ const Nav = () => {
                 <Link href="/items">
                   <NavA here={pathname === "/items"}>Items</NavA>
                 </Link>
-                {data.currentUser ? (
+                {data && data.currentUser ? (
                   <>
                     <Link href="/createRecipe">
                       <NavA here={pathname === "/createRecipe"}>

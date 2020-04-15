@@ -73,8 +73,8 @@ const Cart = () => {
     <Composed>
       {({ user, toggleCart, localCartState }) => {
         if (user.loading) return null;
+        if (!user.data) return null;
         const { currentUser } = user.data;
-        if (!currentUser) return null;
         const { cartOpen } = localCartState.data;
         const totalItems = totalCartItems(currentUser.cart);
         return (
