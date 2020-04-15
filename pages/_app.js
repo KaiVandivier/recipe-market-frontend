@@ -4,8 +4,6 @@ import withData from "../lib/withData";
 import Page from "../components/Page";
 import "../public/nprogress.css";
 
-// TODO: Include apollo
-
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
