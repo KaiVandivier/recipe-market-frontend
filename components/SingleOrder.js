@@ -2,11 +2,11 @@ import React from 'react';
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Head from "next/head";
-import CartItem from "./CartItem";
 import OrderItem from "./OrderItem";
 import Error from "./Error";
 import Card from "./styles/Card";
 import formatMoney from "../lib/formatMoney";
+import dateTimeFormat from "../lib/dateTimeFormat";
 
 const SINGLE_ORDER_QUERY = gql`
   query SINGLE_ORDER_QUERY($id: ID!) {
@@ -42,7 +42,7 @@ const SingleOrder = ({ id }) => {
       </Head>
       <h1>Viewing Order</h1>
       <h2>{formatMoney(total)}</h2>
-      <p>Placed on {createdAt}</p>
+      <p>Placed at {dateTimeFormat.format(new Date(createdAt))}</p>
       <p>{items.length} total item(s)</p>
       <ul>
         {items.map(orderItem => <OrderItem orderItem={orderItem} key={orderItem.id} />)}
