@@ -26,7 +26,7 @@ const Page = props => {
       <GlobalStyles />
       <Meta />
       {/* <Cart /> */}
-      <Header />
+      {/* <Header /> */}
       <Inner>
         {props.children}
       </Inner>
