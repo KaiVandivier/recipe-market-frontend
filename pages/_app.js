@@ -17,12 +17,13 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps, apollo } = this.props;
-    return ( <p>Hello!</p>
-      // <ApolloProvider client={apollo}>
-      //   <Page>
-      //     <Component {...pageProps} />
-      //   </Page>
-      // </ApolloProvider>
+    return (
+      <ApolloProvider client={apollo}>
+        <Page>
+          <p>Hello!</p>
+          {/* <Component {...pageProps} /> */}
+        </Page>
+      </ApolloProvider>
     )
   }
 }
