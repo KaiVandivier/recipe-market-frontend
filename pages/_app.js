@@ -19,10 +19,10 @@ class MyApp extends App {
     const { Component, pageProps, apollo } = this.props;
     return (
       <ApolloProvider client={apollo}>
-        <Page>
+        {/* <Page> */}
           <p>Hello!</p>
-          {/* <Component {...pageProps} /> */}
-        </Page>
+          <Component {...pageProps} />
+        {/* </Page> */}
       </ApolloProvider>
     )
   }
