@@ -25,7 +25,7 @@ const Page = props => {
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <Meta />
-      {/* <Cart /> */}
+      <Cart />
       {/* <Header /> */}
       <Inner>
         {props.children}
