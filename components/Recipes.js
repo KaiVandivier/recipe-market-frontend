@@ -49,18 +49,18 @@ const StyledRecipes = styled.div`
 // TODO: Make these into one query
 
 const Recipes = ({ page }) => {
-  const userQ = { error: null, data: { currentUser: null } }; /* useQuery(CURRENT_USER_QUERY); */
-  // const recipesQ = useQuery(ALL_RECIPES_QUERY, {
-  //   variables: {
-  //     skip: (page - 1) * perPage,
-  //     first: perPage,
-  //   },
-  // });
+  const userQ = useQuery(CURRENT_USER_QUERY);
+  const recipesQ = useQuery(ALL_RECIPES_QUERY, {
+    variables: {
+      skip: (page - 1) * perPage,
+      first: perPage,
+    },
+  });
 
-  const currentUser = userQ && // (Remove `userQ &&`)
+  const currentUser =
     !userQ.loading && !userQ.error ? userQ.data.currentUser : null;
-  // const recipes =
-  //   !recipesQ.loading && !recipesQ.error ? recipesQ.data.recipes : [];
+  const recipes =
+    !recipesQ.loading && !recipesQ.error ? recipesQ.data.recipes : [];
 
   const editDeletePermissions = currentUser
     ? hasPermissions(currentUser, ["ADMIN", "ITEM_EDIT", "ITEM_DELETE"])
@@ -68,9 +68,9 @@ const Recipes = ({ page }) => {
 
   return (
     <div className="center">
-      {/* {userQ.error ? <Error error={userQ.error} /> : null} */}
+      {userQ.error ? <Error error={userQ.error} /> : null}
       <RecipePagination page={page} />
-      {/* {recipesQ.error ? <Error error={recipesQ.error} /> : null}
+      {recipesQ.error ? <Error error={recipesQ.error} /> : null}
       {recipesQ.loading ? (
         <p>Loading...</p>
       ) : (
@@ -86,8 +86,8 @@ const Recipes = ({ page }) => {
             />
           ))}
         </StyledRecipes>
-      )} */}
-      {/* <RecipePagination page={page} /> */}
+      )}
+      <RecipePagination page={page} />
     </div>
   );
 };
