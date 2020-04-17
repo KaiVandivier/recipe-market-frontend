@@ -46,9 +46,10 @@ const StyledRecipes = styled.div`
 `;
 
 // TODO: Set a `recipesPerPage` value in config to differentiate from items
+// TODO: Make these into one query
 
 const Recipes = ({ page }) => {
-  const userQ = useQuery(CURRENT_USER_QUERY);
+  const userQ = { error: null, data: { currentUser: null } }; /* useQuery(CURRENT_USER_QUERY); */
   const recipesQ = useQuery(ALL_RECIPES_QUERY, {
     variables: {
       skip: (page - 1) * perPage,
@@ -56,7 +57,7 @@ const Recipes = ({ page }) => {
     },
   });
 
-  const currentUser =
+  const currentUser = userQ && // (Remove `userQ &&`)
     !userQ.loading && !userQ.error ? userQ.data.currentUser : null;
   const recipes =
     !recipesQ.loading && !recipesQ.error ? recipesQ.data.recipes : [];
@@ -67,8 +68,8 @@ const Recipes = ({ page }) => {
 
   return (
     <div className="center">
-      {userQ.error ? <Error error={userQ.error} /> : null}
-      <RecipePagination page={page} />
+      {/* {userQ.error ? <Error error={userQ.error} /> : null} */}
+      {/* <RecipePagination page={page} /> */}
       {recipesQ.error ? <Error error={recipesQ.error} /> : null}
       {recipesQ.loading ? (
         <p>Loading...</p>
@@ -86,7 +87,7 @@ const Recipes = ({ page }) => {
           ))}
         </StyledRecipes>
       )}
-      <RecipePagination page={page} />
+      {/* <RecipePagination page={page} /> */}
     </div>
   );
 };
