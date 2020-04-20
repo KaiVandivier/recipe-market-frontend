@@ -4,6 +4,7 @@ import withData from "../lib/withData";
 import Page from "../components/Page";
 import { gql } from "apollo-boost"; //
 import { Query } from "@apollo/react-components"; //
+import { CURRENT_USER_QUERY } from "../components/User";
 import "../public/nprogress.css";
 
 class MyApp extends App {
@@ -22,15 +23,11 @@ class MyApp extends App {
     return (
       <ApolloProvider client={apollo}>
         <p>Hello!</p>
-        
+
         <Query
-          query={gql`
-            query LOCAL_CART_STATE_QUERY {
-              cartOpen @client
-            }
-          `}
+          query={CURRENT_USER_QUERY}
         >
-          {({ data }) => <p>Cart is {data.cartOpen ? "open" : "closed"}</p>}
+          {({ loading }) => <p>Query is {loading ? "loading" : "done"}</p>}
         </Query>
 
         {/* <Page> */}
