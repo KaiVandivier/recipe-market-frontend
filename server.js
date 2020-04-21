@@ -1,6 +1,6 @@
 // server.js
-const { createServer } = require('http')
-const { parse } = require('url')
+const express = require('express');
+const bodyParser = require('body-parser');
 const next = require('next')
 
 const port = parseInt(process.env.PORT, 10) || 3000
@@ -9,19 +9,22 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 
 app.prepare().then(() => {
-  createServer((req, res) => {
-    // Be sure to pass `true` as the second argument to `url.parse`.
-    // This tells it to parse the query portion of the URL.
-    const parsedUrl = parse(req.url, true)
-    const { pathname, query } = parsedUrl
+  const server = express();
 
-    if (req.url === "/") {
-      console.log(req.headers);
+  server.use(bodyParser.json());
+
+  server.all("*", (req, res) => {
+    // if (req) {
+      // console.log(req.headers);
       // console.log(res);
-    }
+    // }
+    console.log(req.headers);
+    console.log(req.body);
+    console.log(res.body)
+    return handle(req, res);
+  })
 
-    handle(req, res, parsedUrl);
-  }).listen(port, err => {
+  server.listen(port, err => {
     if (err) throw err
     console.log(`> Ready on http://localhost:${port}`)
   })
