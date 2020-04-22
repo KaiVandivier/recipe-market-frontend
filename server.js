@@ -13,6 +13,10 @@ app.prepare().then(() => {
 
   server.use(bodyParser.json());
 
+  server.post("/", (req, res) => {
+    res.status(405).end();
+  })
+
   server.all("*", (req, res) => {
     // if (req) {
       // console.log(req.headers);
